@@ -2982,7 +2982,35 @@ namespace LaserGRBL
 				if (ProgramGlobalTime.TotalMinutes >= (int)Settings.GetObject("TelegramNotification.Threshold", 1))
 					Telegram.NotifyEvent(String.Format("<b>Job Executed</b>\n{0} lines, {1} errors\nTime: {2}", file.Count, mTP.ErrorCount, Tools.Utils.TimeSpanToString(ProgramGlobalTime, Tools.Utils.TimePrecision.Second, Tools.Utils.TimePrecision.Second, ",", true)));
 
+				// Custom action on job completion
+				ExecuteCustomJobCompletedAction();
+
 				ForceStatusIdle();
+			}
+		}
+
+		private void ExecuteCustomJobCompletedAction()
+		{
+			try
+			{
+				string customScript = Settings.GetObject<string>("CustomJobCompletedScript", "");
+				if (!string.IsNullOrWhiteSpace(customScript) && System.IO.File.Exists(customScript))
+				{
+					Logger.LogMessage("CustomAction", "Executing custom job completed script: {0}", customScript);
+					
+					// Execute the script
+					System.Diagnostics.ProcessStartInfo psi = new System.Diagnostics.ProcessStartInfo();
+					psi.FileName = "powershell.exe";
+					psi.Arguments = $"-ExecutionPolicy Bypass -File \"{customScript}\"";
+					psi.UseShellExecute = false;
+					psi.CreateNoWindow = true;
+					
+					System.Diagnostics.Process.Start(psi);
+				}
+			}
+			catch (Exception ex)
+			{
+				Logger.LogException("CustomAction", ex);
 			}
 		}
 

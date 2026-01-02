@@ -89,6 +89,10 @@ namespace LaserGRBL
 			TxtNotification.Text = Tools.Protector.Decrypt(Settings.GetObject("TelegramNotification.Code", ""), "");
 			UdTelegramNotificationThreshold.Value = (decimal)Settings.GetObject("TelegramNotification.Threshold", 1);
 
+			CbCustomScript.Checked = Settings.GetObject("CustomJobCompletedScript", "") != "";
+			TxtCustomScriptPath.Text = Settings.GetObject("CustomJobCompletedScript", "");
+			BtnBrowseScript.Enabled = CbCustomScript.Checked;
+
 			successSoundLabel.Text = System.IO.Path.GetFileName(Settings.GetObject($"Sound.{SoundEvent.EventId.Success}", $"Sound\\{SoundEvent.EventId.Success}.wav"));
             SuccesFullLabel.Text = Settings.GetObject($"Sound.{SoundEvent.EventId.Success}", $"Sound\\{SoundEvent.EventId.Success}.wav");
             warningSoundLabel.Text = System.IO.Path.GetFileName(Settings.GetObject($"Sound.{SoundEvent.EventId.Warning}", $"Sound\\{SoundEvent.EventId.Warning}.wav"));
@@ -248,6 +252,8 @@ namespace LaserGRBL
 			Settings.SetObject("TelegramNotification.Threshold", (int)UdTelegramNotificationThreshold.Value);
 			Settings.SetObject("TelegramNotification.Code", Tools.Protector.Encrypt(TxtNotification.Text));
 
+			Settings.SetObject("CustomJobCompletedScript", CbCustomScript.Checked ? TxtCustomScriptPath.Text : "");
+
             Settings.SetObject("Raster Hi-Res", CbHiRes.Checked);
 
 			Settings.SetObject("Vector.UseSmartBezier", CbSmartBezier.Checked);
@@ -370,5 +376,22 @@ namespace LaserGRBL
 
 		private void BtnRenderingMode_Click(object sender, EventArgs e)
 		{ Tools.Utils.OpenLink(@"https://lasergrbl.com/configuration/#rendering-mode"); }
+
+		private void CbCustomScript_CheckedChanged(object sender, EventArgs e)
+		{
+			BtnBrowseScript.Enabled = CbCustomScript.Checked;
+		}
+
+		private void BtnBrowseScript_Click(object sender, EventArgs e)
+		{
+			if (!string.IsNullOrEmpty(TxtCustomScriptPath.Text) && System.IO.File.Exists(TxtCustomScriptPath.Text))
+				ScriptBrowserDialog.InitialDirectory = System.IO.Path.GetDirectoryName(TxtCustomScriptPath.Text);
+
+			if (ScriptBrowserDialog.ShowDialog() == DialogResult.OK)
+			{
+				TxtCustomScriptPath.Text = ScriptBrowserDialog.FileName;
+				CbCustomScript.Checked = true;
+			}
+		}
 	}
 }

@@ -169,6 +169,12 @@
 			this.UdTelegramNotificationThreshold = new System.Windows.Forms.NumericUpDown();
 			this.label45 = new System.Windows.Forms.Label();
 			this.label42 = new System.Windows.Forms.Label();
+			this.CbCustomScript = new System.Windows.Forms.CheckBox();
+			this.tableLayoutPanel20 = new System.Windows.Forms.TableLayoutPanel();
+			this.TxtCustomScriptPath = new System.Windows.Forms.TextBox();
+			this.BtnBrowseScript = new LaserGRBL.UserControls.GrblButton();
+			this.label51 = new System.Windows.Forms.Label();
+			this.ScriptBrowserDialog = new System.Windows.Forms.OpenFileDialog();
 			this.TpOptions = new System.Windows.Forms.TabPage();
 			this.Tlp = new System.Windows.Forms.TableLayoutPanel();
 			this.CBGraphicMode = new LaserGRBL.UserControls.FlatComboBox();
@@ -907,6 +913,9 @@
 			this.tableLayoutPanel10.Controls.Add(this.label28, 2, 2);
 			this.tableLayoutPanel10.Controls.Add(this.tableLayoutPanel17, 1, 6);
 			this.tableLayoutPanel10.Controls.Add(this.label42, 2, 6);
+			this.tableLayoutPanel10.Controls.Add(this.CbCustomScript, 0, 7);
+			this.tableLayoutPanel10.Controls.Add(this.tableLayoutPanel20, 1, 7);
+			this.tableLayoutPanel10.Controls.Add(this.label51, 2, 7);
 			this.tableLayoutPanel10.Name = "tableLayoutPanel10";
 			// 
 			// CbTelegramNotification
@@ -1204,6 +1213,43 @@
 			// 
 			resources.ApplyResources(this.label42, "label42");
 			this.label42.Name = "label42";
+			// 
+			// CbCustomScript
+			// 
+			resources.ApplyResources(this.CbCustomScript, "CbCustomScript");
+			this.CbCustomScript.Name = "CbCustomScript";
+			this.CbCustomScript.UseVisualStyleBackColor = true;
+			this.CbCustomScript.CheckedChanged += new System.EventHandler(this.CbCustomScript_CheckedChanged);
+			// 
+			// tableLayoutPanel20
+			// 
+			resources.ApplyResources(this.tableLayoutPanel20, "tableLayoutPanel20");
+			this.tableLayoutPanel20.Controls.Add(this.TxtCustomScriptPath, 0, 0);
+			this.tableLayoutPanel20.Controls.Add(this.BtnBrowseScript, 1, 0);
+			this.tableLayoutPanel20.Name = "tableLayoutPanel20";
+			// 
+			// TxtCustomScriptPath
+			// 
+			resources.ApplyResources(this.TxtCustomScriptPath, "TxtCustomScriptPath");
+			this.TxtCustomScriptPath.Name = "TxtCustomScriptPath";
+			this.TxtCustomScriptPath.ReadOnly = true;
+			// 
+			// BtnBrowseScript
+			// 
+			resources.ApplyResources(this.BtnBrowseScript, "BtnBrowseScript");
+			this.BtnBrowseScript.Name = "BtnBrowseScript";
+			this.BtnBrowseScript.UseVisualStyleBackColor = true;
+			this.BtnBrowseScript.Click += new System.EventHandler(this.BtnBrowseScript_Click);
+			// 
+			// label51
+			// 
+			resources.ApplyResources(this.label51, "label51");
+			this.label51.Name = "label51";
+			// 
+			// ScriptBrowserDialog
+			// 
+			this.ScriptBrowserDialog.Filter = "PowerShell Scripts|*.ps1";
+			this.ScriptBrowserDialog.Title = "Select Job Completion Script";
 			// 
 			// TpOptions
 			// 
@@ -1522,5 +1568,11 @@
 		private UserControls.ImageButton BtnRenderingMode;
 		private System.Windows.Forms.Label label49;
 		private System.Windows.Forms.Label label50;
+		private System.Windows.Forms.CheckBox CbCustomScript;
+		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel20;
+		private System.Windows.Forms.TextBox TxtCustomScriptPath;
+		private UserControls.GrblButton BtnBrowseScript;
+		private System.Windows.Forms.Label label51;
+		private System.Windows.Forms.OpenFileDialog ScriptBrowserDialog;
 	}
 }
