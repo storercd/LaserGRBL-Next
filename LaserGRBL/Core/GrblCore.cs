@@ -1,4 +1,4 @@
-﻿//Copyright (c) 2016-2021 Diego Settimi - https://github.com/arkypita/
+//Copyright (c) 2016-2021 Diego Settimi - https://github.com/arkypita/
 
 // This program is free software; you can redistribute it and/or modify  it under the terms of the GPLv3 General Public License as published by  the Free Software Foundation; either version 3 of the License, or (at  your option) any later version.
 // This program is distributed in the hope that it will be useful, but  WITHOUT ANY WARRANTY; without even the implied warranty of  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GPLv3  General Public License for more details.
@@ -1378,8 +1378,7 @@ namespace LaserGRBL
 				foreach (GrblCommand cmd in file)
 					mQueuePtr.Enqueue(cmd.Clone() as GrblCommand);
 
-				mTP.JobStart(LoadedFile, mQueuePtr, first);
-				Logger.LogMessage("EnqueueProgram", "Running program, {0} lines", file.Count);
+				mTP.JobStart(LoadedFile, mQueuePtr, first, (int)mLoopCount);
 			}
 		}
 
@@ -1649,6 +1648,15 @@ namespace LaserGRBL
 
 		public TimeSpan ProjectedTime
 		{ get { return mTP.ProjectedTarget; } }
+
+		public TimeSpan ProjectedTimeRemaining
+		{ get { return mTP.ProjectedTimeRemaining; } }
+
+		public TimeSpan ProjectedTotalTime
+		{ get { return mTP.ProjectedTotalTime; } }
+
+		public TimeSpan ProjectedTotalTimeRemaining
+		{ get { return mTP.ProjectedTotalTimeRemaining; } }
 
 		public MacStatus MachineStatus
 		{ get { return mMachineStatus; } }
@@ -3461,6 +3469,11 @@ namespace LaserGRBL
 		GrblCore.DetectedIssue mLastIssue;
 		private GPoint mLastKnownWCO;
 
+		// Pass tracking for improved multi-pass estimates
+		private List<TimeSpan> mCompletedPassTimes = new List<TimeSpan>();
+		private TimeSpan mOriginalEstimate = TimeSpan.Zero;
+		private int mTotalPasses = 1;  // Total number of passes for the job
+
 		public GPoint LastKnownWCO
 		{
 			get { return mLastKnownWCO; }
@@ -3475,7 +3488,13 @@ namespace LaserGRBL
 			mETarget = TimeSpan.Zero;
 			mEProgress = TimeSpan.Zero;
 			mStart = mEnd = 0;
-			if (global) mGlobalStart = mGlobalEnd = 0;
+			if (global) 
+			{
+				mGlobalStart = mGlobalEnd = 0;
+				// Clear pass history on global reset
+				mCompletedPassTimes.Clear();
+				mOriginalEstimate = TimeSpan.Zero;
+			}
 			mPauseBegin = 0;
 			mCumulatedPause = 0;
 			mInPause = false;
@@ -3505,6 +3524,8 @@ namespace LaserGRBL
 		public int Executed
 		{ get { return mExecutedCount - mContinueCorrection; } }
 
+		private DateTime mLastLogTime = DateTime.MinValue;
+
 		public TimeSpan ProjectedTarget
 		{
 			get
@@ -3515,13 +3536,116 @@ namespace LaserGRBL
 					double target = mETarget.TotalSeconds;  //total estimated
 					double done = mEProgress.TotalSeconds;  //done of estimated
 
-					if (done != 0)
-						return TimeSpan.FromSeconds(real * target / done) + TotalJobPauses;
-					else
+					double projected;
+					
+					if (done == 0)
+					{
+						// No progress yet, use the target estimate
+						if ((DateTime.Now - mLastLogTime).TotalSeconds >= 5)
+						{
+							mLastLogTime = DateTime.Now;
+							Logger.LogMessage("TimeEst", "Projection: No progress yet, using EstimatedTarget={0:0.0}s", target);
+						}
 						return EstimatedTarget;
+					}
+					
+					// If we have completed passes, use historical data intelligently
+					if (mCompletedPassTimes.Count > 0)
+					{
+						double avgPassTime = mCompletedPassTimes.Average(t => t.TotalSeconds);
+						double progressPercent = done / target;  // How far through current pass (0.0 to 1.0)
+						
+						if (progressPercent < 0.2)
+						{
+							// Less than 20% progress - trust historical average
+							projected = avgPassTime;
+						}
+						else
+						{
+							// Blend historical data with current trajectory
+							// Early on, trust history more; later, trust current trajectory more
+							double trajectoryEstimate = real * target / done;
+							double historyWeight = Math.Max(0, 1.0 - progressPercent);  // 80% at 20%, 0% at 100%
+							double trajectoryWeight = progressPercent;
+							
+							projected = (avgPassTime * historyWeight) + (trajectoryEstimate * trajectoryWeight);
+						}
+						
+						// Log every 5 seconds
+						if ((DateTime.Now - mLastLogTime).TotalSeconds >= 5)
+						{
+							mLastLogTime = DateTime.Now;
+							double trajectoryOnly = real * target / done;
+							Logger.LogMessage("TimeEst", "Projection: Passes={0}, Real={1:0.0}s, Target={2:0.0}s, Done={3:0.0}s, Progress={4:0.0}%, HistAvg={5:0.0}s, Trajectory={6:0.0}s, Blended={7:0.0}s, WithPauses={8:0.0}s",
+								mCompletedPassTimes.Count, real, target, done, progressPercent * 100, avgPassTime, trajectoryOnly, projected, projected + TotalJobPauses.TotalSeconds);
+						}
+					}
+					else
+					{
+						// No historical data, use current trajectory
+						projected = real * target / done;
+						
+						// Log every 5 seconds
+						if ((DateTime.Now - mLastLogTime).TotalSeconds >= 5)
+						{
+							mLastLogTime = DateTime.Now;
+							Logger.LogMessage("TimeEst", "Projection: Passes={0}, Real={1:0.0}s, Target={2:0.0}s, Done={3:0.0}s, Projected={4:0.0}s, WithPauses={5:0.0}s, Exec={6}/{7}",
+								mCompletedPassTimes.Count, real, target, done, projected, projected + TotalJobPauses.TotalSeconds, Executed, Target);
+						}
+					}
+					
+					return TimeSpan.FromSeconds(projected) + TotalJobPauses;
 				}
 				else
 					return TimeSpan.Zero;
+			}
+		}
+
+		public TimeSpan ProjectedTimeRemaining
+		{
+			get
+			{
+				if (mStarted && !mCompleted)
+				{
+					TimeSpan projected = ProjectedTarget;
+					TimeSpan elapsed = TotalJobTime;
+					TimeSpan remaining = projected - elapsed;
+					return remaining > TimeSpan.Zero ? remaining : TimeSpan.Zero;
+				}
+				return TimeSpan.Zero;
+			}
+		}
+
+		public TimeSpan ProjectedTotalTime
+		{
+			get
+			{
+				if (mStarted)
+				{
+					TimeSpan singlePassProjection = ProjectedTarget;
+					int remainingPasses = mTotalPasses - mCompletedPassTimes.Count;
+					if (mStarted && !mCompleted)
+						remainingPasses--; // Current pass is not in completed yet
+					
+					TimeSpan totalTime = TotalGlobalJobTime + TimeSpan.FromTicks(singlePassProjection.Ticks * Math.Max(0, remainingPasses));
+					return totalTime;
+				}
+				return TimeSpan.Zero;
+			}
+		}
+
+		public TimeSpan ProjectedTotalTimeRemaining
+		{
+			get
+			{
+				if (mStarted)
+				{
+					TimeSpan projectedTotal = ProjectedTotalTime;
+					TimeSpan elapsed = TotalGlobalJobTime;
+					TimeSpan remaining = projectedTotal - elapsed;
+					return remaining > TimeSpan.Zero ? remaining : TimeSpan.Zero;
+				}
+				return TimeSpan.Zero;
 			}
 		}
 
@@ -3565,11 +3689,38 @@ namespace LaserGRBL
 			}
 		}
 
-		public void JobStart(GrblFile file, Queue<GrblCommand> mQueuePtr, bool global)
+		public void JobStart(GrblFile file, Queue<GrblCommand> mQueuePtr, bool global, int totalPasses = 1)
 		{
 			if (!mStarted)
 			{
-				mETarget = file.EstimatedTime;
+				// Store total passes count
+				if (global)
+					mTotalPasses = totalPasses;
+
+				// Store original estimate on first pass
+				if (mOriginalEstimate == TimeSpan.Zero)
+					mOriginalEstimate = file.EstimatedTime;
+
+				// Use actual pass times from previous passes to improve estimates
+				if (mCompletedPassTimes.Count > 0)
+				{
+					// Use the average of completed passes as the estimate
+					// This provides a much more accurate estimate than the original calculation
+					double totalSeconds = 0;
+					foreach (var passTime in mCompletedPassTimes)
+						totalSeconds += passTime.TotalSeconds;
+					double avgSeconds = totalSeconds / mCompletedPassTimes.Count;
+					mETarget = TimeSpan.FromSeconds(avgSeconds);
+					Logger.LogMessage("TimeEst", "JobStart: Using average of {0} completed passes. AvgTime={1:0.0}s, Target={2:0.0}s", 
+						mCompletedPassTimes.Count, avgSeconds, mETarget.TotalSeconds);
+				}
+				else
+				{
+					// First pass - use file's estimated time
+					mETarget = file.EstimatedTime;
+					Logger.LogMessage("TimeEst", "JobStart: First pass, using file estimate. Target={0:0.0}s", mETarget.TotalSeconds);
+				}
+
 				mTargetCount = mQueuePtr.Count;
 				mEProgress = TimeSpan.Zero;
 				mStart = Tools.HiResTimer.TotalMilliseconds;
@@ -3657,7 +3808,23 @@ namespace LaserGRBL
 			{
 				JobResume(); //nel caso l'ultimo comando fosse una pausa, la chiudo e la cumulo
 				mEnd = Tools.HiResTimer.TotalMilliseconds;
-				if (global) mGlobalEnd = mEnd;
+				
+				// Store actual pass time (excluding pauses) for future estimates
+				// This is critical for multi-pass jobs - do this BEFORE handling global flag
+				TimeSpan actualPassTime = TrueJobTime;
+				if (actualPassTime > TimeSpan.Zero)
+				{
+					mCompletedPassTimes.Add(actualPassTime);
+					Logger.LogMessage("TimeEst", "JobEnd: Pass #{0} completed in {1:0.0}s (excluding {2:0.0}s pauses). Total passes: {3}",
+						mCompletedPassTimes.Count, actualPassTime.TotalSeconds, TotalJobPauses.TotalSeconds, mCompletedPassTimes.Count);
+				}
+				
+				if (global) 
+				{
+					mGlobalEnd = mEnd;
+					Logger.LogMessage("TimeEst", "JobEnd: Global end - total passes completed: {0}", mCompletedPassTimes.Count);
+				}
+				
 				mCompleted = true;
 				mStarted = false;
 				return true;

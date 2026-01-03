@@ -490,15 +490,19 @@ namespace LaserGRBL
 			TTTStatus.Text = GrblCore.TranslateEnum(Core.MachineStatus);
 
 			if (Core.InProgram)
-				TTTEstimated.Text = Utils.TimeSpanToString(Core.ProjectedTime, Utils.TimePrecision.Second, Utils.TimePrecision.Second, " ,", true);
-			else
-				TTTEstimated.Text = Utils.TimeSpanToString(Core.LoadedFile.EstimatedTime, Utils.TimePrecision.Second, Utils.TimePrecision.Second, " ,", true);
-
-			if (Core.InProgram)
-				TTLEstimated.Text = Strings.MainFormProjectedTime;
-			else
-				TTLEstimated.Text = Strings.MainFormEstimatedTime;
-
+		{
+			// Show total remaining time during program execution
+			string totalRemaining = Utils.TimeSpanToString(Core.ProjectedTotalTimeRemaining, Utils.TimePrecision.Second, Utils.TimePrecision.Second, " ", false);
+			string totalTime = Utils.TimeSpanToString(Core.ProjectedTotalTime, Utils.TimePrecision.Second, Utils.TimePrecision.Second, " ", false);
+			
+			TTTEstimated.Text = $"Remaining: {totalRemaining} (of {totalTime} total)";
+			TTLEstimated.Text = Strings.MainFormProjectedTime;
+		}
+		else
+		{
+			TTTEstimated.Text = Utils.TimeSpanToString(Core.LoadedFile.EstimatedTime, Utils.TimePrecision.Second, Utils.TimePrecision.Second, " ,", true);
+			TTLEstimated.Text = Strings.MainFormEstimatedTime;
+		}
 			MnSaveProject.Enabled = MnAdvancedSave.Enabled = MnSaveProgram.Enabled = Core.HasProgram;
 			MnFileSend.Enabled = Core.CanSendFile;
 			MnStartFromPosition.Enabled = Core.CanSendFile;
