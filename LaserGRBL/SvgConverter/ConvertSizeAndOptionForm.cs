@@ -23,6 +23,8 @@ namespace LaserGRBL.SvgConverter
         GrblCore mCore;
         bool supportPWM = Settings.GetObject("Support Hardware PWM", true);
 
+        public int PassCount { get; set; } = 1;
+
         public ComboboxItem[] LaserOptions = new ComboboxItem[] { new ComboboxItem("M3 - Constant Power", "M3"), new ComboboxItem("M4 - Dynamic Power", "M4") };
 
         public ComboboxItem[] FilterOptions = Array.ConvertAll(
@@ -48,10 +50,11 @@ namespace LaserGRBL.SvgConverter
             }
         }
 
-        internal static void CreateAndShowDialog(GrblCore core, string filename, bool append)
+        internal static void CreateAndShowDialog(GrblCore core, string filename, bool append, int passCount = 1)
         {
             using (SvgToGCodeForm f = new SvgToGCodeForm(core, filename, append))
             {
+                f.PassCount = passCount;
                 f.ShowDialogForm();
                 if (f.DialogResult == DialogResult.OK)
                 {
@@ -62,7 +65,7 @@ namespace LaserGRBL.SvgConverter
 
                     var selectedFilter = (ColorFilter)Enum.Parse(typeof(ColorFilter), (f.CBFilter.SelectedItem as ComboboxItem).Value.ToString());
 
-                    core.LoadedFile.LoadImportedSVG(filename, append, core, selectedFilter);
+                    core.LoadedFile.LoadImportedSVG(filename, append, core, selectedFilter, f.IIPassCount.CurrentValue);
                 }
             }
         }
@@ -118,6 +121,8 @@ namespace LaserGRBL.SvgConverter
 
             IIMinPower.CurrentValue = Settings.GetObject("GrayScaleConversion.Gcode.LaserOptions.PowerMin", 0);
             IIMaxPower.CurrentValue = Settings.GetObject("GrayScaleConversion.Gcode.LaserOptions.PowerMax", (int)GrblCore.Configuration.MaxPWM);
+
+            IIPassCount.CurrentValue = PassCount;
 
             IIBorderTracing.Visible = LblBorderTracing.Visible = LblBorderTracingmm.Visible = true;
 
@@ -197,6 +202,7 @@ namespace LaserGRBL.SvgConverter
                 IIMaxPower.CurrentValue = IIMaxPower.MaxValue * row.Power / 100;
             }
         }
+
         private void BtnColorFilter_Click(object sender, EventArgs e)
         { Tools.Utils.OpenLink(@"https://lasergrbl.com/usage/raster-image-import/target-image-size-and-laser-options/#color-filter"); }
         //private void IISizeW_OnTheFlyValueChanged(object sender, int OldValue, int NewValue, bool ByUser)

@@ -650,7 +650,7 @@ namespace LaserGRBL
         public static readonly List<string> ImageExtensions = new List<string>(new string[] { ".jpg", ".jpeg", ".bmp", ".png", ".gif" });
         public static readonly List<string> GCodeExtensions = new List<string>(new string[] { ".nc", ".cnc", ".tap", ".gcode", ".ngc" });
         public static readonly List<string> ProjectFileExtensions = new List<string>(new string[] { ".lps" });
-        public void OpenFile(string filename = null, bool append = false)
+        public void OpenFile(string filename = null, bool append = false, int passCount = 1)
         {
             if (!CanLoadNewFile) return;
 
@@ -695,7 +695,7 @@ namespace LaserGRBL
                 {
                     try
                     {
-                        RasterConverter.RasterToLaserForm.CreateAndShowDialog(this, filename, append);
+                        RasterConverter.RasterToLaserForm.CreateAndShowDialog(this, filename, append, passCount);
                         UsageCounters.RasterFile++;
                     }
                     catch (Exception ex)
@@ -708,7 +708,7 @@ namespace LaserGRBL
                     {
                         try
                         {
-                            SvgConverter.SvgToGCodeForm.CreateAndShowDialog(this, filename, append);
+                            SvgConverter.SvgToGCodeForm.CreateAndShowDialog(this, filename, append, passCount);
                             UsageCounters.SvgFile++;
                         }
                         catch (Exception ex)
@@ -741,7 +741,7 @@ namespace LaserGRBL
 
                         try
                         {
-                            RasterConverter.RasterToLaserForm.CreateAndShowDialog(this, bmpname, append);
+                            RasterConverter.RasterToLaserForm.CreateAndShowDialog(this, bmpname, append, passCount);
                             UsageCounters.RasterFile++;
                             if (System.IO.File.Exists(bmpname))
                                 System.IO.File.Delete(bmpname);
@@ -756,7 +756,7 @@ namespace LaserGRBL
 
                     try
                     {
-                        file.LoadFile(filename, append);
+                        file.LoadFile(filename, append, passCount);
                         UsageCounters.GCodeFile++;
                     }
                     catch (Exception ex)
@@ -776,9 +776,12 @@ namespace LaserGRBL
                         var imageFilepath = $"{System.IO.Path.GetTempPath()}\\{settings["ImageName"]}";
                         Project.SaveImage(settings["ImageBase64"].ToString(), imageFilepath);
 
+                        // Get pass count from settings (default to 1 for old projects)
+                        int projectPassCount = settings.ContainsKey("PassCount") ? Convert.ToInt32(settings["PassCount"]) : 1;
+
                         // Restore settings
                         foreach (var setting in settings.Where(setting =>
-                            setting.Key != "ImageName" && setting.Key != "ImageBase64"))
+                            setting.Key != "ImageName" && setting.Key != "ImageBase64" && setting.Key != "PassCount"))
                             Settings.SetObject(setting.Key, setting.Value);
 
                         // Open file
@@ -786,7 +789,7 @@ namespace LaserGRBL
                         if (i == 0)
                             ReOpenFile();
                         else
-                            OpenFile(imageFilepath, true);
+                            OpenFile(imageFilepath, true, projectPassCount);
 
                         // Delete temporary image file
                         System.IO.File.Delete(imageFilepath);
@@ -1370,15 +1373,120 @@ namespace LaserGRBL
                 if (first)
                     OnJobBegin();
 
-                if (pass)
-                    OnJobCycle();
+                // Determine if we're using segment-based passes or global loop count
+                // Use segment mode only if there are multiple segments OR any segment has passCount > 1
+                bool useSegmentMode = file.HasSegments && (file.Segments.Count > 1 || file.Segments.Any(s => s.PassCount > 1));
+                
+                if (useSegmentMode)
+                {
+                    // Multi-segment with per-segment pass counts
+                    // Multiply by mLoopCount to respect traditional loop count setting
+                    int maxPassCount = file.Segments.Max(s => s.PassCount);
+                    int totalPasses = maxPassCount * (int)mLoopCount;
+                    
+                    // Pre-calculate each segment's base time (for a single pass)
+                    var segmentTimes = new Dictionary<int, TimeSpan>();
+                    for (int segIdx = 0; segIdx < file.Segments.Count; segIdx++)
+                    {
+                        var segment = file.Segments[segIdx];
+                        int segmentLines = segment.EndIndex - segment.StartIndex + 1;
+                        double segmentProportion = (double)segmentLines / file.Count;
+                        segmentTimes[segIdx] = TimeSpan.FromTicks((long)(LoadedFile.EstimatedTime.Ticks * segmentProportion));
+                    }
+                    
+                    // Track cumulative time as we enqueue commands
+                    TimeSpan cumulativeTime = TimeSpan.Zero;
+                    
+                    for (int globalPass = 1; globalPass <= mLoopCount; globalPass++)
+                    {
+                        for (int currentPass = 1; currentPass <= maxPassCount; currentPass++)
+                        {
+                            if (globalPass > 1 || currentPass > 1)
+                                OnJobCycleWithOffset(cumulativeTime); // Execute pass code between passes
 
+                            // For this pass, execute all segments that need it
+                            for (int segIdx = 0; segIdx < file.Segments.Count; segIdx++)
+                            {
+                                var segment = file.Segments[segIdx];
+                                if (currentPass <= segment.PassCount)
+                                {
+                                    Logger.LogMessage("EnqueueProgram", 
+                                        "Push Segment '{0}' (segment pass {1}/{2}, global pass {3}/{4}), lines {5}-{6}", 
+                                        System.IO.Path.GetFileName(segment.Filename), 
+                                        currentPass, segment.PassCount,
+                                        globalPass, (int)mLoopCount,
+                                        segment.StartIndex, segment.EndIndex);
+                                    
+                                    // Get the first command's offset to use as baseline
+                                    TimeSpan segmentBaseOffset = file[segment.StartIndex].TimeOffset;
+                                    
+                                    for (int i = segment.StartIndex; i <= segment.EndIndex && i < file.Count; i++)
+                                    {
+                                        GrblCommand clonedCmd = file[i].Clone() as GrblCommand;
+                                        // Adjust offset: (original - segment start) + cumulative time
+                                        TimeSpan relativeOffset = clonedCmd.TimeOffset - segmentBaseOffset;
+                                        clonedCmd.SetOffset(cumulativeTime + relativeOffset);
+                                        mQueuePtr.Enqueue(clonedCmd);
+                                    }
+                                    
+                                    // Add this segment's time to cumulative
+                                    cumulativeTime += segmentTimes[segIdx];
+                                }
+                            }
+                        }
+                    }
+                    
+                    Logger.LogMessage("EnqueueProgram", "Starting job with {0} total passes pre-enqueued ({1} segment x {2} loop), queue size: {3}", 
+                        totalPasses, maxPassCount, (int)mLoopCount, mQueuePtr.Count);
+                    
+                    // Segment mode: all passes pre-enqueued as ONE execution
+                    // Calculate total estimated time across all segments considering their pass counts
+                    TimeSpan totalEstimate = TimeSpan.Zero;
+                    Logger.LogMessage("EnqueueProgram", "Calculating segment mode time estimate (base file estimate: {0:F1}s for {1} lines):",
+                        LoadedFile.EstimatedTime.TotalSeconds, file.Count);
+                    
+                    foreach (var segment in file.Segments)
+                    {
+                        int segmentLines = segment.EndIndex - segment.StartIndex + 1;
+                        double segmentProportion = (double)segmentLines / file.Count;
+                        TimeSpan segmentTime = TimeSpan.FromTicks((long)(LoadedFile.EstimatedTime.Ticks * segmentProportion));
+                        TimeSpan segmentTotal = TimeSpan.FromTicks(segmentTime.Ticks * segment.PassCount);
+                        totalEstimate += segmentTotal;
+                        
+                        Logger.LogMessage("EnqueueProgram", "  Segment '{0}': {1} lines ({2:P1}), {3:F1}s × {4} passes = {5:F1}s",
+                            System.IO.Path.GetFileName(segment.Filename), segmentLines, segmentProportion,
+                            segmentTime.TotalSeconds, segment.PassCount, segmentTotal.TotalSeconds);
+                    }
+                    totalEstimate = TimeSpan.FromTicks(totalEstimate.Ticks * (int)mLoopCount);
+                    
+                    Logger.LogMessage("EnqueueProgram", "Segment mode total estimate: {0:F1}s (file estimate was {1:F1}s)", 
+                        totalEstimate.TotalSeconds, LoadedFile.EstimatedTime.TotalSeconds);
+                    
+                    // Use LoadedFile directly but update its estimated time via reflection
+                    var field = typeof(GrblFile).GetField("mEstimatedTotalTime", 
+                        System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                    if (field != null)
+                        field.SetValue(LoadedFile, totalEstimate);
+                    
+                    // Set mLoopCount=1 to prevent legacy loop mechanism from re-executing
+                    if (first)
+                        mLoopCount = 1;
+                    
+                    // totalPasses=1 because all segment passes are pre-enqueued as one continuous job
+                    mTP.JobStart(LoadedFile, mQueuePtr, first, 1);
+                }
+                else
+                {
+                    // Legacy mode: single file with global loop count
+                    if (pass)
+                        OnJobCycle();
 
-                Logger.LogMessage("EnqueueProgram", "Push File, {0} lines", file.Count);
-                foreach (GrblCommand cmd in file)
-                    mQueuePtr.Enqueue(cmd.Clone() as GrblCommand);
+                    Logger.LogMessage("EnqueueProgram", "Push File, {0} lines", file.Count);
+                    foreach (GrblCommand cmd in file)
+                        mQueuePtr.Enqueue(cmd.Clone() as GrblCommand);
 
-                mTP.JobStart(LoadedFile, mQueuePtr, first, (int)mLoopCount);
+                    mTP.JobStart(LoadedFile, mQueuePtr, first, (int)mLoopCount);
+                }
             }
         }
 
@@ -1386,6 +1494,26 @@ namespace LaserGRBL
         {
             Logger.LogMessage("EnqueueProgram", "Push Passes");
             ExecuteCustomCode(Settings.GetObject("GCode.CustomPasses", GrblCore.GCODE_STD_PASSES));
+        }
+
+        private void OnJobCycleWithOffset(TimeSpan offset)
+        {
+            Logger.LogMessage("EnqueueProgram", "Push Passes");
+            string buttoncode = Settings.GetObject("GCode.CustomPasses", GrblCore.GCODE_STD_PASSES).Trim();
+            string[] arr = buttoncode.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+            foreach (string str in arr)
+            {
+                if (str.Trim().Length > 0)
+                {
+                    string tosend = EvaluateExpression(str);
+                    if (!IsImmediate(tosend))
+                    {
+                        GrblCommand cmd = new GrblCommand(tosend, 0, true);
+                        cmd.SetOffset(offset);
+                        mQueuePtr.Enqueue(cmd);
+                    }
+                }
+            }
         }
 
         protected virtual void OnJobBegin()

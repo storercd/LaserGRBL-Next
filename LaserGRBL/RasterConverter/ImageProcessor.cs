@@ -34,6 +34,7 @@ namespace LaserGRBL.RasterConverter
         private bool mGrayScale;        //image has no color
         private bool mSuspended;        //image generator suspended for multiple property change
         private Size mBoxSize;          //size of the picturebox frame
+        private int mPassCount = 1;     //number of passes for this segment
 
         //options for image processing
         private InterpolationMode mInterpolation = InterpolationMode.HighQualityBicubic;
@@ -110,11 +111,12 @@ namespace LaserGRBL.RasterConverter
             NewInsetFilling,
         }
 
-        public ImageProcessor(GrblCore core, string fileName, Size boxSize, bool append)
+        public ImageProcessor(GrblCore core, string fileName, Size boxSize, bool append, int passCount = 1)
         {
             mCore = core;
             mFileName = fileName;
             mAppend = append;
+            mPassCount = passCount;
             mSuspended = true;
             //mOriginal = new Bitmap(fileName);
 
@@ -1068,11 +1070,11 @@ namespace LaserGRBL.RasterConverter
                         conf.firmwareType = Settings.GetObject("Firmware Type", Firmware.Grbl);
 
                         if (SelectedTool == Tool.Line2Line || SelectedTool == Tool.Dithering || SelectedTool == Tool.NoProcessing)
-                            mCore.LoadedFile.LoadImageL2L(bmp, mFileName, conf, mAppend, mCore);
+                            mCore.LoadedFile.LoadImageL2L(bmp, mFileName, conf, mAppend, mCore, mPassCount);
                         else if (SelectedTool == Tool.Vectorize)
-                            mCore.LoadedFile.LoadImagePotrace(bmp, mFileName, UseSpotRemoval, (int)SpotRemoval, UseSmoothing, Smoothing, UseOptimize, Optimize, OptimizeFast, conf, mAppend, mCore);
+                            mCore.LoadedFile.LoadImagePotrace(bmp, mFileName, UseSpotRemoval, (int)SpotRemoval, UseSmoothing, Smoothing, UseOptimize, Optimize, OptimizeFast, conf, mAppend, mCore, mPassCount);
                         else if (SelectedTool == Tool.Centerline)
-                            mCore.LoadedFile.LoadImageCenterline(bmp, mFileName, UseCornerThreshold, CornerThreshold, UseLineThreshold, LineThreshold, conf, mAppend, mCore);
+                            mCore.LoadedFile.LoadImageCenterline(bmp, mFileName, UseCornerThreshold, CornerThreshold, UseLineThreshold, LineThreshold, conf, mAppend, mCore, mPassCount);
 
                     }
 

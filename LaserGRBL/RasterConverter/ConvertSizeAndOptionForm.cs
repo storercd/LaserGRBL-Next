@@ -23,6 +23,8 @@ namespace LaserGRBL.RasterConverter
         GrblCore mCore;
         bool supportPWM = Settings.GetObject("Support Hardware PWM", true);
 
+        public int PassCount { get; set; } = 1;
+
         public ComboboxItem[] LaserOptions = new ComboboxItem[] { new ComboboxItem("M3 - Constant Power", "M3"), new ComboboxItem("M4 - Dynamic Power", "M4") };
         public class ComboboxItem
         {
@@ -113,7 +115,7 @@ namespace LaserGRBL.RasterConverter
 
         ImageProcessor IP;
 
-        public void ShowDialog(Form parent, ImageProcessor processor)
+        public void ShowDialog(Form parent, ImageProcessor processor, int passCount = 1)
         {
             IP = processor;
 
@@ -121,6 +123,8 @@ namespace LaserGRBL.RasterConverter
 
             IIBorderTracing.CurrentValue = IP.BorderSpeed = Settings.GetObject("GrayScaleConversion.VectorizeOptions.BorderSpeed", 1000);
             IILinearFilling.CurrentValue = IP.MarkSpeed = Settings.GetObject("GrayScaleConversion.Gcode.Speed.Mark", 1000);
+
+            IIPassCount.CurrentValue = PassCount = passCount;
 
             IP.LaserOn = Settings.GetObject("GrayScaleConversion.Gcode.LaserOptions.LaserOn", "M3");
 
@@ -338,7 +342,10 @@ namespace LaserGRBL.RasterConverter
         private void BtnCreate_Click(object sender, EventArgs e)
         {
             if (ConfirmOutOfBoundary())
+            {
+                PassCount = IIPassCount.CurrentValue;
                 DialogResult = DialogResult.OK;
+            }
         }
 
         private bool ConfirmOutOfBoundary()

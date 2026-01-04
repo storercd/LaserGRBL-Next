@@ -25,6 +25,7 @@ namespace LaserGRBL.RasterConverter
         ImageProcessor IP;
         bool preventClose;
         bool supportPWM = Settings.GetObject("Support Hardware PWM", true);
+        private int mPassCount = 1;
 
         private RasterToLaserForm(GrblCore core, string filename, bool append)
         {
@@ -56,7 +57,7 @@ namespace LaserGRBL.RasterConverter
             IconsMgr.PrepareButton(BtnReverse, "mdi-invert-colors", icoToolSize);
             IconsMgr.PrepareButton(BtnOutliner, "mdi-auto-fix", icoToolSize);
 
-            IP = new ImageProcessor(core, filename, GetImageSize(), append);
+            IP = new ImageProcessor(core, filename, GetImageSize(), append, mPassCount);
             //PbOriginal.Image = IP.Original;
             ImageProcessor.PreviewReady += OnPreviewReady;
             ImageProcessor.PreviewBegin += OnPreviewBegin;
@@ -179,11 +180,12 @@ namespace LaserGRBL.RasterConverter
             WB.Running = true;
         }
 
-        internal static void CreateAndShowDialog(GrblCore core, string filename, bool append)
+        internal static void CreateAndShowDialog(GrblCore core, string filename, bool append, int passCount = 1)
         {
             using (RasterToLaserForm f = new RasterToLaserForm(core, filename, append))
             {
                 f.Icon = FormsHelper.MainForm.Icon;
+                f.mPassCount = passCount;
                 f.ShowDialog(FormsHelper.MainForm);
             }
         }
@@ -202,9 +204,10 @@ namespace LaserGRBL.RasterConverter
 
             using (ConvertSizeAndOptionForm f = new ConvertSizeAndOptionForm(mCore))
             {
-                f.ShowDialog(this, IP);
+                f.ShowDialog(this, IP, mPassCount);
                 if (f.DialogResult == DialogResult.OK)
                 {
+                    mPassCount = f.PassCount; // Update pass count from dialog
                     preventClose = true;
                     Cursor = Cursors.WaitCursor;
                     SuspendLayout();
@@ -219,7 +222,7 @@ namespace LaserGRBL.RasterConverter
                     ResumeLayout();
 
                     StoreSettings();
-                    Project.AddSettings(GetActualSettings()); // Store project settings
+                    Project.AddSettings(GetActualSettings(), mPassCount); // Store project settings
 
                     IP.GenerateGCode(); //processo asincrono che ritorna con l'evento "OnGenerationComplete"
                 }

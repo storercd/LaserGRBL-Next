@@ -34,6 +34,29 @@ namespace LaserGRBL
         private TimeSpan mEstimatedTotalTime;
         public List<GrblCommand> Commands => list;
         private Thread mLoadingThread = null;
+        private List<FileSegment> mSegments = new List<FileSegment>();
+
+        [Serializable]
+        public class FileSegment
+        {
+            public int StartIndex { get; set; }
+            public int EndIndex { get; set; }
+            public int PassCount { get; set; }
+            public string Filename { get; set; }
+
+            public FileSegment() { }
+
+            public FileSegment(int startIndex, int endIndex, int passCount, string filename)
+            {
+                StartIndex = startIndex;
+                EndIndex = endIndex;
+                PassCount = passCount;
+                Filename = filename;
+            }
+        }
+
+        public List<FileSegment> Segments => mSegments;
+        public bool HasSegments => mSegments != null && mSegments.Count > 0;
 
         public GrblFile()
         {
@@ -53,6 +76,7 @@ namespace LaserGRBL
                 command.Dispose();
             }
             list.Clear();
+            mSegments.Clear();
         }
 
         public void SaveGCODE(string filename, bool header, bool footer, bool between, int cycles, bool useLFLineEndings, GrblCore core)
@@ -121,13 +145,15 @@ namespace LaserGRBL
             mLoadingThread.Start();
         }
 
-        public void LoadFile(string filename, bool append)
+        public void LoadFile(string filename, bool append, int passCount = 1)
         {
             SafeLoadFile(() =>
             {
                 RiseOnFileLoading(filename);
 
                 long start = Tools.HiResTimer.TotalMilliseconds;
+
+                int startIndex = list.Count;
 
                 if (!append)
                     ClearList();
@@ -147,6 +173,13 @@ namespace LaserGRBL
                             }
                     }
                 }
+
+                // Add segment tracking
+                if (list.Count > startIndex)
+                {
+                    mSegments.Add(new FileSegment(startIndex, list.Count - 1, passCount, filename));
+                }
+
                 Analyze();
                 long elapsed = Tools.HiResTimer.TotalMilliseconds - start;
 
@@ -154,13 +187,15 @@ namespace LaserGRBL
             });
         }
 
-        public void LoadImportedSVG(string filename, bool append, GrblCore core, ColorFilter filter)
+        public void LoadImportedSVG(string filename, bool append, GrblCore core, ColorFilter filter, int passCount = 1)
         {
             SafeLoadFile(() =>
             {
                 RiseOnFileLoading(filename);
 
                 long start = Tools.HiResTimer.TotalMilliseconds;
+
+                int startIndex = list.Count;
 
                 if (!append)
                     ClearList();
@@ -182,6 +217,12 @@ namespace LaserGRBL
                         if (!cmd.IsEmpty)
                             list.Add(cmd);
                     }
+                }
+
+                // Add segment tracking
+                if (list.Count > startIndex)
+                {
+                    mSegments.Add(new FileSegment(startIndex, list.Count - 1, passCount, filename));
                 }
 
                 Analyze();
@@ -353,7 +394,7 @@ namespace LaserGRBL
         }
 
 
-        public void LoadImagePotrace(Bitmap bmp, string filename, bool UseSpotRemoval, int SpotRemoval, bool UseSmoothing, decimal Smoothing, bool UseOptimize, decimal Optimize, bool useOptimizeFast, L2LConf c, bool append, GrblCore core)
+        public void LoadImagePotrace(Bitmap bmp, string filename, bool UseSpotRemoval, int SpotRemoval, bool UseSmoothing, decimal Smoothing, bool UseOptimize, decimal Optimize, bool useOptimizeFast, L2LConf c, bool append, GrblCore core, int passCount = 1)
         {
             if (CheckInUse()) return;
 
@@ -363,6 +404,8 @@ namespace LaserGRBL
 
             bmp.RotateFlip(RotateFlipType.RotateNoneFlipY);
             long start = Tools.HiResTimer.TotalMilliseconds;
+
+            int startIndex = list.Count;
 
             if (!append)
                 ClearList();
@@ -475,6 +518,12 @@ namespace LaserGRBL
             if (supportPWM)
                 list.Add(new GrblCommand(c.lOff));  //necessaria perché finisce con solo S0
 
+            // Add segment tracking
+            if (list.Count > startIndex)
+            {
+                mSegments.Add(new FileSegment(startIndex, list.Count - 1, passCount, filename));
+            }
+
             Analyze();
             long elapsed = Tools.HiResTimer.TotalMilliseconds - start;
 
@@ -512,7 +561,7 @@ namespace LaserGRBL
         }
 
         private string skipcmd = "G0";
-        public void LoadImageL2L(Bitmap bmp, string filename, L2LConf c, bool append, GrblCore core)
+        public void LoadImageL2L(Bitmap bmp, string filename, L2LConf c, bool append, GrblCore core, int passCount = 1)
         {
             if (CheckInUse()) return;
 
@@ -523,6 +572,8 @@ namespace LaserGRBL
             bmp.RotateFlip(RotateFlipType.RotateNoneFlipY);
 
             long start = Tools.HiResTimer.TotalMilliseconds;
+
+            int startIndex = list.Count;
 
             if (!append)
                 ClearList();
@@ -551,6 +602,12 @@ namespace LaserGRBL
 
             //move fast to origin
             //list.Add(new GrblCommand("G0 X0 Y0")); //moved to custom footer
+
+            // Add segment tracking
+            if (list.Count > startIndex)
+            {
+                mSegments.Add(new FileSegment(startIndex, list.Count - 1, passCount, filename));
+            }
 
             Analyze();
             long elapsed = Tools.HiResTimer.TotalMilliseconds - start;
@@ -1395,13 +1452,15 @@ namespace LaserGRBL
             }
         }
 
-        internal void LoadImageCenterline(Bitmap bmp, string filename, bool useCornerThreshold, int cornerThreshold, bool useLineThreshold, int lineThreshold, L2LConf conf, bool append, GrblCore core)
+        internal void LoadImageCenterline(Bitmap bmp, string filename, bool useCornerThreshold, int cornerThreshold, bool useLineThreshold, int lineThreshold, L2LConf conf, bool append, GrblCore core, int passCount = 1)
         {
             if (CheckInUse()) return;
 
             RiseOnFileLoading(filename);
 
             long start = Tools.HiResTimer.TotalMilliseconds;
+
+            int startIndex = list.Count;
 
             if (!append)
                 ClearList();
@@ -1435,6 +1494,12 @@ namespace LaserGRBL
                     if (!cmd.IsEmpty)
                         list.Add(cmd);
                 }
+            }
+
+            // Add segment tracking
+            if (list.Count > startIndex)
+            {
+                mSegments.Add(new FileSegment(startIndex, list.Count - 1, passCount, filename));
             }
 
             Analyze();
