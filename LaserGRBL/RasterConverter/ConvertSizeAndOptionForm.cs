@@ -13,40 +13,40 @@ using System.Windows.Forms;
 
 namespace LaserGRBL.RasterConverter
 {
-	/// <summary>
-	/// Description of ConvertSizeAndOptionForm.
-	/// </summary>
-	public partial class ConvertSizeAndOptionForm : Form
-	{
-		static bool ratiolock = true;
+    /// <summary>
+    /// Description of ConvertSizeAndOptionForm.
+    /// </summary>
+    public partial class ConvertSizeAndOptionForm : Form
+    {
+        static bool ratiolock = true;
 
-		GrblCore mCore;
-		bool supportPWM = Settings.GetObject("Support Hardware PWM", true);
+        GrblCore mCore;
+        bool supportPWM = Settings.GetObject("Support Hardware PWM", true);
 
-		public ComboboxItem[] LaserOptions = new ComboboxItem[] { new ComboboxItem("M3 - Constant Power", "M3"), new ComboboxItem("M4 - Dynamic Power", "M4") };
-		public class ComboboxItem
-		{
-			public string Text { get; set; }
-			public object Value { get; set; }
+        public ComboboxItem[] LaserOptions = new ComboboxItem[] { new ComboboxItem("M3 - Constant Power", "M3"), new ComboboxItem("M4 - Dynamic Power", "M4") };
+        public class ComboboxItem
+        {
+            public string Text { get; set; }
+            public object Value { get; set; }
 
-			public ComboboxItem(string text, object value)
-			{ Text = text; Value = value; }
+            public ComboboxItem(string text, object value)
+            { Text = text; Value = value; }
 
-			public override string ToString()
-			{
-				return Text;
-			}
-		}
+            public override string ToString()
+            {
+                return Text;
+            }
+        }
 
-		public ConvertSizeAndOptionForm(GrblCore core)
-		{
-			InitializeComponent();
-			mCore = core;
+        public ConvertSizeAndOptionForm(GrblCore core)
+        {
+            InitializeComponent();
+            mCore = core;
 
-			BackColor = ColorScheme.FormBackColor;
-			ForeColor = ColorScheme.FormForeColor;
-			ThemeMgr.SetTheme(this, true);
-			Size icoSize = new Size(16, 16);
+            BackColor = ColorScheme.FormBackColor;
+            ForeColor = ColorScheme.FormForeColor;
+            ThemeMgr.SetTheme(this, true);
+            Size icoSize = new Size(16, 16);
             IconsMgr.PrepareButton(BtnCreate, "mdi-checkbox-marked");
             IconsMgr.PrepareButton(BtnCancel, "mdi-close-box");
             IconsMgr.PrepareButton(BtnModulationInfo, "mdi-information-slab-box", icoSize);
@@ -58,331 +58,331 @@ namespace LaserGRBL.RasterConverter
             IconsMgr.PrepareButton(BtnReset, "mdi-arrow-u-left-top-bold", icoSize);
 
             LblMaxPerc.Visible = LblMinPerc.Visible = LblSmin.Visible = LblSmax.Visible = IIMaxPower.Visible = IIMinPower.Visible = BtnModulationInfo.Visible = supportPWM;
-			AssignMinMaxLimit();
+            AssignMinMaxLimit();
 
-			CBLaserON.Items.Add(LaserOptions[0]);
-			CBLaserON.Items.Add(LaserOptions[1]);
-		}
+            CBLaserON.Items.Add(LaserOptions[0]);
+            CBLaserON.Items.Add(LaserOptions[1]);
+        }
 
-		private void AssignMinMaxLimit()
-		{
-			int tableWidth = 1000;
-			int tableHeight = 1000;
+        private void AssignMinMaxLimit()
+        {
+            int tableWidth = 1000;
+            int tableHeight = 1000;
 
-			try
-			{
-				tableWidth = (int)GrblCore.Configuration.TableWidth;
-				tableHeight = (int)GrblCore.Configuration.TableHeight;
-			}
-			catch (Exception ex) { MessageBox.Show(Strings.BoxMachineSizeOutOfRangeText, Strings.BoxMachineSizeOutOfRangeTitle, MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            try
+            {
+                tableWidth = (int)GrblCore.Configuration.TableWidth;
+                tableHeight = (int)GrblCore.Configuration.TableHeight;
+            }
+            catch (Exception ex) { MessageBox.Show(Strings.BoxMachineSizeOutOfRangeText, Strings.BoxMachineSizeOutOfRangeTitle, MessageBoxButtons.OK, MessageBoxIcon.Error); }
 
-			IISizeW.MaxValue = tableWidth;
-			IISizeH.MaxValue = tableHeight;
+            IISizeW.MaxValue = tableWidth;
+            IISizeH.MaxValue = tableHeight;
 
-			IIOffsetX.MaxValue = tableWidth;
-			IIOffsetY.MaxValue = tableHeight;
+            IIOffsetX.MaxValue = tableWidth;
+            IIOffsetY.MaxValue = tableHeight;
 
-			if (GrblCore.Configuration != null)
-			{
-				if (GrblCore.Configuration.SoftLimit)
-				{
-					IIOffsetX.MinValue = 0;
-					IIOffsetY.MinValue = 0;
-				}
-				else
-				{
-					IIOffsetX.MinValue = -tableWidth;
-					IIOffsetY.MinValue = -tableHeight;
-				}
-			}
+            if (GrblCore.Configuration != null)
+            {
+                if (GrblCore.Configuration.SoftLimit)
+                {
+                    IIOffsetX.MinValue = 0;
+                    IIOffsetY.MinValue = 0;
+                }
+                else
+                {
+                    IIOffsetX.MinValue = -tableWidth;
+                    IIOffsetY.MinValue = -tableHeight;
+                }
+            }
 
 
-			int maxrateX = 20000;
-			int maxPwm = 1000;
+            int maxrateX = 20000;
+            int maxPwm = 1000;
 
-			try
-			{
-				maxrateX = (int)GrblCore.Configuration.MaxRateX;
-				maxPwm = (int)GrblCore.Configuration.MaxPWM;
-			}
-			catch (Exception ex) {  }
+            try
+            {
+                maxrateX = (int)GrblCore.Configuration.MaxRateX;
+                maxPwm = (int)GrblCore.Configuration.MaxPWM;
+            }
+            catch (Exception ex) { }
 
-			IIBorderTracing.MaxValue = IILinearFilling.MaxValue = maxrateX;
-			IIMaxPower.MaxValue = maxPwm;
-		}
+            IIBorderTracing.MaxValue = IILinearFilling.MaxValue = maxrateX;
+            IIMaxPower.MaxValue = maxPwm;
+        }
 
-		ImageProcessor IP;
+        ImageProcessor IP;
 
-		public void ShowDialog(Form parent, ImageProcessor processor)
-		{
-			IP = processor;
+        public void ShowDialog(Form parent, ImageProcessor processor)
+        {
+            IP = processor;
 
-			InitImageSize();
+            InitImageSize();
 
-			IIBorderTracing.CurrentValue = IP.BorderSpeed = Settings.GetObject("GrayScaleConversion.VectorizeOptions.BorderSpeed", 1000);
-			IILinearFilling.CurrentValue = IP.MarkSpeed = Settings.GetObject("GrayScaleConversion.Gcode.Speed.Mark", 1000);
+            IIBorderTracing.CurrentValue = IP.BorderSpeed = Settings.GetObject("GrayScaleConversion.VectorizeOptions.BorderSpeed", 1000);
+            IILinearFilling.CurrentValue = IP.MarkSpeed = Settings.GetObject("GrayScaleConversion.Gcode.Speed.Mark", 1000);
 
-			IP.LaserOn = Settings.GetObject("GrayScaleConversion.Gcode.LaserOptions.LaserOn", "M3");
+            IP.LaserOn = Settings.GetObject("GrayScaleConversion.Gcode.LaserOptions.LaserOn", "M3");
 
-			if (IP.LaserOn == "M3" || !GrblCore.Configuration.LaserMode)
-				CBLaserON.SelectedItem = LaserOptions[0];
-			else
-				CBLaserON.SelectedItem = LaserOptions[1];
+            if (IP.LaserOn == "M3" || !GrblCore.Configuration.LaserMode)
+                CBLaserON.SelectedItem = LaserOptions[0];
+            else
+                CBLaserON.SelectedItem = LaserOptions[1];
 
-			IP.LaserOff = "M5"; 
+            IP.LaserOff = "M5";
 
-			IIMinPower.CurrentValue = IP.MinPower = Settings.GetObject("GrayScaleConversion.Gcode.LaserOptions.PowerMin", 0);
-			IIMaxPower.CurrentValue = IP.MaxPower = Settings.GetObject("GrayScaleConversion.Gcode.LaserOptions.PowerMax", (int)GrblCore.Configuration.MaxPWM);
+            IIMinPower.CurrentValue = IP.MinPower = Settings.GetObject("GrayScaleConversion.Gcode.LaserOptions.PowerMin", 0);
+            IIMaxPower.CurrentValue = IP.MaxPower = Settings.GetObject("GrayScaleConversion.Gcode.LaserOptions.PowerMax", (int)GrblCore.Configuration.MaxPWM);
 
-			IILinearFilling.Visible = LblLinearFilling.Visible = LblLinearFillingmm.Visible = (IP.SelectedTool == ImageProcessor.Tool.NoProcessing || IP.SelectedTool == ImageProcessor.Tool.Line2Line || IP.SelectedTool == ImageProcessor.Tool.Dithering || (IP.SelectedTool == ImageProcessor.Tool.Vectorize && (IP.FillingDirection != ImageProcessor.Direction.None)));
-			IIBorderTracing.Visible = LblBorderTracing.Visible = LblBorderTracingmm.Visible = (IP.SelectedTool == ImageProcessor.Tool.Vectorize || IP.SelectedTool == ImageProcessor.Tool.Centerline);
-			LblLinearFilling.Text = IP.SelectedTool == ImageProcessor.Tool.Vectorize ? "Filling Speed" : "Engraving Speed";
+            IILinearFilling.Visible = LblLinearFilling.Visible = LblLinearFillingmm.Visible = (IP.SelectedTool == ImageProcessor.Tool.NoProcessing || IP.SelectedTool == ImageProcessor.Tool.Line2Line || IP.SelectedTool == ImageProcessor.Tool.Dithering || (IP.SelectedTool == ImageProcessor.Tool.Vectorize && (IP.FillingDirection != ImageProcessor.Direction.None)));
+            IIBorderTracing.Visible = LblBorderTracing.Visible = LblBorderTracingmm.Visible = (IP.SelectedTool == ImageProcessor.Tool.Vectorize || IP.SelectedTool == ImageProcessor.Tool.Centerline);
+            LblLinearFilling.Text = IP.SelectedTool == ImageProcessor.Tool.Vectorize ? "Filling Speed" : "Engraving Speed";
 
-			IIOffsetX.CurrentValue = IP.TargetOffset.X = Settings.GetObject("GrayScaleConversion.Gcode.Offset.X", 0F);
-			IIOffsetY.CurrentValue = IP.TargetOffset.Y = Settings.GetObject("GrayScaleConversion.Gcode.Offset.Y", 0F);
+            IIOffsetX.CurrentValue = IP.TargetOffset.X = Settings.GetObject("GrayScaleConversion.Gcode.Offset.X", 0F);
+            IIOffsetY.CurrentValue = IP.TargetOffset.Y = Settings.GetObject("GrayScaleConversion.Gcode.Offset.Y", 0F);
 
-			RefreshPerc();
-			ShowDialog(parent);
+            RefreshPerc();
+            ShowDialog(parent);
 
-			ratiolock = KeepSizeRatio;
-		}
+            ratiolock = KeepSizeRatio;
+        }
 
-		private void InitImageSize()
-		{
-			if (IP.SelectedTool == ImageProcessor.Tool.NoProcessing)
-			{
-				CbAutosize.Checked = true;
-				BtnDPI_Click(null, null);
-				CbAutosize.Enabled = false;
-				IIDpi.Enabled = false;
-			}
-			else
-			{
-				KeepSizeRatio = ratiolock;
-				if (KeepSizeRatio)
-				{
-					if (IP.Original.Height < IP.Original.Width)
-					{
-						IISizeW.CurrentValue = Settings.GetObject("GrayScaleConversion.Gcode.ImageSize.W", 100F);
-						IISizeH.CurrentValue = IP.WidthToHeight(IISizeW.CurrentValue);
-					}
-					else
-					{
-						IISizeH.CurrentValue = Settings.GetObject("GrayScaleConversion.Gcode.ImageSize.H", 100F);
-						IISizeW.CurrentValue = IP.HeightToWidht(IISizeH.CurrentValue);
-					}
-				}
-				else
-				{
-					IISizeW.CurrentValue = Settings.GetObject("GrayScaleConversion.Gcode.ImageSize.W", 100F);
-					IISizeH.CurrentValue = Settings.GetObject("GrayScaleConversion.Gcode.ImageSize.H", 100F);
-				}
-			}
-		}
+        private void InitImageSize()
+        {
+            if (IP.SelectedTool == ImageProcessor.Tool.NoProcessing)
+            {
+                CbAutosize.Checked = true;
+                BtnDPI_Click(null, null);
+                CbAutosize.Enabled = false;
+                IIDpi.Enabled = false;
+            }
+            else
+            {
+                KeepSizeRatio = ratiolock;
+                if (KeepSizeRatio)
+                {
+                    if (IP.Original.Height < IP.Original.Width)
+                    {
+                        IISizeW.CurrentValue = Settings.GetObject("GrayScaleConversion.Gcode.ImageSize.W", 100F);
+                        IISizeH.CurrentValue = IP.WidthToHeight(IISizeW.CurrentValue);
+                    }
+                    else
+                    {
+                        IISizeH.CurrentValue = Settings.GetObject("GrayScaleConversion.Gcode.ImageSize.H", 100F);
+                        IISizeW.CurrentValue = IP.HeightToWidht(IISizeH.CurrentValue);
+                    }
+                }
+                else
+                {
+                    IISizeW.CurrentValue = Settings.GetObject("GrayScaleConversion.Gcode.ImageSize.W", 100F);
+                    IISizeH.CurrentValue = Settings.GetObject("GrayScaleConversion.Gcode.ImageSize.H", 100F);
+                }
+            }
+        }
 
-		private void IISizeW_CurrentValueChanged(object sender, float OldValue, float NewValue, bool ByUser)
-		{
-			IP.TargetSize = new SizeF(IISizeW.CurrentValue, IISizeH.CurrentValue);
-		}
+        private void IISizeW_CurrentValueChanged(object sender, float OldValue, float NewValue, bool ByUser)
+        {
+            IP.TargetSize = new SizeF(IISizeW.CurrentValue, IISizeH.CurrentValue);
+        }
 
-		private void IISizeH_CurrentValueChanged(object sender, float OldValue, float NewValue, bool ByUser)
-		{
-			IP.TargetSize = new SizeF(IISizeW.CurrentValue, IISizeH.CurrentValue);
-		}
+        private void IISizeH_CurrentValueChanged(object sender, float OldValue, float NewValue, bool ByUser)
+        {
+            IP.TargetSize = new SizeF(IISizeW.CurrentValue, IISizeH.CurrentValue);
+        }
 
-		void IIOffsetXYCurrentValueChanged(object sender, float OldValue, float NewValue, bool ByUser)
-		{
-			IP.TargetOffset = new PointF(IIOffsetX.CurrentValue, IIOffsetY.CurrentValue);
-		}
+        void IIOffsetXYCurrentValueChanged(object sender, float OldValue, float NewValue, bool ByUser)
+        {
+            IP.TargetOffset = new PointF(IIOffsetX.CurrentValue, IIOffsetY.CurrentValue);
+        }
 
-		void IIBorderTracingCurrentValueChanged(object sender, int OldValue, int NewValue, bool ByUser)
-		{
-			IP.BorderSpeed = NewValue;
-		}
+        void IIBorderTracingCurrentValueChanged(object sender, int OldValue, int NewValue, bool ByUser)
+        {
+            IP.BorderSpeed = NewValue;
+        }
 
-		void IIMarkSpeedCurrentValueChanged(object sender, int OldValue, int NewValue, bool ByUser)
-		{
-			IP.MarkSpeed = NewValue;
-		}
-		void IIMinPowerCurrentValueChanged(object sender, int OldValue, int NewValue, bool ByUser)
-		{
-			if (ByUser && IIMaxPower.CurrentValue <= NewValue)
-				IIMaxPower.CurrentValue = NewValue + 1;
+        void IIMarkSpeedCurrentValueChanged(object sender, int OldValue, int NewValue, bool ByUser)
+        {
+            IP.MarkSpeed = NewValue;
+        }
+        void IIMinPowerCurrentValueChanged(object sender, int OldValue, int NewValue, bool ByUser)
+        {
+            if (ByUser && IIMaxPower.CurrentValue <= NewValue)
+                IIMaxPower.CurrentValue = NewValue + 1;
 
-			IP.MinPower = NewValue;
-			RefreshPerc();
-		}
-		void IIMaxPowerCurrentValueChanged(object sender, int OldValue, int NewValue, bool ByUser)
-		{
-			if (ByUser && IIMinPower.CurrentValue >= NewValue)
-				IIMinPower.CurrentValue = NewValue - 1;
+            IP.MinPower = NewValue;
+            RefreshPerc();
+        }
+        void IIMaxPowerCurrentValueChanged(object sender, int OldValue, int NewValue, bool ByUser)
+        {
+            if (ByUser && IIMinPower.CurrentValue >= NewValue)
+                IIMinPower.CurrentValue = NewValue - 1;
 
-			IP.MaxPower = NewValue;
-			RefreshPerc();
-		}
+            IP.MaxPower = NewValue;
+            RefreshPerc();
+        }
 
-		private void RefreshPerc()
-		{
-			decimal maxpwm = GrblCore.Configuration != null ? GrblCore.Configuration.MaxPWM : -1;
+        private void RefreshPerc()
+        {
+            decimal maxpwm = GrblCore.Configuration != null ? GrblCore.Configuration.MaxPWM : -1;
 
-			if (maxpwm > 0)
-			{
-				LblMaxPerc.Text = (IIMaxPower.CurrentValue / GrblCore.Configuration.MaxPWM).ToString("P1");
-				LblMinPerc.Text = (IIMinPower.CurrentValue / GrblCore.Configuration.MaxPWM).ToString("P1");
-			}
-			else
-			{
-				LblMaxPerc.Text = "";
-				LblMinPerc.Text = "";
-			}
-		}
+            if (maxpwm > 0)
+            {
+                LblMaxPerc.Text = (IIMaxPower.CurrentValue / GrblCore.Configuration.MaxPWM).ToString("P1");
+                LblMinPerc.Text = (IIMinPower.CurrentValue / GrblCore.Configuration.MaxPWM).ToString("P1");
+            }
+            else
+            {
+                LblMaxPerc.Text = "";
+                LblMinPerc.Text = "";
+            }
+        }
 
-		private void BtnOnOffInfo_Click(object sender, EventArgs e)
-		{
-			Tools.Utils.OpenLink(@"https://lasergrbl.com/usage/raster-image-import/target-image-size-and-laser-options/#laser-modes");
-		}
+        private void BtnOnOffInfo_Click(object sender, EventArgs e)
+        {
+            Tools.Utils.OpenLink(@"https://lasergrbl.com/usage/raster-image-import/target-image-size-and-laser-options/#laser-modes");
+        }
 
-		private void BtnModulationInfo_Click(object sender, EventArgs e)
-		{
-			Tools.Utils.OpenLink(@"https://lasergrbl.com/usage/raster-image-import/target-image-size-and-laser-options/#power-modulation");
-		}
+        private void BtnModulationInfo_Click(object sender, EventArgs e)
+        {
+            Tools.Utils.OpenLink(@"https://lasergrbl.com/usage/raster-image-import/target-image-size-and-laser-options/#power-modulation");
+        }
 
-		private void CBLaserON_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			ComboboxItem mode = CBLaserON.SelectedItem as ComboboxItem;
+        private void CBLaserON_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboboxItem mode = CBLaserON.SelectedItem as ComboboxItem;
 
-			if (mode != null)
-			{
-				if (!GrblCore.Configuration.LaserMode && (mode.Value as string) == "M4")
-					MessageBox.Show(Strings.WarnWrongLaserMode, Strings.WarnWrongLaserModeTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);//warning!!
+            if (mode != null)
+            {
+                if (!GrblCore.Configuration.LaserMode && (mode.Value as string) == "M4")
+                    MessageBox.Show(Strings.WarnWrongLaserMode, Strings.WarnWrongLaserModeTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);//warning!!
 
-				IP.LaserOn = mode.Value as string;
-			} 
-			else
-				IP.LaserOn = "M3";
-		}
+                IP.LaserOn = mode.Value as string;
+            }
+            else
+                IP.LaserOn = "M3";
+        }
 
-		//private void CBLaserOFF_SelectedIndexChanged(object sender, EventArgs e)
-		//{
-		//	IP.LaserOff = (string)CBLaserOFF.SelectedItem;
-		//}
+        //private void CBLaserOFF_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //	IP.LaserOff = (string)CBLaserOFF.SelectedItem;
+        //}
 
-		private void IISizeW_OnTheFlyValueChanged(object sender, float OldValue, float NewValue, bool ByUser)
-		{
-			if (ByUser && KeepSizeRatio)
-				IISizeH.CurrentValue = IP.WidthToHeight(NewValue);
-		}
+        private void IISizeW_OnTheFlyValueChanged(object sender, float OldValue, float NewValue, bool ByUser)
+        {
+            if (ByUser && KeepSizeRatio)
+                IISizeH.CurrentValue = IP.WidthToHeight(NewValue);
+        }
 
-		private void IISizeH_OnTheFlyValueChanged(object sender, float OldValue, float NewValue, bool ByUser)
-		{
-			if (ByUser && KeepSizeRatio)
-				IISizeW.CurrentValue = IP.HeightToWidht(NewValue);
-		}
+        private void IISizeH_OnTheFlyValueChanged(object sender, float OldValue, float NewValue, bool ByUser)
+        {
+            if (ByUser && KeepSizeRatio)
+                IISizeW.CurrentValue = IP.HeightToWidht(NewValue);
+        }
 
-		private bool KeepSizeRatio
-		{
-			get
-			{
-				return !BtnUnlockProportion.UseAltImage;
-			}
-			set
-			{
-				BtnUnlockProportion.UseAltImage = !value;
-			}
-		}
+        private bool KeepSizeRatio
+        {
+            get
+            {
+                return !BtnUnlockProportion.UseAltImage;
+            }
+            set
+            {
+                BtnUnlockProportion.UseAltImage = !value;
+            }
+        }
 
-		private void CbAutosize_CheckedChanged(object sender, EventArgs e)
-		{
-			IISizeH.Enabled = IISizeW.Enabled = !CbAutosize.Checked;
-			IIDpi.Enabled = CbAutosize.Checked;
+        private void CbAutosize_CheckedChanged(object sender, EventArgs e)
+        {
+            IISizeH.Enabled = IISizeW.Enabled = !CbAutosize.Checked;
+            IIDpi.Enabled = CbAutosize.Checked;
 
-			ComputeDpiSize();
-		}
+            ComputeDpiSize();
+        }
 
-		private void IIDpi_CurrentValueChanged(object sender, int OldValue, int NewValue, bool ByUser)
-		{
-			ComputeDpiSize();
-		}
+        private void IIDpi_CurrentValueChanged(object sender, int OldValue, int NewValue, bool ByUser)
+        {
+            ComputeDpiSize();
+        }
 
-		private void ComputeDpiSize()
-		{
-			if (CbAutosize.Checked)
-			{
-				IISizeW.CurrentValue = Convert.ToSingle(25.4 * IP.TrueOriginal.Width / IIDpi.CurrentValue);
-				IISizeH.CurrentValue = IP.WidthToHeight(IISizeW.CurrentValue);
-			}
+        private void ComputeDpiSize()
+        {
+            if (CbAutosize.Checked)
+            {
+                IISizeW.CurrentValue = Convert.ToSingle(25.4 * IP.TrueOriginal.Width / IIDpi.CurrentValue);
+                IISizeH.CurrentValue = IP.WidthToHeight(IISizeW.CurrentValue);
+            }
 
-			BtnDPI.Enabled = CbAutosize.Checked && (IIDpi.CurrentValue != IP.FileDPI);
-		}
+            BtnDPI.Enabled = CbAutosize.Checked && (IIDpi.CurrentValue != IP.FileDPI);
+        }
 
-		private void BtnDPI_Click(object sender, EventArgs e)
-		{
-			if (CbAutosize.Checked)
-				IIDpi.CurrentValue = IP.FileDPI;
-		}
+        private void BtnDPI_Click(object sender, EventArgs e)
+        {
+            if (CbAutosize.Checked)
+                IIDpi.CurrentValue = IP.FileDPI;
+        }
 
-		private void BtnPSHelper_Click(object sender, EventArgs e)
-		{
-			MaterialDB.MaterialsRow row = PSHelperForm.CreateAndShowDialog(this);
-			if (row != null)
-			{
-				if (IIBorderTracing.Visible)
-					IIBorderTracing.CurrentValue = row.Speed;
-				if (IILinearFilling.Visible)
-					IILinearFilling.CurrentValue = row.Speed;
+        private void BtnPSHelper_Click(object sender, EventArgs e)
+        {
+            MaterialDB.MaterialsRow row = PSHelperForm.CreateAndShowDialog(this);
+            if (row != null)
+            {
+                if (IIBorderTracing.Visible)
+                    IIBorderTracing.CurrentValue = row.Speed;
+                if (IILinearFilling.Visible)
+                    IILinearFilling.CurrentValue = row.Speed;
 
-				IIMaxPower.CurrentValue = IIMaxPower.MaxValue * row.Power / 100;
-			}
-		}
+                IIMaxPower.CurrentValue = IIMaxPower.MaxValue * row.Power / 100;
+            }
+        }
 
-		private void BtnCreate_Click(object sender, EventArgs e)
-		{
-			if (ConfirmOutOfBoundary())
-				DialogResult = DialogResult.OK;
-		}
+        private void BtnCreate_Click(object sender, EventArgs e)
+        {
+            if (ConfirmOutOfBoundary())
+                DialogResult = DialogResult.OK;
+        }
 
-		private bool ConfirmOutOfBoundary()
-		{
-			if (GrblCore.Configuration != null && !Settings.GetObject("DisableBoundaryWarning", false))
-			{
-				if ((IIOffsetX.CurrentValue < 0 || IIOffsetY.CurrentValue < 0) && GrblCore.Configuration.SoftLimit)
-					if (MessageBox.Show(Strings.WarnSoftLimitNS, Strings.WarnSoftLimitTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes)
-						return false;
+        private bool ConfirmOutOfBoundary()
+        {
+            if (GrblCore.Configuration != null && !Settings.GetObject("DisableBoundaryWarning", false))
+            {
+                if ((IIOffsetX.CurrentValue < 0 || IIOffsetY.CurrentValue < 0) && GrblCore.Configuration.SoftLimit)
+                    if (MessageBox.Show(Strings.WarnSoftLimitNS, Strings.WarnSoftLimitTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes)
+                        return false;
 
-				if (Math.Max(IIOffsetX.CurrentValue, 0) + IISizeW.CurrentValue > (float)GrblCore.Configuration.TableWidth || Math.Max(IIOffsetY.CurrentValue, 0) + IISizeH.CurrentValue > (float)GrblCore.Configuration.TableHeight)
-					if (MessageBox.Show(String.Format(Strings.WarnSoftLimitOOB, (int)GrblCore.Configuration.TableWidth, (int)GrblCore.Configuration.TableHeight), Strings.WarnSoftLimitTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes)
-						return false;
-			}
+                if (Math.Max(IIOffsetX.CurrentValue, 0) + IISizeW.CurrentValue > (float)GrblCore.Configuration.TableWidth || Math.Max(IIOffsetY.CurrentValue, 0) + IISizeH.CurrentValue > (float)GrblCore.Configuration.TableHeight)
+                    if (MessageBox.Show(String.Format(Strings.WarnSoftLimitOOB, (int)GrblCore.Configuration.TableWidth, (int)GrblCore.Configuration.TableHeight), Strings.WarnSoftLimitTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes)
+                        return false;
+            }
 
-			return true;
-		}
+            return true;
+        }
 
-		private void BtnReset_Click(object sender, EventArgs e)
-		{
-			IIOffsetY.CurrentValue = 0;
-			IIOffsetX.CurrentValue = 0;
-		}
+        private void BtnReset_Click(object sender, EventArgs e)
+        {
+            IIOffsetY.CurrentValue = 0;
+            IIOffsetX.CurrentValue = 0;
+        }
 
-		private void BtnCenter_Click(object sender, EventArgs e)
-		{
-			IIOffsetY.CurrentValue = -(IISizeH.CurrentValue / 2);
-			IIOffsetX.CurrentValue = -(IISizeW.CurrentValue / 2);
-		}
+        private void BtnCenter_Click(object sender, EventArgs e)
+        {
+            IIOffsetY.CurrentValue = -(IISizeH.CurrentValue / 2);
+            IIOffsetX.CurrentValue = -(IISizeW.CurrentValue / 2);
+        }
 
-		private void BtnUnlockProportion_Click(object sender, EventArgs e)
-		{
-			if (KeepSizeRatio && MessageBox.Show(Strings.WarnUnlockProportionText, Strings.WarnUnlockProportionTitle, MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
-				KeepSizeRatio = false;
-			else
-				KeepSizeRatio = true;
-			
-			if (KeepSizeRatio)
-			{
-				if (IP.Original.Height < IP.Original.Width)
-					IISizeH.CurrentValue = IP.WidthToHeight(IISizeW.CurrentValue);
-				else
-					IISizeW.CurrentValue = IP.HeightToWidht(IISizeH.CurrentValue);
-			}
-		}
-	}
+        private void BtnUnlockProportion_Click(object sender, EventArgs e)
+        {
+            if (KeepSizeRatio && MessageBox.Show(Strings.WarnUnlockProportionText, Strings.WarnUnlockProportionTitle, MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+                KeepSizeRatio = false;
+            else
+                KeepSizeRatio = true;
+
+            if (KeepSizeRatio)
+            {
+                if (IP.Original.Height < IP.Original.Width)
+                    IISizeH.CurrentValue = IP.WidthToHeight(IISizeW.CurrentValue);
+                else
+                    IISizeW.CurrentValue = IP.HeightToWidht(IISizeH.CurrentValue);
+            }
+        }
+    }
 }
