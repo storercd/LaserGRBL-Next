@@ -114,7 +114,9 @@
 			this.TBPasses = new System.Windows.Forms.TextBox();
 			this.LblFooter = new System.Windows.Forms.Label();
 			this.LblPasses = new System.Windows.Forms.Label();
-			this.TpSoundSettings = new System.Windows.Forms.TabPage();
+			this.TpSounds = new System.Windows.Forms.TabPage();
+			this.TpNotifications = new System.Windows.Forms.TabPage();
+			this.tableLayoutPanel21 = new System.Windows.Forms.TableLayoutPanel();
 			this.tableLayoutPanel16 = new System.Windows.Forms.TableLayoutPanel();
 			this.CbPlaySuccess = new System.Windows.Forms.CheckBox();
 			this.CbPlayWarning = new System.Windows.Forms.CheckBox();
@@ -208,7 +210,8 @@
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.groupBox3.SuspendLayout();
-			this.TpSoundSettings.SuspendLayout();
+			this.TpSounds.SuspendLayout();
+			this.TpNotifications.SuspendLayout();
 			this.tableLayoutPanel16.SuspendLayout();
 			this.tableLayoutPanel10.SuspendLayout();
 			this.tableLayoutPanel11.SuspendLayout();
@@ -219,6 +222,8 @@
 			this.tableLayoutPanel17.SuspendLayout();
 			this.tableLayoutPanel19.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.UdTelegramNotificationThreshold)).BeginInit();
+			this.tableLayoutPanel21.SuspendLayout();
+			this.tableLayoutPanel20.SuspendLayout();
 			this.TpOptions.SuspendLayout();
 			this.Tlp.SuspendLayout();
 			this.SuspendLayout();
@@ -260,7 +265,8 @@
 			this.MainTabPage.Controls.Add(this.TpJogControl);
 			this.MainTabPage.Controls.Add(this.TpAutoCooling);
 			this.MainTabPage.Controls.Add(this.TpGCodeSettings);
-			this.MainTabPage.Controls.Add(this.TpSoundSettings);
+			this.MainTabPage.Controls.Add(this.TpSounds);
+			this.MainTabPage.Controls.Add(this.TpNotifications);
 			this.MainTabPage.Controls.Add(this.TpOptions);
 			resources.ApplyResources(this.MainTabPage, "MainTabPage");
 			this.MainTabPage.Name = "MainTabPage";
@@ -843,13 +849,13 @@
 			resources.ApplyResources(this.LblPasses, "LblPasses");
 			this.LblPasses.Name = "LblPasses";
 			// 
-			// TpSoundSettings
+			// TpSounds
 			// 
-			this.TpSoundSettings.Controls.Add(this.tableLayoutPanel16);
-			this.TpSoundSettings.Controls.Add(this.tableLayoutPanel10);
-			resources.ApplyResources(this.TpSoundSettings, "TpSoundSettings");
-			this.TpSoundSettings.Name = "TpSoundSettings";
-			this.TpSoundSettings.UseVisualStyleBackColor = true;
+			this.TpSounds.Controls.Add(this.tableLayoutPanel16);
+			this.TpSounds.Controls.Add(this.tableLayoutPanel10);
+			resources.ApplyResources(this.TpSounds, "TpSounds");
+			this.TpSounds.Name = "TpSounds";
+			this.TpSounds.UseVisualStyleBackColor = true;
 			// 
 			// tableLayoutPanel16
 			// 
@@ -895,7 +901,6 @@
 			// tableLayoutPanel10
 			// 
 			resources.ApplyResources(this.tableLayoutPanel10, "tableLayoutPanel10");
-			this.tableLayoutPanel10.Controls.Add(this.CbTelegramNotification, 0, 6);
 			this.tableLayoutPanel10.Controls.Add(this.DisconnectFullLabel, 0, 4);
 			this.tableLayoutPanel10.Controls.Add(this.ConnectFullLabel, 0, 3);
 			this.tableLayoutPanel10.Controls.Add(this.ErrorFullLabel, 0, 2);
@@ -911,11 +916,6 @@
 			this.tableLayoutPanel10.Controls.Add(this.label32, 2, 3);
 			this.tableLayoutPanel10.Controls.Add(this.label36, 2, 4);
 			this.tableLayoutPanel10.Controls.Add(this.label28, 2, 2);
-			this.tableLayoutPanel10.Controls.Add(this.tableLayoutPanel17, 1, 6);
-			this.tableLayoutPanel10.Controls.Add(this.label42, 2, 6);
-			this.tableLayoutPanel10.Controls.Add(this.CbCustomScript, 0, 7);
-			this.tableLayoutPanel10.Controls.Add(this.tableLayoutPanel20, 1, 7);
-			this.tableLayoutPanel10.Controls.Add(this.label51, 2, 7);
 			this.tableLayoutPanel10.Name = "tableLayoutPanel10";
 			// 
 			// CbTelegramNotification
@@ -1251,6 +1251,24 @@
 			this.ScriptBrowserDialog.Filter = "PowerShell Scripts|*.ps1";
 			this.ScriptBrowserDialog.Title = "Select Job Completion Script";
 			// 
+			// TpNotifications
+			// 
+			this.TpNotifications.Controls.Add(this.tableLayoutPanel21);
+			resources.ApplyResources(this.TpNotifications, "TpNotifications");
+			this.TpNotifications.Name = "TpNotifications";
+			this.TpNotifications.UseVisualStyleBackColor = true;
+			// 
+			// tableLayoutPanel21
+			// 
+			resources.ApplyResources(this.tableLayoutPanel21, "tableLayoutPanel21");
+			this.tableLayoutPanel21.Controls.Add(this.CbTelegramNotification, 0, 0);
+			this.tableLayoutPanel21.Controls.Add(this.tableLayoutPanel17, 1, 0);
+			this.tableLayoutPanel21.Controls.Add(this.label42, 2, 0);
+			this.tableLayoutPanel21.Controls.Add(this.CbCustomScript, 0, 1);
+			this.tableLayoutPanel21.Controls.Add(this.tableLayoutPanel20, 1, 1);
+			this.tableLayoutPanel21.Controls.Add(this.label51, 2, 1);
+			this.tableLayoutPanel21.Name = "tableLayoutPanel21";
+			// 
 			// TpOptions
 			// 
 			this.TpOptions.Controls.Add(this.Tlp);
@@ -1384,8 +1402,8 @@
 			this.groupBox2.PerformLayout();
 			this.groupBox3.ResumeLayout(false);
 			this.groupBox3.PerformLayout();
-			this.TpSoundSettings.ResumeLayout(false);
-			this.TpSoundSettings.PerformLayout();
+			this.TpSounds.ResumeLayout(false);
+			this.TpSounds.PerformLayout();
 			this.tableLayoutPanel16.ResumeLayout(false);
 			this.tableLayoutPanel16.PerformLayout();
 			this.tableLayoutPanel10.ResumeLayout(false);
@@ -1400,11 +1418,17 @@
 			this.tableLayoutPanel15.PerformLayout();
 			this.tableLayoutPanel13.ResumeLayout(false);
 			this.tableLayoutPanel13.PerformLayout();
+			this.TpNotifications.ResumeLayout(false);
+			this.TpNotifications.PerformLayout();
+			this.tableLayoutPanel21.ResumeLayout(false);
+			this.tableLayoutPanel21.PerformLayout();
 			this.tableLayoutPanel17.ResumeLayout(false);
 			this.tableLayoutPanel17.PerformLayout();
 			this.tableLayoutPanel19.ResumeLayout(false);
 			this.tableLayoutPanel19.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.UdTelegramNotificationThreshold)).EndInit();
+			this.tableLayoutPanel20.ResumeLayout(false);
+			this.tableLayoutPanel20.PerformLayout();
 			this.TpOptions.ResumeLayout(false);
 			this.TpOptions.PerformLayout();
 			this.Tlp.ResumeLayout(false);
@@ -1485,8 +1509,10 @@
 		private LaserGRBL.UserControls.GrblGroupBox groupBox3;
 		private System.Windows.Forms.TextBox TBPasses;
         private UserControls.ImageButton BtnFType;
-        private System.Windows.Forms.TabPage TpSoundSettings;
+        private System.Windows.Forms.TabPage TpSounds;
+        private System.Windows.Forms.TabPage TpNotifications;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel10;
+		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel21;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel13;

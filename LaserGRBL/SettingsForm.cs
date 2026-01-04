@@ -29,7 +29,7 @@ namespace LaserGRBL
 
             BackColor = ColorScheme.FormBackColor;
             ForeColor = ColorScheme.FormForeColor;
-            TpVectorImport.BackColor = TpRasterImport.BackColor = TpHardware.BackColor = TpJogControl.BackColor = TpAutoCooling.BackColor = TpGCodeSettings.BackColor = BtnCancel.BackColor = BtnSave.BackColor = TpSoundSettings.BackColor = changeConBtn.BackColor = changeDconBtn.BackColor = changeFatBtn.BackColor = changeSucBtn.BackColor = changeWarBtn.BackColor = ColorScheme.FormBackColor;
+            TpVectorImport.BackColor = TpRasterImport.BackColor = TpHardware.BackColor = TpJogControl.BackColor = TpAutoCooling.BackColor = TpGCodeSettings.BackColor = BtnCancel.BackColor = BtnSave.BackColor = TpSounds.BackColor = TpNotifications.BackColor = changeConBtn.BackColor = changeDconBtn.BackColor = changeFatBtn.BackColor = changeSucBtn.BackColor = changeWarBtn.BackColor = ColorScheme.FormBackColor;
 
             ThemeMgr.SetTheme(this, true);
             Size btnSize = new Size(16, 16);
