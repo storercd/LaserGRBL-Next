@@ -79,6 +79,12 @@ namespace LaserGRBL
             TBFooter.BackColor = ColorScheme.FormBackColor;
             TpOptions.BackColor = ColorScheme.FormBackColor;
 
+            // Override theme for editable textboxes - white background for better visibility
+            TxtNotification.BackColor = System.Drawing.Color.White;
+            TxtNotification.ForeColor = System.Drawing.Color.Black;
+            TxtNtfyTopic.BackColor = System.Drawing.Color.White;
+            TxtNtfyTopic.ForeColor = System.Drawing.Color.Black;
+
             CbPlaySuccess.Checked = Settings.GetObject($"Sound.{SoundEvent.EventId.Success}.Enabled", true);
             CbPlayWarning.Checked = Settings.GetObject($"Sound.{SoundEvent.EventId.Warning}.Enabled", true);
             CbPlayFatal.Checked = Settings.GetObject($"Sound.{SoundEvent.EventId.Fatal}.Enabled", true);
@@ -92,6 +98,9 @@ namespace LaserGRBL
             CbCustomScript.Checked = Settings.GetObject("CustomJobCompletedScript", "") != "";
             TxtCustomScriptPath.Text = Settings.GetObject("CustomJobCompletedScript", "");
             BtnBrowseScript.Enabled = CbCustomScript.Checked;
+
+            CbNtfyNotification.Checked = Settings.GetObject("Ntfy.Enabled", false);
+            TxtNtfyTopic.Text = Settings.GetObject("Ntfy.Topic", "");
 
             successSoundLabel.Text = System.IO.Path.GetFileName(Settings.GetObject($"Sound.{SoundEvent.EventId.Success}", $"Sound\\{SoundEvent.EventId.Success}.wav"));
             SuccesFullLabel.Text = Settings.GetObject($"Sound.{SoundEvent.EventId.Success}", $"Sound\\{SoundEvent.EventId.Success}.wav");
@@ -253,6 +262,9 @@ namespace LaserGRBL
             Settings.SetObject("TelegramNotification.Code", Tools.Protector.Encrypt(TxtNotification.Text));
 
             Settings.SetObject("CustomJobCompletedScript", CbCustomScript.Checked ? TxtCustomScriptPath.Text : "");
+
+            Settings.SetObject("Ntfy.Enabled", CbNtfyNotification.Checked);
+            Settings.SetObject("Ntfy.Topic", TxtNtfyTopic.Text);
 
             Settings.SetObject("Raster Hi-Res", CbHiRes.Checked);
 

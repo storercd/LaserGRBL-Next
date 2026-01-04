@@ -574,6 +574,7 @@ namespace LaserGRBL
             {
                 RiseIssueDetected(issue);
                 Telegram.NotifyEvent(String.Format("<b>Job Issue</b>\n{0}", issue));
+                Ntfy.NotifyEvent(String.Format("Job Issue\n{0}", issue));
                 SoundEvent.PlaySound(SoundEvent.EventId.Fatal);
             }
         }
@@ -3117,6 +3118,9 @@ namespace LaserGRBL
 
                 if (ProgramGlobalTime.TotalMinutes >= (int)Settings.GetObject("TelegramNotification.Threshold", 1))
                     Telegram.NotifyEvent(String.Format("<b>Job Executed</b>\n{0} lines, {1} errors\nTime: {2}", file.Count, mTP.ErrorCount, Tools.Utils.TimeSpanToString(ProgramGlobalTime, Tools.Utils.TimePrecision.Second, Tools.Utils.TimePrecision.Second, ",", true)));
+
+                // ntfy notification
+                Ntfy.NotifyEvent(String.Format("Job Executed\n{0} lines, {1} errors\nTime: {2}", file.Count, mTP.ErrorCount, Tools.Utils.TimeSpanToString(ProgramGlobalTime, Tools.Utils.TimePrecision.Second, Tools.Utils.TimePrecision.Second, ",", true)));
 
                 // Custom action on job completion
                 ExecuteCustomJobCompletedAction();

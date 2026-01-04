@@ -117,6 +117,11 @@
 			this.TpSounds = new System.Windows.Forms.TabPage();
 			this.TpNotifications = new System.Windows.Forms.TabPage();
 			this.tableLayoutPanel21 = new System.Windows.Forms.TableLayoutPanel();
+			this.CbNtfyNotification = new System.Windows.Forms.CheckBox();
+			this.tableLayoutPanel22 = new System.Windows.Forms.TableLayoutPanel();
+			this.label52 = new System.Windows.Forms.Label();
+			this.TxtNtfyTopic = new System.Windows.Forms.TextBox();
+			this.label53 = new System.Windows.Forms.Label();
 			this.tableLayoutPanel16 = new System.Windows.Forms.TableLayoutPanel();
 			this.CbPlaySuccess = new System.Windows.Forms.CheckBox();
 			this.CbPlayWarning = new System.Windows.Forms.CheckBox();
@@ -212,6 +217,8 @@
 			this.groupBox3.SuspendLayout();
 			this.TpSounds.SuspendLayout();
 			this.TpNotifications.SuspendLayout();
+			this.tableLayoutPanel21.SuspendLayout();
+			this.tableLayoutPanel22.SuspendLayout();
 			this.tableLayoutPanel16.SuspendLayout();
 			this.tableLayoutPanel10.SuspendLayout();
 			this.tableLayoutPanel11.SuspendLayout();
@@ -1267,7 +1274,39 @@
 			this.tableLayoutPanel21.Controls.Add(this.CbCustomScript, 0, 1);
 			this.tableLayoutPanel21.Controls.Add(this.tableLayoutPanel20, 1, 1);
 			this.tableLayoutPanel21.Controls.Add(this.label51, 2, 1);
+			this.tableLayoutPanel21.Controls.Add(this.CbNtfyNotification, 0, 2);
+			this.tableLayoutPanel21.Controls.Add(this.tableLayoutPanel22, 1, 2);
+			this.tableLayoutPanel21.Controls.Add(this.label53, 2, 2);
 			this.tableLayoutPanel21.Name = "tableLayoutPanel21";
+			// 
+			// CbNtfyNotification
+			// 
+			resources.ApplyResources(this.CbNtfyNotification, "CbNtfyNotification");
+			this.CbNtfyNotification.Name = "CbNtfyNotification";
+			this.CbNtfyNotification.UseVisualStyleBackColor = true;
+			// 
+			// tableLayoutPanel22
+			// 
+			resources.ApplyResources(this.tableLayoutPanel22, "tableLayoutPanel22");
+			this.tableLayoutPanel22.Controls.Add(this.label52, 0, 0);
+			this.tableLayoutPanel22.Controls.Add(this.TxtNtfyTopic, 1, 0);
+			this.tableLayoutPanel22.Name = "tableLayoutPanel22";
+			// 
+			// label52
+			// 
+			resources.ApplyResources(this.label52, "label52");
+			this.label52.Name = "label52";
+			// 
+			// TxtNtfyTopic
+			// 
+			resources.ApplyResources(this.TxtNtfyTopic, "TxtNtfyTopic");
+			this.TxtNtfyTopic.Name = "TxtNtfyTopic";
+			this.TxtNtfyTopic.BackColor = System.Drawing.SystemColors.Window;
+			// 
+			// label53
+			// 
+			resources.ApplyResources(this.label53, "label53");
+			this.label53.Name = "label53";
 			// 
 			// TpOptions
 			// 
@@ -1404,6 +1443,12 @@
 			this.groupBox3.PerformLayout();
 			this.TpSounds.ResumeLayout(false);
 			this.TpSounds.PerformLayout();
+			this.TpNotifications.ResumeLayout(false);
+			this.TpNotifications.PerformLayout();
+			this.tableLayoutPanel21.ResumeLayout(false);
+			this.tableLayoutPanel21.PerformLayout();
+			this.tableLayoutPanel22.ResumeLayout(false);
+			this.tableLayoutPanel22.PerformLayout();
 			this.tableLayoutPanel16.ResumeLayout(false);
 			this.tableLayoutPanel16.PerformLayout();
 			this.tableLayoutPanel10.ResumeLayout(false);
@@ -1599,6 +1644,11 @@
 		private System.Windows.Forms.TextBox TxtCustomScriptPath;
 		private UserControls.GrblButton BtnBrowseScript;
 		private System.Windows.Forms.Label label51;
+		private System.Windows.Forms.CheckBox CbNtfyNotification;
+		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel22;
+		private System.Windows.Forms.Label label52;
+		private System.Windows.Forms.TextBox TxtNtfyTopic;
+		private System.Windows.Forms.Label label53;
 		private System.Windows.Forms.OpenFileDialog ScriptBrowserDialog;
 	}
 }
