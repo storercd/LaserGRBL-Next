@@ -864,6 +864,7 @@
     </Compile>
     <Compile Include="AutoUpdate\GitHub.cs" />
     <Compile Include="Core\GrblCore.cs" />
+    <Compile Include="Core\TimeProjection.cs" />
     <Compile Include="CSV\CsvDictionary.cs" />
     <Compile Include="CSV\FormattedMessage.cs" />
     <Compile Include="GrblCommand.cs" />
