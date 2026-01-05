@@ -1,31 +1,19 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{839698EC-FE05-4112-ACCB-A5D7556714F0}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LaserGRBL</RootNamespace>
-    <AssemblyName>LaserGRBL</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
+    <TargetFramework>net48</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     <NoStdLib>False</NoStdLib>
-    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <RunCodeAnalysis>False</RunCodeAnalysis>
     <SourceAnalysisOverrideSettingsFile>C:\Users\Diego\AppData\Roaming\ICSharpCode\SharpDevelop5\Settings.SourceAnalysis</SourceAnalysisOverrideSettingsFile>
     <ApplicationIcon>Grafica\LaserGrbl.ico</ApplicationIcon>
-    <TargetFrameworkProfile />
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
-    <OldToolsVersion>3.5</OldToolsVersion>
+    <FileUpgradeFlags />
+    <UpgradeBackupLocation />
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -40,35 +28,29 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <AssemblyTitle>LaserGRBL Storer Edition</AssemblyTitle>
+    <Product>LaserGRBL Storer Edition</Product>
+    <NeutralLanguage>en</NeutralLanguage>
+    <Copyright>Copyright © 2016 - Diego Settimi</Copyright>
+    <AssemblyVersion>7.14.1</AssemblyVersion>
+    <FileVersion>7.14.1</FileVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
     <DebugType>Full</DebugType>
-    <Optimize>False</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisIgnoreGeneratedCode>false</CodeAnalysisIgnoreGeneratedCode>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>PdbOnly</DebugType>
-    <Optimize>True</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
     <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
@@ -77,7 +59,6 @@
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
     <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
     <StartAction>Project</StartAction>
   </PropertyGroup>
@@ -89,1421 +70,790 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System" />
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Design" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.XML" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Autotrace\AutotraceTest.cs">
+    <PackageReference Include="System.Resources.Extensions" Version="8.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Autotrace\AutotraceTest.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Autotrace\AutotraceTest.Designer.cs">
+    <Compile Update="Autotrace\AutotraceTest.Designer.cs">
       <DependentUpon>AutotraceTest.cs</DependentUpon>
     </Compile>
-    <Compile Include="Autotrace\Autotrace.cs" />
-    <Compile Include="Clipper\Clipper.cs" />
-    <Compile Include="ComWrapper\MySerial\Handshake.cs" />
-    <Compile Include="ComWrapper\MySerial\ISerialStream.cs" />
-    <Compile Include="ComWrapper\MySerial\Parity.cs" />
-    <Compile Include="ComWrapper\MySerial\SerialData.cs" />
-    <Compile Include="ComWrapper\MySerial\SerialError.cs" />
-    <Compile Include="ComWrapper\MySerial\SerialErrorEventArgs.cs" />
-    <Compile Include="ComWrapper\MySerial\SerialPinChange.cs" />
-    <Compile Include="ComWrapper\MySerial\SerialPinChangedEventArgs.cs" />
-    <Compile Include="ComWrapper\MySerial\SerialPort.cs">
+    <Compile Update="ComWrapper\MySerial\SerialPort.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ComWrapper\MySerial\SerialPortStream.cs" />
-    <Compile Include="ComWrapper\MySerial\SerialReceivedEventArgs.cs" />
-    <Compile Include="ComWrapper\MySerial\SerialSignal.cs" />
-    <Compile Include="ComWrapper\MySerial\StopBits.cs" />
-    <Compile Include="ComWrapper\MySerial\WinSerialStream.cs" />
-    <Compile Include="ComWrapper\RJCPSerial.cs" />
-    <Compile Include="ComWrapper\UsbSerial2.cs" />
-    <Compile Include="Generator\CuttingTest.cs">
+    <Compile Update="Generator\CuttingTest.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Generator\CuttingTest.Designer.cs">
+    <Compile Update="Generator\CuttingTest.Designer.cs">
       <DependentUpon>CuttingTest.cs</DependentUpon>
     </Compile>
-    <Compile Include="Generator\PowerVsSpeedForm.cs">
+    <Compile Update="Generator\PowerVsSpeedForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Generator\PowerVsSpeedForm.Designer.cs">
+    <Compile Update="Generator\PowerVsSpeedForm.Designer.cs">
       <DependentUpon>PowerVsSpeedForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Generator\ShakeTest.cs">
+    <Compile Update="Generator\ShakeTest.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Generator\ShakeTest.Designer.cs">
+    <Compile Update="Generator\ShakeTest.Designer.cs">
       <DependentUpon>ShakeTest.cs</DependentUpon>
     </Compile>
-    <Compile Include="Hershey\Hershey.cs" />
-    <Compile Include="Icons\IIconsLoader.cs" />
-    <Compile Include="Icons\LegacyIcons.cs" />
-    <Compile Include="Icons\IconsMgr.cs" />
-    <Compile Include="LaserLifeEdit.cs">
+    <Compile Update="LaserLifeEdit.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LaserLifeEdit.Designer.cs">
+    <Compile Update="LaserLifeEdit.Designer.cs">
       <DependentUpon>LaserLifeEdit.cs</DependentUpon>
     </Compile>
-    <Compile Include="LaserSelector.cs">
+    <Compile Update="LaserSelector.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LaserSelector.Designer.cs">
+    <Compile Update="LaserSelector.Designer.cs">
       <DependentUpon>LaserSelector.cs</DependentUpon>
     </Compile>
-    <Compile Include="LaserUsage.cs">
+    <Compile Update="LaserUsage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LaserUsage.Designer.cs">
+    <Compile Update="LaserUsage.Designer.cs">
       <DependentUpon>LaserUsage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Obj3D\ColorHelper.cs" />
-    <Compile Include="Obj3D\GlColorHelper.cs" />
-    <Compile Include="ComWrapper\RJCP\Datastructures\CircularBuffer.cs" />
-    <Compile Include="ComWrapper\RJCP\Datastructures\ReusableList.cs" />
-    <Compile Include="ComWrapper\RJCP\Datastructures\TimerExpiry.cs" />
-    <Compile Include="ComWrapper\RJCP\GlobalSuppressions.cs" />
-    <Compile Include="ComWrapper\RJCP\HandShake.cs" />
-    <Compile Include="ComWrapper\RJCP\InternalApplicationException.cs" />
-    <Compile Include="ComWrapper\RJCP\ISerialPortStream.cs" />
-    <Compile Include="ComWrapper\RJCP\LocalAsyncResult.cs" />
-    <Compile Include="ComWrapper\RJCP\Native\INativeSerial.cs" />
-    <Compile Include="ComWrapper\RJCP\Native\ISerialBufferSerialData.cs" />
-    <Compile Include="ComWrapper\RJCP\Native\ISerialBufferStreamData.cs" />
-    <Compile Include="ComWrapper\RJCP\Native\Platform.cs" />
-    <Compile Include="ComWrapper\RJCP\Native\ReadToCache.cs" />
-    <Compile Include="ComWrapper\RJCP\Native\SerialBuffer.cs" />
-    <Compile Include="ComWrapper\RJCP\Native\UnixNativeSerial.cs" />
-    <Compile Include="ComWrapper\RJCP\Native\Unix\INativeSerialDll.cs" />
-    <Compile Include="ComWrapper\RJCP\Native\Unix\SafeNativeMethods.cs" />
-    <Compile Include="ComWrapper\RJCP\Native\Unix\SafeSerialHandle.cs" />
-    <Compile Include="ComWrapper\RJCP\Native\Unix\SerialReadWriteEvent.cs" />
-    <Compile Include="ComWrapper\RJCP\Native\Unix\SerialUnix.cs" />
-    <Compile Include="ComWrapper\RJCP\Native\Unix\SysErrNo.cs" />
-    <Compile Include="ComWrapper\RJCP\Native\Unix\UnsafeNativeMethods.cs" />
-    <Compile Include="ComWrapper\RJCP\Native\Unix\WaitForModemEvent.cs" />
-    <Compile Include="ComWrapper\RJCP\Native\Windows\CfgMgr32.cs" />
-    <Compile Include="ComWrapper\RJCP\Native\Windows\CfgMgr32.Types.cs" />
-    <Compile Include="ComWrapper\RJCP\Native\Windows\CommErrorEventArgs.cs" />
-    <Compile Include="ComWrapper\RJCP\Native\Windows\CommEventArgs.cs" />
-    <Compile Include="ComWrapper\RJCP\Native\Windows\CommModemStatus.cs" />
-    <Compile Include="ComWrapper\RJCP\Native\Windows\CommOverlappedIo.cs" />
-    <Compile Include="ComWrapper\RJCP\Native\Windows\CommProperties.cs" />
-    <Compile Include="ComWrapper\RJCP\Native\Windows\CommState.cs" />
-    <Compile Include="ComWrapper\RJCP\Native\Windows\DtrControl.cs" />
-    <Compile Include="ComWrapper\RJCP\Native\Windows\Kernel32.cs" />
-    <Compile Include="ComWrapper\RJCP\Native\Windows\Kernel32.Types.cs" />
-    <Compile Include="ComWrapper\RJCP\Native\Windows\Marshalling.cs" />
-    <Compile Include="ComWrapper\RJCP\Native\Windows\RtsControl.cs" />
-    <Compile Include="ComWrapper\RJCP\Native\Windows\WinError.cs" />
-    <Compile Include="ComWrapper\RJCP\Native\WinNativeSerial.cs" />
-    <Compile Include="ComWrapper\RJCP\Parity.cs" />
-    <Compile Include="ComWrapper\RJCP\PortDescription.cs" />
-    <Compile Include="ComWrapper\RJCP\SerialData.cs" />
-    <Compile Include="ComWrapper\RJCP\SerialDataEventArgs.cs" />
-    <Compile Include="ComWrapper\RJCP\SerialError.cs" />
-    <Compile Include="ComWrapper\RJCP\SerialErrorReceivedEventArgs.cs" />
-    <Compile Include="ComWrapper\RJCP\SerialPinChange.cs" />
-    <Compile Include="ComWrapper\RJCP\SerialPinChangedEventArgs.cs" />
-    <Compile Include="ComWrapper\RJCP\SerialPortStream.cs" />
-    <Compile Include="ComWrapper\RJCP\StopBits.cs" />
-    <Compile Include="ComWrapper\RJCP\System\EntryPointNotFoundException.cs" />
-    <Compile Include="ComWrapper\RJCP\Trace\LineSplitter.cs" />
-    <Compile Include="ComWrapper\RJCP\Trace\Log.cs" />
-    <Compile Include="ComWrapper\RJCP\Trace\LoggerTraceListener.cs" />
-    <Compile Include="ComWrapper\RJCP\Trace\LogSource.cs" />
-    <Compile Include="ComWrapper\RJCP\Trace\LogSourceFactory.cs" />
-    <Compile Include="SvgIcons\SvgIcons.cs" />
-    <Compile Include="Tools\Application.cs" />
-    <Compile Include="Tools\DoubleBufferBmp.cs" />
-    <Compile Include="Tools\FormsHelper.cs" />
-    <Compile Include="Tools\Graph.cs" />
-    <Compile Include="Tools\MobileAverageCalculator.cs" />
-    <Compile Include="Tools\RetainedSetting.cs" />
-    <Compile Include="UserControls\FlatComboBox.cs">
+    <Compile Update="UserControls\FlatComboBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UserControls\GrblButton.cs">
+    <Compile Update="UserControls\GrblButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UserControls\GrblGroupBox.cs">
+    <Compile Update="UserControls\GrblGroupBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UserControls\GrblPanel3D.cs">
+    <Compile Update="UserControls\GrblPanel3D.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\GrblPanel3D.Designer.cs">
+    <Compile Update="UserControls\GrblPanel3D.Designer.cs">
       <DependentUpon>GrblPanel3D.cs</DependentUpon>
     </Compile>
-    <Compile Include="Obj3D\Objects3D.cs" />
-    <Compile Include="Resources\ResourceHelper.cs" />
-    <Compile Include="SafetyCountdown.cs">
+    <Compile Update="SafetyCountdown.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SafetyCountdown.Designer.cs">
+    <Compile Update="SafetyCountdown.Designer.cs">
       <DependentUpon>SafetyCountdown.cs</DependentUpon>
     </Compile>
-    <Compile Include="LegalDisclaimer.cs">
+    <Compile Update="LegalDisclaimer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LegalDisclaimer.Designer.cs">
+    <Compile Update="LegalDisclaimer.Designer.cs">
       <DependentUpon>LegalDisclaimer.cs</DependentUpon>
     </Compile>
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Assets\Asset.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Assets\Material.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Assets\Texture.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Cameras\ArcBallCamera.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Cameras\Camera.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Cameras\FrustumCamera.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Cameras\LookAtCamera.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Cameras\OrthographicCamera.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Cameras\PerspectiveCamera.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Collections.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Core\ArcBall.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Core\BoundingVolume.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Core\IBindable.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Core\IFreezable.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Core\IHasMaterial.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Core\IHasObjectSpace.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Core\IHasOpenGLContext.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Core\IRenderable.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Core\IVolumeBound.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Core\RenderMode.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Core\SceneContainer.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Core\SceneElement.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Core\SceneElementTraversal.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Core\VertexGrid.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\DisplayList.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Effects\ArcBallTransformationEffect.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Effects\Effect.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Effects\LinearTransformationEffect.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Effects\OpenGLAttributesEffect.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Evaluators\Evaluator.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Evaluators\Evaluator1D.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Evaluators\Evaluator2D.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Evaluators\NURBS.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Evaluators\NurbsCurve.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Evaluators\NurbsSurface.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Face.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Feedback\Feedback.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Feedback\Polygonator.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Feedback\Triangulator.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\GLColor.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Helpers\BoundingVolumeHelper.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Helpers\FreezableHelper.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Helpers\HasObjectSpaceHelper.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Helpers\OpenGLHelper.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Helpers\SceneHelper.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\IDeepClonable.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Index.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Lighting\Light.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Lighting\Spotlight.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Matrix.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\OpenGLAttributes\AccumBufferAttributes.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\OpenGLAttributes\ColorBufferAttributes.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\OpenGLAttributes\CurrentAttributes.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\OpenGLAttributes\DepthBufferAttributes.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\OpenGLAttributes\EnableAttributes.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\OpenGLAttributes\EvalAttributes.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\OpenGLAttributes\FogAttributes.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\OpenGLAttributes\HintAttributes.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\OpenGLAttributes\LightingAttributes.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\OpenGLAttributes\LineAttributes.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\OpenGLAttributes\ListAttributes.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\OpenGLAttributes\OpenGLAttributeGroup.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\OpenGLAttributes\PixelModeAttributes.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\OpenGLAttributes\PointAttributes.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\OpenGLAttributes\PolygonAttributes.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\OpenGLAttributes\PolygonStippleAttributes.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\OpenGLAttributes\ScissorAttributes.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\OpenGLAttributes\StencilBufferAttributes.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\OpenGLAttributes\TextureAttributes.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\OpenGLAttributes\TransformAttributes.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\OpenGLAttributes\ViewportAttributes.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\OpenGLEventArgs.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\OpenGLSceneGraphExtensions.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\ParticleSystem\Particle.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\ParticleSystem\ParticleSystems.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Plane.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Primitives\Axies.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Primitives\Cube.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Primitives\Folder.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Primitives\Grid.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Primitives\Polygon.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Primitives\Shadow.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Primitives\Teapot.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Quadrics\Cylinder.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Quadrics\Disk.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Quadrics\DrawStyle.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Quadrics\Normals.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Quadrics\Orientation.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Quadrics\Quadric.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Quadrics\Sphere.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Raytracing\Intersection.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Raytracing\IRayTracable.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Raytracing\Ray.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Raytracing\RayTracer.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Raytracing\ScreenPixel.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Scene.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Shaders\FragmentShader.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Shaders\Shader.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Shaders\ShaderProgram.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Shaders\VertexShader.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Transformations\LinearTransformation.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Transformations\Transformation.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\UV.cs" />
-    <Compile Include="SharpGL\SharpGL.SceneGraph\Vertex.cs" />
-    <Compile Include="SharpGL\SharpGL.Serialization\Caligari\CaligariChunk.cs" />
-    <Compile Include="SharpGL\SharpGL.Serialization\Caligari\CaligariFileFormat.cs" />
-    <Compile Include="SharpGL\SharpGL.Serialization\Caligari\CaligariFileHeader.cs" />
-    <Compile Include="SharpGL\SharpGL.Serialization\Caligari\CaligariPrimitives.cs" />
-    <Compile Include="SharpGL\SharpGL.Serialization\Caligari\PolygonChunk.cs" />
-    <Compile Include="SharpGL\SharpGL.Serialization\Discreet\Chunks.cs" />
-    <Compile Include="SharpGL\SharpGL.Serialization\Discreet\DiscreetFormat.cs" />
-    <Compile Include="SharpGL\SharpGL.Serialization\IFileFormat.cs" />
-    <Compile Include="SharpGL\SharpGL.Serialization\SerializationEngine.cs" />
-    <Compile Include="SharpGL\SharpGL.Serialization\SharpGL\SharpGLXmlFormat.cs" />
-    <Compile Include="SharpGL\SharpGL.Serialization\Wavefront\ObjFileFormat.cs" />
-    <Compile Include="SharpGL\SharpGL.WinForms\GLColourPicker.cs">
+    <Compile Update="SharpGL\SharpGL.WinForms\GLColourPicker.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SharpGL\SharpGL.WinForms\IdleTimeManager.cs" />
-    <Compile Include="SharpGL\SharpGL.WinForms\MaterialListViewItem.cs" />
-    <Compile Include="SharpGL\SharpGL.WinForms\NETDesignSurface\Converters\MaterialCollectionConverter.cs" />
-    <Compile Include="SharpGL\SharpGL.WinForms\NETDesignSurface\Converters\VertexConverter.cs" />
-    <Compile Include="SharpGL\SharpGL.WinForms\NETDesignSurface\Designers\OpenGLControlDesigner.cs" />
-    <Compile Include="SharpGL\SharpGL.WinForms\NETDesignSurface\DesignSurface.cs" />
-    <Compile Include="SharpGL\SharpGL.WinForms\NETDesignSurface\Editors\CameraCollectionEditor.cs" />
-    <Compile Include="SharpGL\SharpGL.WinForms\NETDesignSurface\Editors\EvaluatorCollectionEditor.cs" />
-    <Compile Include="SharpGL\SharpGL.WinForms\NETDesignSurface\Editors\QuadricCollectionEditor.cs" />
-    <Compile Include="SharpGL\SharpGL.WinForms\NETDesignSurface\Editors\UITextureEditor.cs" />
-    <Compile Include="SharpGL\SharpGL.WinForms\OpenGLControl.cs">
+    <Compile Update="SharpGL\SharpGL.WinForms\OpenGLControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SharpGL\SharpGL.WinForms\OpenGLControl.Designer.cs">
+    <Compile Update="SharpGL\SharpGL.WinForms\OpenGLControl.Designer.cs">
       <DependentUpon>OpenGLControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="SharpGL\SharpGL.WinForms\RenderEventArgs.cs" />
-    <Compile Include="SharpGL\SharpGL.WinForms\RenderTrigger.cs" />
-    <Compile Include="SharpGL\SharpGL.WinForms\SceneControl.cs">
+    <Compile Update="SharpGL\SharpGL.WinForms\SceneControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SharpGL\SharpGL.WinForms\VertexControl.cs">
+    <Compile Update="SharpGL\SharpGL.WinForms\VertexControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SharpGL\SharpGL\DIBSection.cs" />
-    <Compile Include="SharpGL\SharpGL\Enumerations\OpenGLEnumerations.cs" />
-    <Compile Include="SharpGL\SharpGL\FontBitmaps.cs" />
-    <Compile Include="SharpGL\SharpGL\FontOutlines.cs" />
-    <Compile Include="SharpGL\SharpGL\OpenGL.cs" />
-    <Compile Include="SharpGL\SharpGL\OpenGLExtensions.cs" />
-    <Compile Include="SharpGL\SharpGL\RenderContextProviders\DIBSectionRenderContextProvider.cs" />
-    <Compile Include="SharpGL\SharpGL\RenderContextProviders\ExternalRenderContextProvider.cs" />
-    <Compile Include="SharpGL\SharpGL\RenderContextProviders\FBORenderContextProvider.cs" />
-    <Compile Include="SharpGL\SharpGL\RenderContextProviders\HiddenWindowRenderContextProvider.cs" />
-    <Compile Include="SharpGL\SharpGL\RenderContextProviders\IRenderContextProvider.cs" />
-    <Compile Include="SharpGL\SharpGL\RenderContextProviders\NativeWindowRenderContextProvider.cs" />
-    <Compile Include="SharpGL\SharpGL\RenderContextProviders\RenderContextProvider.cs" />
-    <Compile Include="SharpGL\SharpGL\RenderContextType.cs" />
-    <Compile Include="SharpGL\SharpGL\Shaders\Shader.cs" />
-    <Compile Include="SharpGL\SharpGL\Shaders\ShaderCompilationException.cs" />
-    <Compile Include="SharpGL\SharpGL\Shaders\ShaderProgram.cs" />
-    <Compile Include="SharpGL\SharpGL\Version\OpenGLVersion.cs" />
-    <Compile Include="SharpGL\SharpGL\Version\VersionAttribute.cs" />
-    <Compile Include="SharpGL\SharpGL\VertexBuffers\IndexBuffer.cs" />
-    <Compile Include="SharpGL\SharpGL\VertexBuffers\VertexBuffer.cs" />
-    <Compile Include="SharpGL\SharpGL\VertexBuffers\VertexBufferArray.cs" />
-    <Compile Include="SharpGL\SharpGL\Win32.cs" />
-    <Compile Include="Tools\Project.cs" />
-    <Compile Include="Core\VigoCore.cs" />
-    <Compile Include="CsPotrace\PotraceClipper.cs" />
-    <Compile Include="Logger\AsyncLogFile.cs" />
-    <Compile Include="SvgConverter\BezierTools.cs" />
-    <Compile Include="Ntfy.cs" />
-    <Compile Include="Telegram.cs" />
-    <Compile Include="Tools\DataProtector.cs" />
-    <Compile Include="Tools\Json.cs" />
-    <Compile Include="Logger\ComLogger.cs" />
-    <Compile Include="ExceptionManager.cs">
+    <Compile Update="ExceptionManager.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ExceptionManager.Designer.cs">
+    <Compile Update="ExceptionManager.Designer.cs">
       <DependentUpon>ExceptionManager.cs</DependentUpon>
     </Compile>
-    <Compile Include="Firmware\FlashGrbl.cs">
+    <Compile Update="Firmware\FlashGrbl.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Firmware\FlashGrbl.Designer.cs">
+    <Compile Update="Firmware\FlashGrbl.Designer.cs">
       <DependentUpon>FlashGrbl.cs</DependentUpon>
     </Compile>
-    <Compile Include="LicenseForm.cs">
+    <Compile Update="LicenseForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LicenseForm.Designer.cs">
+    <Compile Update="LicenseForm.Designer.cs">
       <DependentUpon>LicenseForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\MarlinCore.cs" />
-    <Compile Include="PSHelper\MaterialDB.cs">
+    <Compile Update="PSHelper\MaterialDB.cs">
       <DependentUpon>MaterialDB.xsd</DependentUpon>
     </Compile>
-    <Compile Include="PSHelper\MaterialDB.Designer.cs">
+    <Compile Update="PSHelper\MaterialDB.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MaterialDB.xsd</DependentUpon>
     </Compile>
-    <Compile Include="PSHelper\PSEditorForm.cs">
+    <Compile Update="PSHelper\PSEditorForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PSHelper\PSEditorForm.Designer.cs">
+    <Compile Update="PSHelper\PSEditorForm.Designer.cs">
       <DependentUpon>PSEditorForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="PSHelper\PSHelperForm.cs">
+    <Compile Update="PSHelper\PSHelperForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PSHelper\PSHelperForm.Designer.cs">
+    <Compile Update="PSHelper\PSHelperForm.Designer.cs">
       <DependentUpon>PSHelperForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="SaveOptionForm.cs">
+    <Compile Update="SaveOptionForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SaveOptionForm.Designer.cs">
+    <Compile Update="SaveOptionForm.Designer.cs">
       <DependentUpon>SaveOptionForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="SincroStart.cs" />
-    <Compile Include="Core\SmoothieCore.cs" />
-    <Compile Include="Sound\SoundEvent.cs" />
-    <Compile Include="SvgConverter\ConvertSizeAndOptionForm.cs">
+    <Compile Update="SvgConverter\ConvertSizeAndOptionForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SvgConverter\ConvertSizeAndOptionForm.Designer.cs">
+    <Compile Update="SvgConverter\ConvertSizeAndOptionForm.Designer.cs">
       <DependentUpon>ConvertSizeAndOptionForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="SvgConverter\GCodeFromSVG.cs" />
-    <Compile Include="SvgConverter\gcodeRelated.cs" />
-    <Compile Include="SvgConverter\SvgModeForm.cs">
+    <Compile Update="SvgConverter\SvgModeForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SvgConverter\SvgModeForm.Designer.cs">
+    <Compile Update="SvgConverter\SvgModeForm.Designer.cs">
       <DependentUpon>SvgModeForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="SvgLibrary\Basic Shapes\SvgCircle.cs" />
-    <Compile Include="SvgLibrary\Basic Shapes\SvgEllipse.cs" />
-    <Compile Include="SvgLibrary\Basic Shapes\SvgImage.cs" />
-    <Compile Include="SvgLibrary\Basic Shapes\SvgLine.cs" />
-    <Compile Include="SvgLibrary\Basic Shapes\SvgPathBasedElement.cs" />
-    <Compile Include="SvgLibrary\Basic Shapes\SvgPolygon.cs" />
-    <Compile Include="SvgLibrary\Basic Shapes\SvgPolyline.cs" />
-    <Compile Include="SvgLibrary\Basic Shapes\SvgRectangle.cs" />
-    <Compile Include="SvgLibrary\Basic Shapes\SvgVisualElement.cs" />
-    <Compile Include="SvgLibrary\Basic Shapes\SvgVisualElementStyle.cs" />
-    <Compile Include="SvgLibrary\Clipping and Masking\ISvgClipable.cs" />
-    <Compile Include="SvgLibrary\Clipping and Masking\SvgClipPath.cs" />
-    <Compile Include="SvgLibrary\Clipping and Masking\SvgClipRule.cs" />
-    <Compile Include="SvgLibrary\Clipping and Masking\SvgMask.cs" />
-    <Compile Include="SvgLibrary\Css\CssQuery.cs" />
-    <Compile Include="SvgLibrary\Css\SvgElementOps.cs" />
-    <Compile Include="SvgLibrary\DataTypes\ISvgSupportsCoordinateUnits.cs" />
-    <Compile Include="SvgLibrary\DataTypes\ISvgViewPort.cs" />
-    <Compile Include="SvgLibrary\DataTypes\SvgAspectRatio.cs" />
-    <Compile Include="SvgLibrary\DataTypes\SvgAspectRatioConverter.cs" />
-    <Compile Include="SvgLibrary\DataTypes\SvgColourInterpolation.cs" />
-    <Compile Include="SvgLibrary\DataTypes\SvgCoordinateUnits.cs" />
-    <Compile Include="SvgLibrary\DataTypes\SvgElementStyle.cs" />
-    <Compile Include="SvgLibrary\DataTypes\SvgFontStyle.cs" />
-    <Compile Include="SvgLibrary\DataTypes\SvgFontVariant.cs" />
-    <Compile Include="SvgLibrary\DataTypes\SvgFontWeight.cs" />
-    <Compile Include="SvgLibrary\DataTypes\SvgMarkerUnits.cs" />
-    <Compile Include="SvgLibrary\DataTypes\SvgOrient.cs" />
-    <Compile Include="SvgLibrary\DataTypes\SvgOrientConverter.cs" />
-    <Compile Include="SvgLibrary\DataTypes\SvgOverflow.cs" />
-    <Compile Include="SvgLibrary\DataTypes\SvgPoint.cs" />
-    <Compile Include="SvgLibrary\DataTypes\SvgPointCollection.cs" />
-    <Compile Include="SvgLibrary\DataTypes\SvgTextDecoration.cs" />
-    <Compile Include="SvgLibrary\DataTypes\SvgTextLengthAdjust.cs" />
-    <Compile Include="SvgLibrary\DataTypes\SvgTextPathMethod.cs" />
-    <Compile Include="SvgLibrary\DataTypes\SvgTextPathSpacing.cs" />
-    <Compile Include="SvgLibrary\DataTypes\SvgUnit.cs" />
-    <Compile Include="SvgLibrary\DataTypes\SvgUnitCollection.cs" />
-    <Compile Include="SvgLibrary\DataTypes\SvgUnitConverter.cs" />
-    <Compile Include="SvgLibrary\DataTypes\SvgViewBox.cs" />
-    <Compile Include="SvgLibrary\DataTypes\XmlSpaceHandling.cs" />
-    <Compile Include="SvgLibrary\Document Structure\SvgDefinitionList.cs" />
-    <Compile Include="SvgLibrary\Document Structure\SvgDescription.cs" />
-    <Compile Include="SvgLibrary\Document Structure\SvgDocumentMetadata.cs" />
-    <Compile Include="SvgLibrary\Document Structure\SvgFragment.cs" />
-    <Compile Include="SvgLibrary\Document Structure\SvgGroup.cs" />
-    <Compile Include="SvgLibrary\Document Structure\SvgSwitch.cs" />
-    <Compile Include="SvgLibrary\Document Structure\SvgSymbol.cs" />
-    <Compile Include="SvgLibrary\Document Structure\SvgTitle.cs" />
-    <Compile Include="SvgLibrary\Document Structure\SvgUse.cs" />
-    <Compile Include="SvgLibrary\Exceptions\SvgException.cs" />
-    <Compile Include="SvgLibrary\Exceptions\SvgMemoryException.cs" />
-    <Compile Include="SvgLibrary\Extensibility\SvgForeignObject.cs" />
-    <Compile Include="SvgLibrary\ExtensionMethods\UriExtensions.cs" />
-    <Compile Include="SvgLibrary\Extensions.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\IToString.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Lexer.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\Enumerations.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\Extensions\CharacterExtensions.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\Extensions\StringExtensions.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\FunctionBuffer.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\HtmlEncoding.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\ICssRules.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\ICssSelector.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\IStyleDeclaration.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\ISupportsMedia.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\MediaTypeList.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\Rules\AggregateRule.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\Rules\CharacterSetRule.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\Rules\ConditionalRule.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\Rules\DocumentRule.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\Rules\FontFaceRule.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\Rules\GenericRule.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\Rules\ImportRule.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\Rules\IRuleContainer.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\Rules\KeyframeRule.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\Rules\KeyframesRule.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\Rules\MediaRule.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\Rules\NamespaceRule.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\Rules\PageRule.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\Rules\RuleSet.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\Rules\StyleDeclaration.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\Rules\StyleRule.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\Rules\SupportsRule.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\Selector\AggregateSelectorList.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\Selector\BaseSelector.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\Selector\CombinatorSelector.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\Selector\ComplexSelector.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\Selector\FirstChildSelector.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\Selector\LastChildSelector.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\Selector\MultipleSelectorList.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\Selector\NthChildSelector.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\Selector\NthFirstChildSelector.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\Selector\NthLastChildSelector.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\Selector\NthLastOfTypeSelector.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\Selector\NthOfTypeSelector.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\Selector\SelectorFactory.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\Selector\SelectorList.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\Selector\SimpleSelector.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\Specification.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\TextBlocks\Block.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\TextBlocks\BracketBlock.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\TextBlocks\CharacterBlock.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\TextBlocks\CommentBlock.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\TextBlocks\DelimiterBlock.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\TextBlocks\MatchBlock.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\TextBlocks\NumericBlock.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\TextBlocks\PipeBlock.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\TextBlocks\RangeBlock.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\TextBlocks\SpecialCharacter.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\TextBlocks\StringBlock.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\TextBlocks\SymbolBlock.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\TextBlocks\UnitBlock.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\Values\GenericFunction.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\Values\HtmlColor.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\Values\InheritTerm.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\Values\PrimitiveTerm.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\Values\Property.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\Values\Term.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Model\Values\TermList.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Parser.Blocks.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\Parser.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\StyleSheet.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\StylesheetParseError.cs" />
-    <Compile Include="SvgLibrary\External\ExCSS\StylesheetReader.cs" />
-    <Compile Include="SvgLibrary\External\Fizzler\Either.cs" />
-    <Compile Include="SvgLibrary\External\Fizzler\HumanReadableSelectorGenerator.cs" />
-    <Compile Include="SvgLibrary\External\Fizzler\IElementOps.cs" />
-    <Compile Include="SvgLibrary\External\Fizzler\ISelectorGenerator.cs" />
-    <Compile Include="SvgLibrary\External\Fizzler\NamespacePrefix.cs" />
-    <Compile Include="SvgLibrary\External\Fizzler\Parser.cs" />
-    <Compile Include="SvgLibrary\External\Fizzler\Reader.cs" />
-    <Compile Include="SvgLibrary\External\Fizzler\Selector.cs" />
-    <Compile Include="SvgLibrary\External\Fizzler\SelectorGenerator.cs" />
-    <Compile Include="SvgLibrary\External\Fizzler\SelectorGeneratorTee.cs" />
-    <Compile Include="SvgLibrary\External\Fizzler\SelectorsCachingCompiler.cs" />
-    <Compile Include="SvgLibrary\External\Fizzler\Token.cs" />
-    <Compile Include="SvgLibrary\External\Fizzler\Tokener.cs" />
-    <Compile Include="SvgLibrary\External\Fizzler\TokenKind.cs" />
-    <Compile Include="SvgLibrary\Filter Effects\feColourMatrix\SvgColourMatrix.cs" />
-    <Compile Include="SvgLibrary\Filter Effects\feColourMatrix\SvgColourMatrixType.cs" />
-    <Compile Include="SvgLibrary\Filter Effects\feGaussianBlur\RawBitmap.cs" />
-    <Compile Include="SvgLibrary\Filter Effects\feGaussianBlur\SvgGaussianBlur.cs" />
-    <Compile Include="SvgLibrary\Filter Effects\feMerge\SvgMerge.cs" />
-    <Compile Include="SvgLibrary\Filter Effects\feMerge\SvgMergeNode.cs" />
-    <Compile Include="SvgLibrary\Filter Effects\feOffset\SvgOffset.cs" />
-    <Compile Include="SvgLibrary\Filter Effects\ImageBuffer.cs" />
-    <Compile Include="SvgLibrary\Filter Effects\ISvgFilterable.cs" />
-    <Compile Include="SvgLibrary\Filter Effects\SvgFilter.cs" />
-    <Compile Include="SvgLibrary\Filter Effects\SvgFilterPrimitive.cs" />
-    <Compile Include="SvgLibrary\NonSvgElement.cs" />
-    <Compile Include="SvgLibrary\Painting\EnumConverters.cs" />
-    <Compile Include="SvgLibrary\Painting\GenericBoundable.cs" />
-    <Compile Include="SvgLibrary\Painting\ISvgBoundable.cs" />
-    <Compile Include="SvgLibrary\Painting\ISvgStylable.cs" />
-    <Compile Include="SvgLibrary\Painting\SvgColourConverter.cs" />
-    <Compile Include="SvgLibrary\Painting\SvgColourServer.cs" />
-    <Compile Include="SvgLibrary\Painting\SvgDeferredPaintServer.cs" />
-    <Compile Include="SvgLibrary\Painting\SvgFallbackPaintServer .cs" />
-    <Compile Include="SvgLibrary\Painting\SvgFillRule.cs" />
-    <Compile Include="SvgLibrary\Painting\SvgGradientServer.cs" />
-    <Compile Include="SvgLibrary\Painting\SvgGradientSpreadMethod.cs" />
-    <Compile Include="SvgLibrary\Painting\SvgGradientStop.cs" />
-    <Compile Include="SvgLibrary\Painting\SvgLinearGradientServer.cs" />
-    <Compile Include="SvgLibrary\Painting\SvgMarker.cs" />
-    <Compile Include="SvgLibrary\Painting\SvgPaintServer.cs" />
-    <Compile Include="SvgLibrary\Painting\SvgPaintServerFactory.cs" />
-    <Compile Include="SvgLibrary\Painting\SvgPatternServer.cs" />
-    <Compile Include="SvgLibrary\Painting\SvgRadialGradientServer.cs" />
-    <Compile Include="SvgLibrary\Painting\SvgStrokeLineCap.cs" />
-    <Compile Include="SvgLibrary\Painting\SvgStrokeLineJoin.cs" />
-    <Compile Include="SvgLibrary\Paths\CoordinateParser.cs" />
-    <Compile Include="SvgLibrary\Paths\SvgArcSegment.cs" />
-    <Compile Include="SvgLibrary\Paths\SvgClosePathSegment.cs" />
-    <Compile Include="SvgLibrary\Paths\SvgCubicCurveSegment.cs" />
-    <Compile Include="SvgLibrary\Paths\SvgLineSegment.cs" />
-    <Compile Include="SvgLibrary\Paths\SvgMoveToSegment.cs" />
-    <Compile Include="SvgLibrary\Paths\SvgPath.cs" />
-    <Compile Include="SvgLibrary\Paths\SvgPathBuilder.cs" />
-    <Compile Include="SvgLibrary\Paths\SvgPathSegment.cs" />
-    <Compile Include="SvgLibrary\Paths\SvgPathSegmentList.cs" />
-    <Compile Include="SvgLibrary\Paths\SvgQuadraticCurveSegment.cs" />
-    <Compile Include="SvgLibrary\Rendering\IGraphicsProvider.cs" />
-    <Compile Include="SvgLibrary\Rendering\ISvgRenderer.cs" />
-    <Compile Include="SvgLibrary\Rendering\SvgPathRenderer.cs" />
-    <Compile Include="SvgLibrary\Rendering\SvgRenderer.cs" />
-    <Compile Include="SvgLibrary\Rendering\SvgRendering.cs" />
-    <Compile Include="SvgLibrary\SvgAttributeAttribute.cs" />
-    <Compile Include="SvgLibrary\SvgAttributeCollection.cs" />
-    <Compile Include="SvgLibrary\SvgContentNode.cs" />
-    <Compile Include="SvgLibrary\SvgDefinitionDefaults.cs" />
-    <Compile Include="SvgLibrary\SvgDocument.cs" />
-    <Compile Include="SvgLibrary\SvgDtdResolver.cs" />
-    <Compile Include="SvgLibrary\SvgElement.cs" />
-    <Compile Include="SvgLibrary\SvgElementAttribute.cs" />
-    <Compile Include="SvgLibrary\SvgElementCollection.cs" />
-    <Compile Include="SvgLibrary\SvgElementFactory.cs" />
-    <Compile Include="SvgLibrary\SvgElementIdManager.cs" />
-    <Compile Include="SvgLibrary\SvgElementStyle.cs" />
-    <Compile Include="SvgLibrary\SvgExtentions.cs" />
-    <Compile Include="SvgLibrary\SvgNodeReader.cs" />
-    <Compile Include="SvgLibrary\SvgTextReader.cs" />
-    <Compile Include="SvgLibrary\SvgUnknownElement.cs" />
-    <Compile Include="SvgLibrary\Text\FontFamily.cs" />
-    <Compile Include="SvgLibrary\Text\GdiFontDefn.cs" />
-    <Compile Include="SvgLibrary\Text\IFontDefn.cs" />
-    <Compile Include="SvgLibrary\Text\PathStatistics.cs" />
-    <Compile Include="SvgLibrary\Text\SvgFont.cs" />
-    <Compile Include="SvgLibrary\Text\SvgFontDefn.cs" />
-    <Compile Include="SvgLibrary\Text\SvgFontFace.cs" />
-    <Compile Include="SvgLibrary\Text\SvgFontFaceSrc.cs" />
-    <Compile Include="SvgLibrary\Text\SvgFontFaceUri.cs" />
-    <Compile Include="SvgLibrary\Text\SvgGlyph.cs" />
-    <Compile Include="SvgLibrary\Text\SvgKern.cs" />
-    <Compile Include="SvgLibrary\Text\SvgMissingGlyph.cs" />
-    <Compile Include="SvgLibrary\Text\SvgText.cs" />
-    <Compile Include="SvgLibrary\Text\SvgTextAnchor.cs" />
-    <Compile Include="SvgLibrary\Text\SvgTextBase.cs" />
-    <Compile Include="SvgLibrary\Text\SvgTextPath.cs" />
-    <Compile Include="SvgLibrary\Text\SvgTextRef.cs" />
-    <Compile Include="SvgLibrary\Text\SvgTextSpan.cs" />
-    <Compile Include="SvgLibrary\Transforms\ISvgTransformable.cs" />
-    <Compile Include="SvgLibrary\Transforms\SvgMatrix.cs" />
-    <Compile Include="SvgLibrary\Transforms\SvgRotate.cs" />
-    <Compile Include="SvgLibrary\Transforms\SvgScale.cs" />
-    <Compile Include="SvgLibrary\Transforms\SvgShear.cs" />
-    <Compile Include="SvgLibrary\Transforms\SvgSkew.cs" />
-    <Compile Include="SvgLibrary\Transforms\SvgTransform.cs" />
-    <Compile Include="SvgLibrary\Transforms\SvgTransformCollection.cs" />
-    <Compile Include="SvgLibrary\Transforms\SvgTransformConverter.cs" />
-    <Compile Include="SvgLibrary\Transforms\SvgTranslate.cs" />
-    <Compile Include="SvgLibrary\Web\SvgHandler.cs" />
-    <Compile Include="Tools\OSHelper.cs" />
-    <Compile Include="UrlManager.cs" />
-    <Compile Include="ColorScheme.cs" />
-    <Compile Include="ComWrapper\Emulator.cs" />
-    <Compile Include="RunFromPositionForm.cs">
+    <Compile Update="RunFromPositionForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RunFromPositionForm.Designer.cs">
+    <Compile Update="RunFromPositionForm.Designer.cs">
       <DependentUpon>RunFromPositionForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="GrblConfig.cs">
+    <Compile Update="GrblConfig.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GrblConfig.Designer.cs">
+    <Compile Update="GrblConfig.Designer.cs">
       <DependentUpon>GrblConfig.cs</DependentUpon>
     </Compile>
-    <Compile Include="GrblEmulator\EmulatorUI.cs">
+    <Compile Update="GrblEmulator\EmulatorUI.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GrblEmulator\EmulatorUI.Designer.cs">
+    <Compile Update="GrblEmulator\EmulatorUI.Designer.cs">
       <DependentUpon>EmulatorUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="GrblEmulator\Grblv11Emulator.cs" />
-    <Compile Include="GrblEmulator\WebsocketEmulator.cs" />
-    <Compile Include="ComWrapper\IComWrapper.cs" />
-    <Compile Include="ComWrapper\LaserWebESP8266.cs" />
-    <Compile Include="ComWrapper\UsbSerial.cs" />
-    <Compile Include="ComWrapper\Telnet.cs" />
-    <Compile Include="ComWrapper\WebSocket\ByteOrder.cs" />
-    <Compile Include="ComWrapper\WebSocket\CloseEventArgs.cs" />
-    <Compile Include="ComWrapper\WebSocket\CloseStatusCode.cs" />
-    <Compile Include="ComWrapper\WebSocket\CompressionMethod.cs" />
-    <Compile Include="ComWrapper\WebSocket\ErrorEventArgs.cs" />
-    <Compile Include="ComWrapper\WebSocket\Ext.cs" />
-    <Compile Include="ComWrapper\WebSocket\Fin.cs" />
-    <Compile Include="ComWrapper\WebSocket\HttpBase.cs" />
-    <Compile Include="ComWrapper\WebSocket\HttpRequest.cs" />
-    <Compile Include="ComWrapper\WebSocket\HttpResponse.cs" />
-    <Compile Include="ComWrapper\WebSocket\LogData.cs" />
-    <Compile Include="ComWrapper\WebSocket\Logger.cs" />
-    <Compile Include="ComWrapper\WebSocket\LogLevel.cs" />
-    <Compile Include="ComWrapper\WebSocket\Mask.cs" />
-    <Compile Include="ComWrapper\WebSocket\MessageEventArgs.cs" />
-    <Compile Include="ComWrapper\WebSocket\Net\AuthenticationBase.cs" />
-    <Compile Include="ComWrapper\WebSocket\Net\AuthenticationChallenge.cs" />
-    <Compile Include="ComWrapper\WebSocket\Net\AuthenticationResponse.cs" />
-    <Compile Include="ComWrapper\WebSocket\Net\AuthenticationSchemes.cs" />
-    <Compile Include="ComWrapper\WebSocket\Net\Chunk.cs" />
-    <Compile Include="ComWrapper\WebSocket\Net\ChunkedRequestStream.cs" />
-    <Compile Include="ComWrapper\WebSocket\Net\ChunkStream.cs" />
-    <Compile Include="ComWrapper\WebSocket\Net\ClientSslConfiguration.cs" />
-    <Compile Include="ComWrapper\WebSocket\Net\Cookie.cs" />
-    <Compile Include="ComWrapper\WebSocket\Net\CookieCollection.cs" />
-    <Compile Include="ComWrapper\WebSocket\Net\CookieException.cs" />
-    <Compile Include="ComWrapper\WebSocket\Net\EndPointListener.cs" />
-    <Compile Include="ComWrapper\WebSocket\Net\EndPointManager.cs" />
-    <Compile Include="ComWrapper\WebSocket\Net\HttpBasicIdentity.cs" />
-    <Compile Include="ComWrapper\WebSocket\Net\HttpConnection.cs" />
-    <Compile Include="ComWrapper\WebSocket\Net\HttpDigestIdentity.cs" />
-    <Compile Include="ComWrapper\WebSocket\Net\HttpHeaderInfo.cs" />
-    <Compile Include="ComWrapper\WebSocket\Net\HttpHeaderType.cs" />
-    <Compile Include="ComWrapper\WebSocket\Net\HttpListener.cs" />
-    <Compile Include="ComWrapper\WebSocket\Net\HttpListenerAsyncResult.cs" />
-    <Compile Include="ComWrapper\WebSocket\Net\HttpListenerContext.cs" />
-    <Compile Include="ComWrapper\WebSocket\Net\HttpListenerException.cs" />
-    <Compile Include="ComWrapper\WebSocket\Net\HttpListenerPrefix.cs" />
-    <Compile Include="ComWrapper\WebSocket\Net\HttpListenerPrefixCollection.cs" />
-    <Compile Include="ComWrapper\WebSocket\Net\HttpListenerRequest.cs" />
-    <Compile Include="ComWrapper\WebSocket\Net\HttpListenerResponse.cs" />
-    <Compile Include="ComWrapper\WebSocket\Net\HttpRequestHeader.cs" />
-    <Compile Include="ComWrapper\WebSocket\Net\HttpResponseHeader.cs" />
-    <Compile Include="ComWrapper\WebSocket\Net\HttpStatusCode.cs" />
-    <Compile Include="ComWrapper\WebSocket\Net\HttpStreamAsyncResult.cs" />
-    <Compile Include="ComWrapper\WebSocket\Net\HttpUtility.cs" />
-    <Compile Include="ComWrapper\WebSocket\Net\HttpVersion.cs" />
-    <Compile Include="ComWrapper\WebSocket\Net\InputChunkState.cs" />
-    <Compile Include="ComWrapper\WebSocket\Net\InputState.cs" />
-    <Compile Include="ComWrapper\WebSocket\Net\LineState.cs" />
-    <Compile Include="ComWrapper\WebSocket\Net\NetworkCredential.cs" />
-    <Compile Include="ComWrapper\WebSocket\Net\QueryStringCollection.cs" />
-    <Compile Include="ComWrapper\WebSocket\Net\ReadBufferState.cs" />
-    <Compile Include="ComWrapper\WebSocket\Net\RequestStream.cs" />
-    <Compile Include="ComWrapper\WebSocket\Net\ResponseStream.cs" />
-    <Compile Include="ComWrapper\WebSocket\Net\ServerSslConfiguration.cs" />
-    <Compile Include="ComWrapper\WebSocket\Net\WebHeaderCollection.cs" />
-    <Compile Include="ComWrapper\WebSocket\Net\WebSockets\HttpListenerWebSocketContext.cs" />
-    <Compile Include="ComWrapper\WebSocket\Net\WebSockets\TcpListenerWebSocketContext.cs" />
-    <Compile Include="ComWrapper\WebSocket\Net\WebSockets\WebSocketContext.cs" />
-    <Compile Include="ComWrapper\WebSocket\Opcode.cs" />
-    <Compile Include="ComWrapper\WebSocket\PayloadData.cs" />
-    <Compile Include="ComWrapper\WebSocket\Rsv.cs" />
-    <Compile Include="ComWrapper\WebSocket\Server\HttpRequestEventArgs.cs" />
-    <Compile Include="ComWrapper\WebSocket\Server\HttpServer.cs" />
-    <Compile Include="ComWrapper\WebSocket\Server\IWebSocketSession.cs" />
-    <Compile Include="ComWrapper\WebSocket\Server\ServerState.cs" />
-    <Compile Include="ComWrapper\WebSocket\Server\WebSocketBehavior.cs" />
-    <Compile Include="ComWrapper\WebSocket\Server\WebSocketServer.cs" />
-    <Compile Include="ComWrapper\WebSocket\Server\WebSocketServiceHost.cs" />
-    <Compile Include="ComWrapper\WebSocket\Server\WebSocketServiceHost`1.cs" />
-    <Compile Include="ComWrapper\WebSocket\Server\WebSocketServiceManager.cs" />
-    <Compile Include="ComWrapper\WebSocket\Server\WebSocketSessionManager.cs" />
-    <Compile Include="ComWrapper\WebSocket\WebSocket.cs" />
-    <Compile Include="ComWrapper\WebSocket\WebSocketException.cs" />
-    <Compile Include="ComWrapper\WebSocket\WebSocketFrame.cs" />
-    <Compile Include="ComWrapper\WebSocket\WebSocketState.cs" />
-    <Compile Include="ConnectLogForm.cs">
+    <Compile Update="ConnectLogForm.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ConnectLogForm.Designer.cs">
+    <Compile Update="ConnectLogForm.Designer.cs">
       <DependentUpon>ConnectLogForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="CsPotrace\BezierToBiarc\Algorithm.cs" />
-    <Compile Include="CsPotrace\BezierToBiarc\Arc.cs" />
-    <Compile Include="CsPotrace\BezierToBiarc\BiArc.cs" />
-    <Compile Include="CsPotrace\BezierToBiarc\Complex.cs" />
-    <Compile Include="CsPotrace\BezierToBiarc\CubicBezier.cs" />
-    <Compile Include="CsPotrace\BezierToBiarc\Line.cs" />
-    <Compile Include="CsPotrace\BezierToBiarc\Tuple.cs" />
-    <Compile Include="CsPotrace\BezierToBiarc\Vector2.cs" />
-    <Compile Include="CsPotrace\CsPotrace.cs" />
-    <Compile Include="CsPotrace\CsPotraceExportGCODE.cs" />
-    <Compile Include="CsPotrace\CsPotraceExport.cs" />
-    <Compile Include="CustomButton.cs" />
-    <Compile Include="CustomButtonForm.cs">
+    <Compile Update="CustomButtonForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CustomButtonForm.Designer.cs">
+    <Compile Update="CustomButtonForm.Designer.cs">
       <DependentUpon>CustomButtonForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="AutoUpdate\GitHub.cs" />
-    <Compile Include="Core\GrblCore.cs" />
-    <Compile Include="Core\TimeProjection.cs" />
-    <Compile Include="CSV\CsvDictionary.cs" />
-    <Compile Include="CSV\FormattedMessage.cs" />
-    <Compile Include="GrblCommand.cs" />
-    <Compile Include="GrblFile.cs" />
-    <Compile Include="HotkeyManagerForm.cs">
+    <Compile Update="HotkeyManagerForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="HotkeyManagerForm.Designer.cs">
+    <Compile Update="HotkeyManagerForm.Designer.cs">
       <DependentUpon>HotkeyManagerForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="HotKeysManager.cs" />
-    <Compile Include="IssueDetectorForm.cs">
+    <Compile Update="IssueDetectorForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="IssueDetectorForm.Designer.cs">
+    <Compile Update="IssueDetectorForm.Designer.cs">
       <DependentUpon>IssueDetectorForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="JogForm.cs">
+    <Compile Update="JogForm.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="JogForm.Designer.cs">
+    <Compile Update="JogForm.Designer.cs">
       <DependentUpon>JogForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Logger\Logger.cs" />
-    <Compile Include="MainForm.cs">
+    <Compile Update="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Update="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="AutoUpdate\NewVersionForm.cs">
+    <Compile Update="AutoUpdate\NewVersionForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AutoUpdate\NewVersionForm.Designer.cs">
+    <Compile Update="AutoUpdate\NewVersionForm.Designer.cs">
       <DependentUpon>NewVersionForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MyDatagridView.cs">
+    <Compile Update="MyDatagridView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="PreviewForm.cs">
+    <Compile Update="PreviewForm.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="PreviewForm.Designer.cs">
+    <Compile Update="PreviewForm.Designer.cs">
       <DependentUpon>PreviewForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs" />
-    <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="ResumeJobForm.cs">
+    <Compile Update="ResumeJobForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ResumeJobForm.Designer.cs">
+    <Compile Update="ResumeJobForm.Designer.cs">
       <DependentUpon>ResumeJobForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="StateBuilder.cs" />
-    <Compile Include="Strings.Designer.cs">
+    <Compile Update="Strings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Strings.resx</DependentUpon>
     </Compile>
-    <Compile Include="RasterConverter\ConvertSizeAndOptionForm.cs">
+    <Compile Update="RasterConverter\ConvertSizeAndOptionForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RasterConverter\ConvertSizeAndOptionForm.Designer.cs">
+    <Compile Update="RasterConverter\ConvertSizeAndOptionForm.Designer.cs">
       <DependentUpon>ConvertSizeAndOptionForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="RasterConverter\Dithering\ArgbColor.cs" />
-    <Compile Include="RasterConverter\Dithering\AtkinsonDithering.cs" />
-    <Compile Include="RasterConverter\Dithering\BurkesDithering.cs" />
-    <Compile Include="RasterConverter\Dithering\ErrorDiffusionDithering.cs" />
-    <Compile Include="RasterConverter\Dithering\FloydSteinbergDithering.cs" />
-    <Compile Include="RasterConverter\Dithering\IErrorDiffusion.cs" />
-    <Compile Include="RasterConverter\Dithering\ImageUtilities.cs" />
-    <Compile Include="RasterConverter\Dithering\JarvisJudiceNinkeDithering.cs" />
-    <Compile Include="RasterConverter\Dithering\RandomDithering.cs" />
-    <Compile Include="RasterConverter\Dithering\Sierra2Dithering.cs" />
-    <Compile Include="RasterConverter\Dithering\Sierra3Dithering.cs" />
-    <Compile Include="RasterConverter\Dithering\SierraLiteDithering.cs" />
-    <Compile Include="RasterConverter\Dithering\StuckiDithering.cs" />
-    <Compile Include="RasterConverter\ImageProcessor.cs" />
-    <Compile Include="RasterConverter\ImageTransform.cs" />
-    <Compile Include="RasterConverter\RasterToLaserForm.cs">
+    <Compile Update="RasterConverter\RasterToLaserForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RasterConverter\RasterToLaserForm.Designer.cs">
+    <Compile Update="RasterConverter\RasterToLaserForm.Designer.cs">
       <DependentUpon>RasterToLaserForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="RasterConverter\ResolutionHelperForm.cs">
+    <Compile Update="RasterConverter\ResolutionHelperForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RasterConverter\ResolutionHelperForm.Designer.cs">
+    <Compile Update="RasterConverter\ResolutionHelperForm.Designer.cs">
       <DependentUpon>ResolutionHelperForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Settings.cs" />
-    <Compile Include="SettingsForm.cs">
+    <Compile Update="SettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SettingsForm.Designer.cs">
+    <Compile Update="SettingsForm.Designer.cs">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="SplashScreenForm.cs">
+    <Compile Update="SplashScreenForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SplashScreenForm.Designer.cs">
+    <Compile Update="SplashScreenForm.Designer.cs">
       <DependentUpon>SplashScreenForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Tools\Cronometro.cs" />
-    <Compile Include="Tools\ExpressionEvaluator.cs" />
-    <Compile Include="Tools\HiResTimer.cs" />
-    <Compile Include="Tools\InputBox.cs">
+    <Compile Update="Tools\InputBox.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Tools\MathHelper.cs" />
-    <Compile Include="Tools\Serializer.cs" />
-    <Compile Include="Tools\TaskScheduler.cs" />
-    <Compile Include="Tools\ThreadClass.cs" />
-    <Compile Include="Tools\WinAPI.cs" />
-    <Compile Include="Tools\WordWrap.cs" />
-    <Compile Include="UsageStats.cs" />
-    <Compile Include="UserControls\ColorProgressBar.cs">
+    <Compile Update="UserControls\ColorProgressBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\ColorProgressBar.Designer.cs">
+    <Compile Update="UserControls\ColorProgressBar.Designer.cs">
       <DependentUpon>ColorProgressBar.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\ColorProgressBarDesigner.cs" />
-    <Compile Include="UserControls\ColorSlider.cs">
+    <Compile Update="UserControls\ColorSlider.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UserControls\ColorSlider.Designer.cs">
+    <Compile Update="UserControls\ColorSlider.Designer.cs">
       <DependentUpon>ColorSlider.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\ComboBoxEnumItem.cs">
+    <Compile Update="UserControls\ComboBoxEnumItem.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UserControls\CommandLog.cs">
+    <Compile Update="UserControls\CommandLog.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\CommandLog.Designer.cs">
+    <Compile Update="UserControls\CommandLog.Designer.cs">
       <DependentUpon>CommandLog.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\DoubleProgressBar.cs">
+    <Compile Update="UserControls\DoubleProgressBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\DoubleProgressBar.Designer.cs">
+    <Compile Update="UserControls\DoubleProgressBar.Designer.cs">
       <DependentUpon>DoubleProgressBar.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\GrblPanel.cs">
+    <Compile Update="UserControls\GrblPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\GrblPanel.Designer.cs">
+    <Compile Update="UserControls\GrblPanel.Designer.cs">
       <DependentUpon>GrblPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\GrblTextBox.cs">
+    <Compile Update="UserControls\GrblTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UserControls\GrblTextBox.Designer.cs">
+    <Compile Update="UserControls\GrblTextBox.Designer.cs">
       <DependentUpon>GrblTextBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\IGrblPanel.cs" />
-    <Compile Include="UserControls\ImageButton.cs">
+    <Compile Update="UserControls\ImageButton.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\ImageButton.Designer.cs">
+    <Compile Update="UserControls\ImageButton.Designer.cs">
       <DependentUpon>ImageButton.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\ImageTransform.cs" />
-    <Compile Include="UserControls\Move2DControl.cs">
+    <Compile Update="UserControls\Move2DControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\MyPictureBox.cs">
+    <Compile Update="UserControls\MyPictureBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UserControls\MyPictureBox.designer.cs">
+    <Compile Update="UserControls\MyPictureBox.designer.cs">
       <DependentUpon>MyPictureBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\NumericInput\ColoredBorderControl.cs">
+    <Compile Update="UserControls\NumericInput\ColoredBorderControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\NumericInput\DecimalInputBase.cs">
+    <Compile Update="UserControls\NumericInput\DecimalInputBase.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\NumericInput\DecimalInputBase.Designer.cs">
+    <Compile Update="UserControls\NumericInput\DecimalInputBase.Designer.cs">
       <DependentUpon>DecimalInputBase.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\NumericInput\DecimalInputRanged.cs">
+    <Compile Update="UserControls\NumericInput\DecimalInputRanged.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\NumericInput\IntegerInputBase.cs">
+    <Compile Update="UserControls\NumericInput\IntegerInputBase.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\NumericInput\IntegerInputRanged.cs">
+    <Compile Update="UserControls\NumericInput\IntegerInputRanged.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\LabelTB.cs">
+    <Compile Update="UserControls\LabelTB.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\LabelTB.Designer.cs">
+    <Compile Update="UserControls\LabelTB.Designer.cs">
       <DependentUpon>LabelTB.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\NumericInput\NumericUpDown.cs">
+    <Compile Update="UserControls\NumericInput\NumericUpDown.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\NumericInput\NumericUpDown.Designer.cs">
+    <Compile Update="UserControls\NumericInput\NumericUpDown.Designer.cs">
       <DependentUpon>NumericUpDown.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\PlaceholderTextbox.cs">
+    <Compile Update="UserControls\PlaceholderTextbox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UserControls\TextInput.cs">
+    <Compile Update="UserControls\TextInput.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\TextInput.Designer.cs">
+    <Compile Update="UserControls\TextInput.Designer.cs">
       <DependentUpon>TextInput.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\ThemeMgr.cs" />
-    <Compile Include="UserControls\UsageClassPreview.cs">
+    <Compile Update="UserControls\UsageClassPreview.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\UsageClassPreview.Designer.cs">
+    <Compile Update="UserControls\UsageClassPreview.Designer.cs">
       <DependentUpon>UsageClassPreview.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\WaitingProgressBar.cs">
+    <Compile Update="UserControls\WaitingProgressBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="WiFiConfigurator\OrturWiFiConfig.cs">
+    <Compile Update="WiFiConfigurator\OrturWiFiConfig.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="WiFiConfigurator\OrturWiFiConfig.Designer.cs">
+    <Compile Update="WiFiConfigurator\OrturWiFiConfig.Designer.cs">
       <DependentUpon>OrturWiFiConfig.cs</DependentUpon>
     </Compile>
-    <Compile Include="WiFiConfigurator\OrturWiFiConfigPrompt.cs">
+    <Compile Update="WiFiConfigurator\OrturWiFiConfigPrompt.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="WiFiConfigurator\OrturWiFiConfigPrompt.Designer.cs">
+    <Compile Update="WiFiConfigurator\OrturWiFiConfigPrompt.Designer.cs">
       <DependentUpon>OrturWiFiConfigPrompt.cs</DependentUpon>
     </Compile>
-    <Compile Include="WiFiDiscovery\DiscoveryForm.cs">
+    <Compile Update="WiFiDiscovery\DiscoveryForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="WiFiDiscovery\DiscoveryForm.Designer.cs">
+    <Compile Update="WiFiDiscovery\DiscoveryForm.Designer.cs">
       <DependentUpon>DiscoveryForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="WiFiDiscovery\IPAddressHelper.cs" />
-    <EmbeddedResource Include="AutoUpdate\NewVersionForm.ja-JP.resx">
+    <EmbeddedResource Update="AutoUpdate\NewVersionForm.ja-JP.resx">
       <DependentUpon>NewVersionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AutoUpdate\NewVersionForm.nl-NL.resx">
+    <EmbeddedResource Update="AutoUpdate\NewVersionForm.nl-NL.resx">
       <DependentUpon>NewVersionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AutoUpdate\NewVersionForm.pt-BR.resx">
+    <EmbeddedResource Update="AutoUpdate\NewVersionForm.pt-BR.resx">
       <DependentUpon>NewVersionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AutoUpdate\NewVersionForm.ro-RO.resx">
+    <EmbeddedResource Update="AutoUpdate\NewVersionForm.ro-RO.resx">
       <DependentUpon>NewVersionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ConnectLogForm.ja-JP.resx">
+    <EmbeddedResource Update="ConnectLogForm.ja-JP.resx">
       <DependentUpon>ConnectLogForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ConnectLogForm.nl-NL.resx">
+    <EmbeddedResource Update="ConnectLogForm.nl-NL.resx">
       <DependentUpon>ConnectLogForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ConnectLogForm.ro-RO.resx">
+    <EmbeddedResource Update="ConnectLogForm.ro-RO.resx">
       <DependentUpon>ConnectLogForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ConnectLogForm.uk.resx">
+    <EmbeddedResource Update="ConnectLogForm.uk.resx">
       <DependentUpon>ConnectLogForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CustomButtonForm.ja-JP.resx">
+    <EmbeddedResource Update="CustomButtonForm.ja-JP.resx">
       <DependentUpon>CustomButtonForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CustomButtonForm.nl-NL.resx">
+    <EmbeddedResource Update="CustomButtonForm.nl-NL.resx">
       <DependentUpon>CustomButtonForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CustomButtonForm.pt-BR.resx">
+    <EmbeddedResource Update="CustomButtonForm.pt-BR.resx">
       <DependentUpon>CustomButtonForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CustomButtonForm.ro-RO.resx">
+    <EmbeddedResource Update="CustomButtonForm.ro-RO.resx">
       <DependentUpon>CustomButtonForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CustomButtonForm.uk.resx">
+    <EmbeddedResource Update="CustomButtonForm.uk.resx">
       <DependentUpon>CustomButtonForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ExceptionManager.ja-JP.resx">
+    <EmbeddedResource Update="ExceptionManager.ja-JP.resx">
       <DependentUpon>ExceptionManager.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ExceptionManager.pt-BR.resx">
+    <EmbeddedResource Update="ExceptionManager.pt-BR.resx">
       <DependentUpon>ExceptionManager.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ExceptionManager.zh-CN.resx">
+    <EmbeddedResource Update="ExceptionManager.zh-CN.resx">
       <DependentUpon>ExceptionManager.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Firmware\FlashGrbl.pt-BR.resx">
+    <EmbeddedResource Update="Firmware\FlashGrbl.pt-BR.resx">
       <DependentUpon>FlashGrbl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Firmware\FlashGrbl.zh-CN.resx">
+    <EmbeddedResource Update="Firmware\FlashGrbl.zh-CN.resx">
       <DependentUpon>FlashGrbl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Generator\CuttingTest.pt-BR.resx">
+    <EmbeddedResource Update="Generator\CuttingTest.pt-BR.resx">
       <DependentUpon>CuttingTest.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Generator\CuttingTest.resx">
+    <EmbeddedResource Update="Generator\CuttingTest.resx">
       <DependentUpon>CuttingTest.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Generator\CuttingTest.zh-CN.resx">
+    <EmbeddedResource Update="Generator\CuttingTest.zh-CN.resx">
       <DependentUpon>CuttingTest.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Generator\PowerVsSpeedForm.pt-BR.resx">
+    <EmbeddedResource Update="Generator\PowerVsSpeedForm.pt-BR.resx">
       <DependentUpon>PowerVsSpeedForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Generator\PowerVsSpeedForm.resx">
+    <EmbeddedResource Update="Generator\PowerVsSpeedForm.resx">
       <DependentUpon>PowerVsSpeedForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Generator\PowerVsSpeedForm.zh-CN.resx">
+    <EmbeddedResource Update="Generator\PowerVsSpeedForm.zh-CN.resx">
       <DependentUpon>PowerVsSpeedForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Generator\ShakeTest.ja-JP.resx">
+    <EmbeddedResource Update="Generator\ShakeTest.ja-JP.resx">
       <DependentUpon>ShakeTest.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Generator\ShakeTest.pt-BR.resx">
+    <EmbeddedResource Update="Generator\ShakeTest.pt-BR.resx">
       <DependentUpon>ShakeTest.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Generator\ShakeTest.resx">
+    <EmbeddedResource Update="Generator\ShakeTest.resx">
       <DependentUpon>ShakeTest.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Generator\ShakeTest.zh-CN.resx">
+    <EmbeddedResource Update="Generator\ShakeTest.zh-CN.resx">
       <DependentUpon>ShakeTest.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GrblConfig.ja-JP.resx">
+    <EmbeddedResource Update="GrblConfig.ja-JP.resx">
       <DependentUpon>GrblConfig.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GrblConfig.pt-BR.resx">
+    <EmbeddedResource Update="GrblConfig.pt-BR.resx">
       <DependentUpon>GrblConfig.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="HotkeyManagerForm.ja-JP.resx">
+    <EmbeddedResource Update="HotkeyManagerForm.ja-JP.resx">
       <DependentUpon>HotkeyManagerForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="HotkeyManagerForm.pt-BR.resx">
+    <EmbeddedResource Update="HotkeyManagerForm.pt-BR.resx">
       <DependentUpon>HotkeyManagerForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="HotkeyManagerForm.zh-CN.resx">
+    <EmbeddedResource Update="HotkeyManagerForm.zh-CN.resx">
       <DependentUpon>HotkeyManagerForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="IssueDetectorForm.ja-JP.resx">
+    <EmbeddedResource Update="IssueDetectorForm.ja-JP.resx">
       <DependentUpon>IssueDetectorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="IssueDetectorForm.pt-BR.resx">
+    <EmbeddedResource Update="IssueDetectorForm.pt-BR.resx">
       <DependentUpon>IssueDetectorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LaserLifeEdit.pt-BR.resx">
+    <EmbeddedResource Update="LaserLifeEdit.pt-BR.resx">
       <DependentUpon>LaserLifeEdit.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LaserLifeEdit.resx">
+    <EmbeddedResource Update="LaserLifeEdit.resx">
       <DependentUpon>LaserLifeEdit.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LaserLifeEdit.zh-CN.resx">
+    <EmbeddedResource Update="LaserLifeEdit.zh-CN.resx">
       <DependentUpon>LaserLifeEdit.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LaserSelector.resx">
+    <EmbeddedResource Update="LaserSelector.resx">
       <DependentUpon>LaserSelector.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LaserUsage.pt-BR.resx">
+    <EmbeddedResource Update="LaserUsage.pt-BR.resx">
       <DependentUpon>LaserUsage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LaserUsage.resx">
+    <EmbeddedResource Update="LaserUsage.resx">
       <DependentUpon>LaserUsage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LaserUsage.zh-CN.resx">
+    <EmbeddedResource Update="LaserUsage.zh-CN.resx">
       <DependentUpon>LaserUsage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LegalDisclaimer.ja-JP.resx">
+    <EmbeddedResource Update="LegalDisclaimer.ja-JP.resx">
       <DependentUpon>LegalDisclaimer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LegalDisclaimer.pt-BR.resx">
+    <EmbeddedResource Update="LegalDisclaimer.pt-BR.resx">
       <DependentUpon>LegalDisclaimer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LegalDisclaimer.zh-CN.resx">
+    <EmbeddedResource Update="LegalDisclaimer.zh-CN.resx">
       <DependentUpon>LegalDisclaimer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.ja-JP.resx">
+    <EmbeddedResource Update="MainForm.ja-JP.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PSHelper\PSEditorForm.ja-JP.resx">
+    <EmbeddedResource Update="PSHelper\PSEditorForm.ja-JP.resx">
       <DependentUpon>PSEditorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PSHelper\PSEditorForm.pt-BR.resx">
+    <EmbeddedResource Update="PSHelper\PSEditorForm.pt-BR.resx">
       <DependentUpon>PSEditorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PSHelper\PSEditorForm.zh-CN.resx">
+    <EmbeddedResource Update="PSHelper\PSEditorForm.zh-CN.resx">
       <DependentUpon>PSEditorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PSHelper\PSHelperForm.ja-JP.resx">
+    <EmbeddedResource Update="PSHelper\PSHelperForm.ja-JP.resx">
       <DependentUpon>PSHelperForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PSHelper\PSHelperForm.pt-BR.resx">
+    <EmbeddedResource Update="PSHelper\PSHelperForm.pt-BR.resx">
       <DependentUpon>PSHelperForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PSHelper\PSHelperForm.zh-CN.resx">
+    <EmbeddedResource Update="PSHelper\PSHelperForm.zh-CN.resx">
       <DependentUpon>PSHelperForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\ConvertSizeAndOptionForm.ja-JP.resx">
+    <EmbeddedResource Update="RasterConverter\ConvertSizeAndOptionForm.ja-JP.resx">
       <DependentUpon>ConvertSizeAndOptionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\RasterToLaserForm.ja-JP.resx">
+    <EmbeddedResource Update="RasterConverter\RasterToLaserForm.ja-JP.resx">
       <DependentUpon>RasterToLaserForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\ResolutionHelperForm.ja-JP.resx">
+    <EmbeddedResource Update="RasterConverter\ResolutionHelperForm.ja-JP.resx">
       <DependentUpon>ResolutionHelperForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ResumeJobForm.ja-JP.resx">
+    <EmbeddedResource Update="ResumeJobForm.ja-JP.resx">
       <DependentUpon>ResumeJobForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RunFromPositionForm.ja-JP.resx">
+    <EmbeddedResource Update="RunFromPositionForm.ja-JP.resx">
       <DependentUpon>RunFromPositionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SaveOptionForm.ja-JP.resx">
+    <EmbeddedResource Update="SaveOptionForm.ja-JP.resx">
       <DependentUpon>SaveOptionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SaveOptionForm.zh-CN.resx">
+    <EmbeddedResource Update="SaveOptionForm.zh-CN.resx">
       <DependentUpon>SaveOptionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SettingsForm.ja-JP.resx">
+    <EmbeddedResource Update="SettingsForm.ja-JP.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SvgConverter\ConvertSizeAndOptionForm.ja-JP.resx">
+    <EmbeddedResource Update="SvgConverter\ConvertSizeAndOptionForm.ja-JP.resx">
       <DependentUpon>ConvertSizeAndOptionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\GrblPanel3D.resx">
+    <EmbeddedResource Update="UserControls\GrblPanel3D.resx">
       <DependentUpon>GrblPanel3D.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PreviewForm.pt-BR.resx">
+    <EmbeddedResource Update="PreviewForm.pt-BR.resx">
       <DependentUpon>PreviewForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ResumeJobForm.pt-BR.resx">
+    <EmbeddedResource Update="ResumeJobForm.pt-BR.resx">
       <DependentUpon>ResumeJobForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RunFromPositionForm.pt-BR.resx">
+    <EmbeddedResource Update="RunFromPositionForm.pt-BR.resx">
       <DependentUpon>RunFromPositionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SafetyCountdown.resx">
+    <EmbeddedResource Update="SafetyCountdown.resx">
       <DependentUpon>SafetyCountdown.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ExceptionManager.hu-HU.resx">
+    <EmbeddedResource Update="ExceptionManager.hu-HU.resx">
       <DependentUpon>ExceptionManager.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ExceptionManager.nl-NL.resx">
+    <EmbeddedResource Update="ExceptionManager.nl-NL.resx">
       <DependentUpon>ExceptionManager.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ExceptionManager.ro-RO.resx">
+    <EmbeddedResource Update="ExceptionManager.ro-RO.resx">
       <DependentUpon>ExceptionManager.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ExceptionManager.uk.resx">
+    <EmbeddedResource Update="ExceptionManager.uk.resx">
       <DependentUpon>ExceptionManager.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GrblConfig.nl-NL.resx">
+    <EmbeddedResource Update="GrblConfig.nl-NL.resx">
       <DependentUpon>GrblConfig.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GrblConfig.ro-RO.resx">
+    <EmbeddedResource Update="GrblConfig.ro-RO.resx">
       <DependentUpon>GrblConfig.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GrblConfig.uk.resx">
+    <EmbeddedResource Update="GrblConfig.uk.resx">
       <DependentUpon>GrblConfig.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="HotkeyManagerForm.nl-NL.resx">
+    <EmbeddedResource Update="HotkeyManagerForm.nl-NL.resx">
       <DependentUpon>HotkeyManagerForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="HotkeyManagerForm.ro-RO.resx">
+    <EmbeddedResource Update="HotkeyManagerForm.ro-RO.resx">
       <DependentUpon>HotkeyManagerForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="HotkeyManagerForm.uk.resx">
+    <EmbeddedResource Update="HotkeyManagerForm.uk.resx">
       <DependentUpon>HotkeyManagerForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="IssueDetectorForm.nl-NL.resx">
+    <EmbeddedResource Update="IssueDetectorForm.nl-NL.resx">
       <DependentUpon>IssueDetectorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="IssueDetectorForm.ro-RO.resx">
+    <EmbeddedResource Update="IssueDetectorForm.ro-RO.resx">
       <DependentUpon>IssueDetectorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="IssueDetectorForm.uk.resx">
+    <EmbeddedResource Update="IssueDetectorForm.uk.resx">
       <DependentUpon>IssueDetectorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LegalDisclaimer.resx">
+    <EmbeddedResource Update="LegalDisclaimer.resx">
       <DependentUpon>LegalDisclaimer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.nl-NL.resx">
+    <EmbeddedResource Update="MainForm.nl-NL.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.ro-RO.resx">
+    <EmbeddedResource Update="MainForm.ro-RO.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.uk.resx">
+    <EmbeddedResource Update="MainForm.uk.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PreviewForm.nl-NL.resx">
+    <EmbeddedResource Update="PreviewForm.nl-NL.resx">
       <DependentUpon>PreviewForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PreviewForm.ro-RO.resx">
+    <EmbeddedResource Update="PreviewForm.ro-RO.resx">
       <DependentUpon>PreviewForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PreviewForm.uk.resx">
+    <EmbeddedResource Update="PreviewForm.uk.resx">
       <DependentUpon>PreviewForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PSHelper\PSEditorForm.hu-HU.resx">
+    <EmbeddedResource Update="PSHelper\PSEditorForm.hu-HU.resx">
       <DependentUpon>PSEditorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PSHelper\PSEditorForm.nl-NL.resx">
+    <EmbeddedResource Update="PSHelper\PSEditorForm.nl-NL.resx">
       <DependentUpon>PSEditorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PSHelper\PSEditorForm.ro-RO.resx">
+    <EmbeddedResource Update="PSHelper\PSEditorForm.ro-RO.resx">
       <DependentUpon>PSEditorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PSHelper\PSHelperForm.hu-HU.resx">
+    <EmbeddedResource Update="PSHelper\PSHelperForm.hu-HU.resx">
       <DependentUpon>PSHelperForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PSHelper\PSHelperForm.nl-NL.resx">
+    <EmbeddedResource Update="PSHelper\PSHelperForm.nl-NL.resx">
       <DependentUpon>PSHelperForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PSHelper\PSHelperForm.ro-RO.resx">
+    <EmbeddedResource Update="PSHelper\PSHelperForm.ro-RO.resx">
       <DependentUpon>PSHelperForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\ConvertSizeAndOptionForm.nl-NL.resx">
+    <EmbeddedResource Update="RasterConverter\ConvertSizeAndOptionForm.nl-NL.resx">
       <DependentUpon>ConvertSizeAndOptionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\ConvertSizeAndOptionForm.ro-RO.resx">
+    <EmbeddedResource Update="RasterConverter\ConvertSizeAndOptionForm.ro-RO.resx">
       <DependentUpon>ConvertSizeAndOptionForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\RasterToLaserForm.nl-NL.resx">
+    <EmbeddedResource Update="RasterConverter\RasterToLaserForm.nl-NL.resx">
       <DependentUpon>RasterToLaserForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\RasterToLaserForm.ro-RO.resx">
+    <EmbeddedResource Update="RasterConverter\RasterToLaserForm.ro-RO.resx">
       <DependentUpon>RasterToLaserForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\ResolutionHelperForm.nl-NL.resx">
+    <EmbeddedResource Update="RasterConverter\ResolutionHelperForm.nl-NL.resx">
       <DependentUpon>ResolutionHelperForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\ResolutionHelperForm.ro-RO.resx">
+    <EmbeddedResource Update="RasterConverter\ResolutionHelperForm.ro-RO.resx">
       <DependentUpon>ResolutionHelperForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ResumeJobForm.nl-NL.resx">
+    <EmbeddedResource Update="ResumeJobForm.nl-NL.resx">
       <DependentUpon>ResumeJobForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ResumeJobForm.ro-RO.resx">
+    <EmbeddedResource Update="ResumeJobForm.ro-RO.resx">
       <DependentUpon>ResumeJobForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ResumeJobForm.uk.resx">
+    <EmbeddedResource Update="ResumeJobForm.uk.resx">
       <DependentUpon>ResumeJobForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RunFromPositionForm.nl-NL.resx">
+    <EmbeddedResource Update="RunFromPositionForm.nl-NL.resx">
       <DependentUpon>RunFromPositionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RunFromPositionForm.ro-RO.resx">
+    <EmbeddedResource Update="RunFromPositionForm.ro-RO.resx">
       <DependentUpon>RunFromPositionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RunFromPositionForm.uk.resx">
+    <EmbeddedResource Update="RunFromPositionForm.uk.resx">
       <DependentUpon>RunFromPositionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SaveOptionForm.hu-HU.resx">
+    <EmbeddedResource Update="SaveOptionForm.hu-HU.resx">
       <DependentUpon>SaveOptionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SaveOptionForm.nl-NL.resx">
+    <EmbeddedResource Update="SaveOptionForm.nl-NL.resx">
       <DependentUpon>SaveOptionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SaveOptionForm.pt-BR.resx">
+    <EmbeddedResource Update="SaveOptionForm.pt-BR.resx">
       <DependentUpon>SaveOptionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SaveOptionForm.ro-RO.resx">
+    <EmbeddedResource Update="SaveOptionForm.ro-RO.resx">
       <DependentUpon>SaveOptionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SaveOptionForm.uk.resx">
+    <EmbeddedResource Update="SaveOptionForm.uk.resx">
       <DependentUpon>SaveOptionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SettingsForm.nl-NL.resx">
+    <EmbeddedResource Update="SettingsForm.nl-NL.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SettingsForm.ro-RO.resx">
+    <EmbeddedResource Update="SettingsForm.ro-RO.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SettingsForm.uk.resx">
+    <EmbeddedResource Update="SettingsForm.uk.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SharpGL\SharpGL.WinForms\GLColourPicker.resx">
+    <EmbeddedResource Update="SharpGL\SharpGL.WinForms\GLColourPicker.resx">
       <DependentUpon>GLColourPicker.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SharpGL\SharpGL.WinForms\OpenGLControl.resx">
+    <EmbeddedResource Update="SharpGL\SharpGL.WinForms\OpenGLControl.resx">
       <DependentUpon>OpenGLControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SharpGL\SharpGL.WinForms\SceneControl.resx">
+    <EmbeddedResource Update="SharpGL\SharpGL.WinForms\SceneControl.resx">
       <DependentUpon>SceneControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SharpGL\SharpGL.WinForms\VertexControl.resx">
+    <EmbeddedResource Update="SharpGL\SharpGL.WinForms\VertexControl.resx">
       <DependentUpon>VertexControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SvgConverter\ConvertSizeAndOptionForm.nl-NL.resx">
+    <EmbeddedResource Update="SvgConverter\ConvertSizeAndOptionForm.nl-NL.resx">
       <DependentUpon>ConvertSizeAndOptionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SvgConverter\ConvertSizeAndOptionForm.ro-RO.resx">
+    <EmbeddedResource Update="SvgConverter\ConvertSizeAndOptionForm.ro-RO.resx">
       <DependentUpon>ConvertSizeAndOptionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\TextInput.resx">
+    <EmbeddedResource Update="UserControls\TextInput.resx">
       <DependentUpon>TextInput.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\UsageClassPreview.resx">
+    <EmbeddedResource Update="UserControls\UsageClassPreview.resx">
       <DependentUpon>UsageClassPreview.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="WiFiConfigurator\OrturWiFiConfig.resx">
+    <EmbeddedResource Update="WiFiConfigurator\OrturWiFiConfig.resx">
       <DependentUpon>OrturWiFiConfig.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="WiFiConfigurator\OrturWiFiConfigPrompt.ja-JP.resx">
+    <EmbeddedResource Update="WiFiConfigurator\OrturWiFiConfigPrompt.ja-JP.resx">
       <DependentUpon>OrturWiFiConfigPrompt.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="WiFiConfigurator\OrturWiFiConfigPrompt.pt-BR.resx">
+    <EmbeddedResource Update="WiFiConfigurator\OrturWiFiConfigPrompt.pt-BR.resx">
       <DependentUpon>OrturWiFiConfigPrompt.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="WiFiConfigurator\OrturWiFiConfigPrompt.resx">
+    <EmbeddedResource Update="WiFiConfigurator\OrturWiFiConfigPrompt.resx">
       <DependentUpon>OrturWiFiConfigPrompt.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="WiFiConfigurator\OrturWiFiConfigPrompt.zh-CN.resx">
+    <EmbeddedResource Update="WiFiConfigurator\OrturWiFiConfigPrompt.zh-CN.resx">
       <DependentUpon>OrturWiFiConfigPrompt.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="WiFiDiscovery\DiscoveryForm.hu-HU.resx">
+    <EmbeddedResource Update="WiFiDiscovery\DiscoveryForm.hu-HU.resx">
       <DependentUpon>DiscoveryForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="WiFiDiscovery\DiscoveryForm.ja-JP.resx">
+    <EmbeddedResource Update="WiFiDiscovery\DiscoveryForm.ja-JP.resx">
       <DependentUpon>DiscoveryForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="WiFiDiscovery\DiscoveryForm.nl-NL.resx">
+    <EmbeddedResource Update="WiFiDiscovery\DiscoveryForm.nl-NL.resx">
       <DependentUpon>DiscoveryForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="WiFiDiscovery\DiscoveryForm.pt-BR.resx">
+    <EmbeddedResource Update="WiFiDiscovery\DiscoveryForm.pt-BR.resx">
       <DependentUpon>DiscoveryForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="WiFiDiscovery\DiscoveryForm.resx">
+    <EmbeddedResource Update="WiFiDiscovery\DiscoveryForm.resx">
       <DependentUpon>DiscoveryForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CSV\setting_codes.ortur.v1.5.x.csv" />
-    <EmbeddedResource Include="WiFiDiscovery\DiscoveryForm.ro-RO.resx">
+    <EmbeddedResource Update="WiFiDiscovery\DiscoveryForm.ro-RO.resx">
       <DependentUpon>DiscoveryForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CSV\setting_codes.ortur.v1.7.x.csv" />
@@ -1512,7 +862,7 @@
     <EmbeddedResource Include="CSV\error_codes.ortur.GrblHal.csv" />
     <EmbeddedResource Include="Icons\LegacyIcons.data" />
     <EmbeddedResource Include="Icons\LegacyIcons.header" />
-    <EmbeddedResource Include="WiFiDiscovery\DiscoveryForm.zh-CN.resx">
+    <EmbeddedResource Update="WiFiDiscovery\DiscoveryForm.zh-CN.resx">
       <DependentUpon>DiscoveryForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CSV\alarm_codes.longer.nanoduo.csv" />
@@ -1540,15 +890,15 @@
     <Content Include="Sound\success.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="AutoUpdate\NewVersionForm.tr-TR.resx">
+    <EmbeddedResource Update="AutoUpdate\NewVersionForm.tr-TR.resx">
       <DependentUpon>NewVersionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ConnectLogForm.el-GR.resx">
+    <EmbeddedResource Update="ConnectLogForm.el-GR.resx">
       <DependentUpon>ConnectLogForm.cs</DependentUpon>
       <Generator>ResXFileCodeGeneratorEx</Generator>
       <LastGenOutput>ConnectLogForm.el-GR.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="ConnectLogForm.tr-TR.resx">
+    <EmbeddedResource Update="ConnectLogForm.tr-TR.resx">
       <DependentUpon>ConnectLogForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CSV\setting_codes.ortur.v1.4.x.csv" />
@@ -1558,897 +908,894 @@
     <None Include="StandardMaterials.psh">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Resources\book_addressHS.png" />
     <None Include="Resources\book_Thesaurus_32.png" />
-    <EmbeddedResource Include="Autotrace\AutotraceTest.resx">
+    <EmbeddedResource Update="Autotrace\AutotraceTest.resx">
       <DependentUpon>AutotraceTest.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AutoUpdate\NewVersionForm.cs-CZ.resx">
+    <EmbeddedResource Update="AutoUpdate\NewVersionForm.cs-CZ.resx">
       <DependentUpon>NewVersionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AutoUpdate\NewVersionForm.de.resx">
+    <EmbeddedResource Update="AutoUpdate\NewVersionForm.de.resx">
       <DependentUpon>NewVersionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AutoUpdate\NewVersionForm.es.resx">
+    <EmbeddedResource Update="AutoUpdate\NewVersionForm.es.resx">
       <DependentUpon>NewVersionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AutoUpdate\NewVersionForm.fr.resx">
+    <EmbeddedResource Update="AutoUpdate\NewVersionForm.fr.resx">
       <DependentUpon>NewVersionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AutoUpdate\NewVersionForm.hu-HU.resx">
+    <EmbeddedResource Update="AutoUpdate\NewVersionForm.hu-HU.resx">
       <DependentUpon>NewVersionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AutoUpdate\NewVersionForm.it.resx">
+    <EmbeddedResource Update="AutoUpdate\NewVersionForm.it.resx">
       <DependentUpon>NewVersionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AutoUpdate\NewVersionForm.pl-PL.resx">
+    <EmbeddedResource Update="AutoUpdate\NewVersionForm.pl-PL.resx">
       <DependentUpon>NewVersionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AutoUpdate\NewVersionForm.zh-CN.resx">
+    <EmbeddedResource Update="AutoUpdate\NewVersionForm.zh-CN.resx">
       <DependentUpon>NewVersionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AutoUpdate\NewVersionForm.zh-TW.resx">
+    <EmbeddedResource Update="AutoUpdate\NewVersionForm.zh-TW.resx">
       <DependentUpon>NewVersionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ConnectLogForm.cs-CZ.resx">
+    <EmbeddedResource Update="ConnectLogForm.cs-CZ.resx">
       <DependentUpon>ConnectLogForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ConnectLogForm.da.resx">
+    <EmbeddedResource Update="ConnectLogForm.da.resx">
       <DependentUpon>ConnectLogForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ConnectLogForm.de.resx">
+    <EmbeddedResource Update="ConnectLogForm.de.resx">
       <DependentUpon>ConnectLogForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ConnectLogForm.es.resx">
+    <EmbeddedResource Update="ConnectLogForm.es.resx">
       <DependentUpon>ConnectLogForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ConnectLogForm.fr.resx">
+    <EmbeddedResource Update="ConnectLogForm.fr.resx">
       <DependentUpon>ConnectLogForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ConnectLogForm.hu-HU.resx">
+    <EmbeddedResource Update="ConnectLogForm.hu-HU.resx">
       <DependentUpon>ConnectLogForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ConnectLogForm.it.resx">
+    <EmbeddedResource Update="ConnectLogForm.it.resx">
       <DependentUpon>ConnectLogForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ConnectLogForm.pl-PL.resx">
+    <EmbeddedResource Update="ConnectLogForm.pl-PL.resx">
       <DependentUpon>ConnectLogForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ConnectLogForm.pt-BR.resx">
+    <EmbeddedResource Update="ConnectLogForm.pt-BR.resx">
       <DependentUpon>ConnectLogForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ConnectLogForm.resx">
+    <EmbeddedResource Update="ConnectLogForm.resx">
       <DependentUpon>ConnectLogForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="ConnectLogForm.ru.resx">
+    <EmbeddedResource Update="ConnectLogForm.ru.resx">
       <DependentUpon>ConnectLogForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ConnectLogForm.sk-SK.resx">
+    <EmbeddedResource Update="ConnectLogForm.sk-SK.resx">
       <DependentUpon>ConnectLogForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ConnectLogForm.zh-CN.resx">
+    <EmbeddedResource Update="ConnectLogForm.zh-CN.resx">
       <DependentUpon>ConnectLogForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="ConnectLogForm.zh-TW.resx">
+    <EmbeddedResource Update="ConnectLogForm.zh-TW.resx">
       <DependentUpon>ConnectLogForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CustomButtonForm.cs-CZ.resx">
+    <EmbeddedResource Update="CustomButtonForm.cs-CZ.resx">
       <DependentUpon>CustomButtonForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="CustomButtonForm.el-GR.resx">
+    <EmbeddedResource Update="CustomButtonForm.el-GR.resx">
       <DependentUpon>CustomButtonForm.cs</DependentUpon>
       <Generator>ResXFileCodeGeneratorEx</Generator>
       <LastGenOutput>CustomButtonForm.el-GR.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="CustomButtonForm.es.resx">
+    <EmbeddedResource Update="CustomButtonForm.es.resx">
       <DependentUpon>CustomButtonForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CustomButtonForm.fr.resx">
+    <EmbeddedResource Update="CustomButtonForm.fr.resx">
       <DependentUpon>CustomButtonForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CustomButtonForm.hu-HU.resx">
+    <EmbeddedResource Update="CustomButtonForm.hu-HU.resx">
       <DependentUpon>CustomButtonForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CustomButtonForm.pl-PL.resx">
+    <EmbeddedResource Update="CustomButtonForm.pl-PL.resx">
       <DependentUpon>CustomButtonForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CustomButtonForm.ru.resx">
+    <EmbeddedResource Update="CustomButtonForm.ru.resx">
       <DependentUpon>CustomButtonForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CustomButtonForm.sk-SK.resx">
+    <EmbeddedResource Update="CustomButtonForm.sk-SK.resx">
       <DependentUpon>CustomButtonForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CustomButtonForm.tr-TR.resx">
+    <EmbeddedResource Update="CustomButtonForm.tr-TR.resx">
       <DependentUpon>CustomButtonForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CustomButtonForm.zh-TW.resx">
+    <EmbeddedResource Update="CustomButtonForm.zh-TW.resx">
       <DependentUpon>CustomButtonForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ExceptionManager.cs-CZ.resx">
+    <EmbeddedResource Update="ExceptionManager.cs-CZ.resx">
       <DependentUpon>ExceptionManager.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ExceptionManager.de.resx">
+    <EmbeddedResource Update="ExceptionManager.de.resx">
       <DependentUpon>ExceptionManager.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ExceptionManager.el-GR.resx">
+    <EmbeddedResource Update="ExceptionManager.el-GR.resx">
       <DependentUpon>ExceptionManager.cs</DependentUpon>
       <Generator>ResXFileCodeGeneratorEx</Generator>
       <LastGenOutput>ExceptionManager.el-GR.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="ExceptionManager.es.resx">
+    <EmbeddedResource Update="ExceptionManager.es.resx">
       <DependentUpon>ExceptionManager.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ExceptionManager.resx">
+    <EmbeddedResource Update="ExceptionManager.resx">
       <DependentUpon>ExceptionManager.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ExceptionManager.tr-TR.resx">
+    <EmbeddedResource Update="ExceptionManager.tr-TR.resx">
       <DependentUpon>ExceptionManager.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ExceptionManager.zh-TW.resx">
+    <EmbeddedResource Update="ExceptionManager.zh-TW.resx">
       <DependentUpon>ExceptionManager.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Firmware\FlashGrbl.resx">
+    <EmbeddedResource Update="Firmware\FlashGrbl.resx">
       <DependentUpon>FlashGrbl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CustomButtonForm.zh-CN.resx">
+    <EmbeddedResource Update="CustomButtonForm.zh-CN.resx">
       <DependentUpon>CustomButtonForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GrblConfig.cs-CZ.resx">
+    <EmbeddedResource Update="GrblConfig.cs-CZ.resx">
       <DependentUpon>GrblConfig.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GrblConfig.de.resx">
+    <EmbeddedResource Update="GrblConfig.de.resx">
       <DependentUpon>GrblConfig.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GrblConfig.el-GR.resx">
+    <EmbeddedResource Update="GrblConfig.el-GR.resx">
       <DependentUpon>GrblConfig.cs</DependentUpon>
       <Generator>ResXFileCodeGeneratorEx</Generator>
       <LastGenOutput>GrblConfig.el-GR.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="GrblConfig.es.resx">
+    <EmbeddedResource Update="GrblConfig.es.resx">
       <DependentUpon>GrblConfig.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GrblConfig.fr.resx">
+    <EmbeddedResource Update="GrblConfig.fr.resx">
       <DependentUpon>GrblConfig.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GrblConfig.hu-HU.resx">
+    <EmbeddedResource Update="GrblConfig.hu-HU.resx">
       <DependentUpon>GrblConfig.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GrblConfig.it.resx">
+    <EmbeddedResource Update="GrblConfig.it.resx">
       <DependentUpon>GrblConfig.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GrblConfig.pl-PL.resx">
+    <EmbeddedResource Update="GrblConfig.pl-PL.resx">
       <DependentUpon>GrblConfig.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GrblConfig.ru.resx">
+    <EmbeddedResource Update="GrblConfig.ru.resx">
       <DependentUpon>GrblConfig.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GrblConfig.sk-SK.resx">
+    <EmbeddedResource Update="GrblConfig.sk-SK.resx">
       <DependentUpon>GrblConfig.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GrblConfig.tr-TR.resx">
+    <EmbeddedResource Update="GrblConfig.tr-TR.resx">
       <DependentUpon>GrblConfig.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GrblConfig.zh-CN.resx">
+    <EmbeddedResource Update="GrblConfig.zh-CN.resx">
       <DependentUpon>GrblConfig.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GrblConfig.zh-TW.resx">
+    <EmbeddedResource Update="GrblConfig.zh-TW.resx">
       <DependentUpon>GrblConfig.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="HotkeyManagerForm.cs-CZ.resx">
+    <EmbeddedResource Update="HotkeyManagerForm.cs-CZ.resx">
       <DependentUpon>HotkeyManagerForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="HotkeyManagerForm.de.resx">
+    <EmbeddedResource Update="HotkeyManagerForm.de.resx">
       <DependentUpon>HotkeyManagerForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="HotkeyManagerForm.el-GR.resx">
+    <EmbeddedResource Update="HotkeyManagerForm.el-GR.resx">
       <DependentUpon>HotkeyManagerForm.cs</DependentUpon>
       <Generator>ResXFileCodeGeneratorEx</Generator>
       <LastGenOutput>HotkeyManagerForm.el-GR.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="HotkeyManagerForm.es.resx">
+    <EmbeddedResource Update="HotkeyManagerForm.es.resx">
       <DependentUpon>HotkeyManagerForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="HotkeyManagerForm.fr.resx">
+    <EmbeddedResource Update="HotkeyManagerForm.fr.resx">
       <DependentUpon>HotkeyManagerForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="HotkeyManagerForm.hu-HU.resx">
+    <EmbeddedResource Update="HotkeyManagerForm.hu-HU.resx">
       <DependentUpon>HotkeyManagerForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="HotkeyManagerForm.it.resx">
+    <EmbeddedResource Update="HotkeyManagerForm.it.resx">
       <DependentUpon>HotkeyManagerForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="HotkeyManagerForm.pl-PL.resx">
+    <EmbeddedResource Update="HotkeyManagerForm.pl-PL.resx">
       <DependentUpon>HotkeyManagerForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="HotkeyManagerForm.ru.resx">
+    <EmbeddedResource Update="HotkeyManagerForm.ru.resx">
       <DependentUpon>HotkeyManagerForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="HotkeyManagerForm.sk-SK.resx">
+    <EmbeddedResource Update="HotkeyManagerForm.sk-SK.resx">
       <DependentUpon>HotkeyManagerForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="HotkeyManagerForm.tr-TR.resx">
+    <EmbeddedResource Update="HotkeyManagerForm.tr-TR.resx">
       <DependentUpon>HotkeyManagerForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="HotkeyManagerForm.zh-TW.resx">
+    <EmbeddedResource Update="HotkeyManagerForm.zh-TW.resx">
       <DependentUpon>HotkeyManagerForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="IssueDetectorForm.cs-CZ.resx">
+    <EmbeddedResource Update="IssueDetectorForm.cs-CZ.resx">
       <DependentUpon>IssueDetectorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="IssueDetectorForm.de.resx">
+    <EmbeddedResource Update="IssueDetectorForm.de.resx">
       <DependentUpon>IssueDetectorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="IssueDetectorForm.el-GR.resx">
+    <EmbeddedResource Update="IssueDetectorForm.el-GR.resx">
       <DependentUpon>IssueDetectorForm.cs</DependentUpon>
       <Generator>ResXFileCodeGeneratorEx</Generator>
       <LastGenOutput>IssueDetectorForm.el-GR.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="IssueDetectorForm.es.resx">
+    <EmbeddedResource Update="IssueDetectorForm.es.resx">
       <DependentUpon>IssueDetectorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="IssueDetectorForm.fr.resx">
+    <EmbeddedResource Update="IssueDetectorForm.fr.resx">
       <DependentUpon>IssueDetectorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="IssueDetectorForm.hu-HU.resx">
+    <EmbeddedResource Update="IssueDetectorForm.hu-HU.resx">
       <DependentUpon>IssueDetectorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="IssueDetectorForm.it.resx">
+    <EmbeddedResource Update="IssueDetectorForm.it.resx">
       <DependentUpon>IssueDetectorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="IssueDetectorForm.pl-PL.resx">
+    <EmbeddedResource Update="IssueDetectorForm.pl-PL.resx">
       <DependentUpon>IssueDetectorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="IssueDetectorForm.ru.resx">
+    <EmbeddedResource Update="IssueDetectorForm.ru.resx">
       <DependentUpon>IssueDetectorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="IssueDetectorForm.sk-SK.resx">
+    <EmbeddedResource Update="IssueDetectorForm.sk-SK.resx">
       <DependentUpon>IssueDetectorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="IssueDetectorForm.tr-TR.resx">
+    <EmbeddedResource Update="IssueDetectorForm.tr-TR.resx">
       <DependentUpon>IssueDetectorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="IssueDetectorForm.zh-TW.resx">
+    <EmbeddedResource Update="IssueDetectorForm.zh-TW.resx">
       <DependentUpon>IssueDetectorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LicenseForm.resx">
+    <EmbeddedResource Update="LicenseForm.resx">
       <DependentUpon>LicenseForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.cs-CZ.resx">
+    <EmbeddedResource Update="MainForm.cs-CZ.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.el-GR.resx">
+    <EmbeddedResource Update="MainForm.el-GR.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
       <Generator>ResXFileCodeGeneratorEx</Generator>
       <LastGenOutput>MainForm.el-GR.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.hu-HU.resx">
+    <EmbeddedResource Update="MainForm.hu-HU.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.pl-PL.resx">
+    <EmbeddedResource Update="MainForm.pl-PL.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.sk-SK.resx">
+    <EmbeddedResource Update="MainForm.sk-SK.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.tr-TR.resx">
+    <EmbeddedResource Update="MainForm.tr-TR.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.zh-TW.resx">
+    <EmbeddedResource Update="MainForm.zh-TW.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PreviewForm.cs-CZ.resx">
+    <EmbeddedResource Update="PreviewForm.cs-CZ.resx">
       <DependentUpon>PreviewForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PreviewForm.el-GR.resx">
+    <EmbeddedResource Update="PreviewForm.el-GR.resx">
       <DependentUpon>PreviewForm.cs</DependentUpon>
       <Generator>ResXFileCodeGeneratorEx</Generator>
       <LastGenOutput>PreviewForm.el-GR.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="PreviewForm.hu-HU.resx">
+    <EmbeddedResource Update="PreviewForm.hu-HU.resx">
       <DependentUpon>PreviewForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PreviewForm.pl-PL.resx">
+    <EmbeddedResource Update="PreviewForm.pl-PL.resx">
       <DependentUpon>PreviewForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PreviewForm.sk-SK.resx">
+    <EmbeddedResource Update="PreviewForm.sk-SK.resx">
       <DependentUpon>PreviewForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PreviewForm.tr-TR.resx">
+    <EmbeddedResource Update="PreviewForm.tr-TR.resx">
       <DependentUpon>PreviewForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PreviewForm.zh-TW.resx">
+    <EmbeddedResource Update="PreviewForm.zh-TW.resx">
       <DependentUpon>PreviewForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PSHelper\PSEditorForm.cs-CZ.resx">
+    <EmbeddedResource Update="PSHelper\PSEditorForm.cs-CZ.resx">
       <DependentUpon>PSEditorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PSHelper\PSEditorForm.de.resx">
+    <EmbeddedResource Update="PSHelper\PSEditorForm.de.resx">
       <DependentUpon>PSEditorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PSHelper\PSEditorForm.es.resx">
+    <EmbeddedResource Update="PSHelper\PSEditorForm.es.resx">
       <DependentUpon>PSEditorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PSHelper\PSEditorForm.it.resx">
+    <EmbeddedResource Update="PSHelper\PSEditorForm.it.resx">
       <DependentUpon>PSEditorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PSHelper\PSEditorForm.pl-PL.resx">
+    <EmbeddedResource Update="PSHelper\PSEditorForm.pl-PL.resx">
       <DependentUpon>PSEditorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PSHelper\PSEditorForm.resx">
+    <EmbeddedResource Update="PSHelper\PSEditorForm.resx">
       <DependentUpon>PSEditorForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="PSHelper\PSEditorForm.tr-TR.resx">
+    <EmbeddedResource Update="PSHelper\PSEditorForm.tr-TR.resx">
       <DependentUpon>PSEditorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PSHelper\PSEditorForm.zh-TW.resx">
+    <EmbeddedResource Update="PSHelper\PSEditorForm.zh-TW.resx">
       <DependentUpon>PSEditorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PSHelper\PSHelperForm.cs-CZ.resx">
+    <EmbeddedResource Update="PSHelper\PSHelperForm.cs-CZ.resx">
       <DependentUpon>PSHelperForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PSHelper\PSHelperForm.de.resx">
+    <EmbeddedResource Update="PSHelper\PSHelperForm.de.resx">
       <DependentUpon>PSHelperForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PSHelper\PSHelperForm.es.resx">
+    <EmbeddedResource Update="PSHelper\PSHelperForm.es.resx">
       <DependentUpon>PSHelperForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PSHelper\PSHelperForm.it.resx">
+    <EmbeddedResource Update="PSHelper\PSHelperForm.it.resx">
       <DependentUpon>PSHelperForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PSHelper\PSHelperForm.pl-PL.resx">
+    <EmbeddedResource Update="PSHelper\PSHelperForm.pl-PL.resx">
       <DependentUpon>PSHelperForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PSHelper\PSHelperForm.resx">
+    <EmbeddedResource Update="PSHelper\PSHelperForm.resx">
       <DependentUpon>PSHelperForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PSHelper\PSHelperForm.tr-TR.resx">
+    <EmbeddedResource Update="PSHelper\PSHelperForm.tr-TR.resx">
       <DependentUpon>PSHelperForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PSHelper\PSHelperForm.zh-TW.resx">
+    <EmbeddedResource Update="PSHelper\PSHelperForm.zh-TW.resx">
       <DependentUpon>PSHelperForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\ConvertSizeAndOptionForm.cs-CZ.resx">
+    <EmbeddedResource Update="RasterConverter\ConvertSizeAndOptionForm.cs-CZ.resx">
       <DependentUpon>ConvertSizeAndOptionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\ConvertSizeAndOptionForm.hu-HU.resx">
+    <EmbeddedResource Update="RasterConverter\ConvertSizeAndOptionForm.hu-HU.resx">
       <DependentUpon>ConvertSizeAndOptionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\ConvertSizeAndOptionForm.pl-PL.resx">
+    <EmbeddedResource Update="RasterConverter\ConvertSizeAndOptionForm.pl-PL.resx">
       <DependentUpon>ConvertSizeAndOptionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\ConvertSizeAndOptionForm.sk-SK.resx">
+    <EmbeddedResource Update="RasterConverter\ConvertSizeAndOptionForm.sk-SK.resx">
       <DependentUpon>ConvertSizeAndOptionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\ConvertSizeAndOptionForm.tr-TR.resx">
+    <EmbeddedResource Update="RasterConverter\ConvertSizeAndOptionForm.tr-TR.resx">
       <DependentUpon>ConvertSizeAndOptionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\ConvertSizeAndOptionForm.zh-TW.resx">
+    <EmbeddedResource Update="RasterConverter\ConvertSizeAndOptionForm.zh-TW.resx">
       <DependentUpon>ConvertSizeAndOptionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\RasterToLaserForm.cs-CZ.resx">
+    <EmbeddedResource Update="RasterConverter\RasterToLaserForm.cs-CZ.resx">
       <DependentUpon>RasterToLaserForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\RasterToLaserForm.hu-HU.resx">
+    <EmbeddedResource Update="RasterConverter\RasterToLaserForm.hu-HU.resx">
       <DependentUpon>RasterToLaserForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\RasterToLaserForm.pl-PL.resx">
+    <EmbeddedResource Update="RasterConverter\RasterToLaserForm.pl-PL.resx">
       <DependentUpon>RasterToLaserForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\RasterToLaserForm.sk-SK.resx">
+    <EmbeddedResource Update="RasterConverter\RasterToLaserForm.sk-SK.resx">
       <DependentUpon>RasterToLaserForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\RasterToLaserForm.tr-TR.resx">
+    <EmbeddedResource Update="RasterConverter\RasterToLaserForm.tr-TR.resx">
       <DependentUpon>RasterToLaserForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\RasterToLaserForm.zh-TW.resx">
+    <EmbeddedResource Update="RasterConverter\RasterToLaserForm.zh-TW.resx">
       <DependentUpon>RasterToLaserForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\ResolutionHelperForm.cs-CZ.resx">
+    <EmbeddedResource Update="RasterConverter\ResolutionHelperForm.cs-CZ.resx">
       <DependentUpon>ResolutionHelperForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\ResolutionHelperForm.es.resx">
+    <EmbeddedResource Update="RasterConverter\ResolutionHelperForm.es.resx">
       <DependentUpon>ResolutionHelperForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\ResolutionHelperForm.hu-HU.resx">
+    <EmbeddedResource Update="RasterConverter\ResolutionHelperForm.hu-HU.resx">
       <DependentUpon>ResolutionHelperForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\ResolutionHelperForm.pl-PL.resx">
+    <EmbeddedResource Update="RasterConverter\ResolutionHelperForm.pl-PL.resx">
       <DependentUpon>ResolutionHelperForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\ResolutionHelperForm.sk-SK.resx">
+    <EmbeddedResource Update="RasterConverter\ResolutionHelperForm.sk-SK.resx">
       <DependentUpon>ResolutionHelperForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\ResolutionHelperForm.tr-TR.resx">
+    <EmbeddedResource Update="RasterConverter\ResolutionHelperForm.tr-TR.resx">
       <DependentUpon>ResolutionHelperForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\ResolutionHelperForm.zh-TW.resx">
+    <EmbeddedResource Update="RasterConverter\ResolutionHelperForm.zh-TW.resx">
       <DependentUpon>ResolutionHelperForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ResumeJobForm.cs-CZ.resx">
+    <EmbeddedResource Update="ResumeJobForm.cs-CZ.resx">
       <DependentUpon>ResumeJobForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ResumeJobForm.de.resx">
+    <EmbeddedResource Update="ResumeJobForm.de.resx">
       <DependentUpon>ResumeJobForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ResumeJobForm.el-GR.resx">
+    <EmbeddedResource Update="ResumeJobForm.el-GR.resx">
       <DependentUpon>ResumeJobForm.cs</DependentUpon>
       <Generator>ResXFileCodeGeneratorEx</Generator>
       <LastGenOutput>ResumeJobForm.el-GR.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="ResumeJobForm.es.resx">
+    <EmbeddedResource Update="ResumeJobForm.es.resx">
       <DependentUpon>ResumeJobForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ResumeJobForm.fr.resx">
+    <EmbeddedResource Update="ResumeJobForm.fr.resx">
       <DependentUpon>ResumeJobForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ResumeJobForm.hu-HU.resx">
+    <EmbeddedResource Update="ResumeJobForm.hu-HU.resx">
       <DependentUpon>ResumeJobForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ResumeJobForm.it.resx">
+    <EmbeddedResource Update="ResumeJobForm.it.resx">
       <DependentUpon>ResumeJobForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ResumeJobForm.pl-PL.resx">
+    <EmbeddedResource Update="ResumeJobForm.pl-PL.resx">
       <DependentUpon>ResumeJobForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ResumeJobForm.ru.resx">
+    <EmbeddedResource Update="ResumeJobForm.ru.resx">
       <DependentUpon>ResumeJobForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ResumeJobForm.sk-SK.resx">
+    <EmbeddedResource Update="ResumeJobForm.sk-SK.resx">
       <DependentUpon>ResumeJobForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ResumeJobForm.tr-TR.resx">
+    <EmbeddedResource Update="ResumeJobForm.tr-TR.resx">
       <DependentUpon>ResumeJobForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ResumeJobForm.zh-CN.resx">
+    <EmbeddedResource Update="ResumeJobForm.zh-CN.resx">
       <DependentUpon>ResumeJobForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ResumeJobForm.zh-TW.resx">
+    <EmbeddedResource Update="ResumeJobForm.zh-TW.resx">
       <DependentUpon>ResumeJobForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RunFromPositionForm.cs-CZ.resx">
+    <EmbeddedResource Update="RunFromPositionForm.cs-CZ.resx">
       <DependentUpon>RunFromPositionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RunFromPositionForm.de.resx">
+    <EmbeddedResource Update="RunFromPositionForm.de.resx">
       <DependentUpon>RunFromPositionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RunFromPositionForm.el-GR.resx">
+    <EmbeddedResource Update="RunFromPositionForm.el-GR.resx">
       <DependentUpon>RunFromPositionForm.cs</DependentUpon>
       <Generator>ResXFileCodeGeneratorEx</Generator>
       <LastGenOutput>RunFromPositionForm.el-GR.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="RunFromPositionForm.es.resx">
+    <EmbeddedResource Update="RunFromPositionForm.es.resx">
       <DependentUpon>RunFromPositionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RunFromPositionForm.fr.resx">
+    <EmbeddedResource Update="RunFromPositionForm.fr.resx">
       <DependentUpon>RunFromPositionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RunFromPositionForm.hu-HU.resx">
+    <EmbeddedResource Update="RunFromPositionForm.hu-HU.resx">
       <DependentUpon>RunFromPositionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RunFromPositionForm.it.resx">
+    <EmbeddedResource Update="RunFromPositionForm.it.resx">
       <DependentUpon>RunFromPositionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RunFromPositionForm.pl-PL.resx">
+    <EmbeddedResource Update="RunFromPositionForm.pl-PL.resx">
       <DependentUpon>RunFromPositionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RunFromPositionForm.resx">
+    <EmbeddedResource Update="RunFromPositionForm.resx">
       <DependentUpon>RunFromPositionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GrblConfig.resx">
+    <EmbeddedResource Update="GrblConfig.resx">
       <DependentUpon>GrblConfig.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="CustomButtonForm.de.resx">
+    <EmbeddedResource Update="CustomButtonForm.de.resx">
       <DependentUpon>CustomButtonForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CustomButtonForm.it.resx">
+    <EmbeddedResource Update="CustomButtonForm.it.resx">
       <DependentUpon>CustomButtonForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CustomButtonForm.resx">
+    <EmbeddedResource Update="CustomButtonForm.resx">
       <DependentUpon>CustomButtonForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GrblEmulator\EmulatorUI.resx">
+    <EmbeddedResource Update="GrblEmulator\EmulatorUI.resx">
       <DependentUpon>EmulatorUI.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="HotkeyManagerForm.resx">
+    <EmbeddedResource Update="HotkeyManagerForm.resx">
       <DependentUpon>HotkeyManagerForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="IssueDetectorForm.resx">
+    <EmbeddedResource Update="IssueDetectorForm.resx">
       <DependentUpon>IssueDetectorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="JogForm.resx">
+    <EmbeddedResource Update="JogForm.resx">
       <DependentUpon>JogForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.da.resx">
+    <EmbeddedResource Update="MainForm.da.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.de.resx">
+    <EmbeddedResource Update="MainForm.de.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.es.resx">
+    <EmbeddedResource Update="MainForm.es.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.fr.resx">
+    <EmbeddedResource Update="MainForm.fr.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.it.resx">
+    <EmbeddedResource Update="MainForm.it.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.pt-BR.resx">
+    <EmbeddedResource Update="MainForm.pt-BR.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Update="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="AutoUpdate\NewVersionForm.resx">
+    <EmbeddedResource Update="AutoUpdate\NewVersionForm.resx">
       <DependentUpon>NewVersionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.ru.resx">
+    <EmbeddedResource Update="MainForm.ru.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.zh-CN.resx">
+    <EmbeddedResource Update="MainForm.zh-CN.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="PreviewForm.de.resx">
+    <EmbeddedResource Update="PreviewForm.de.resx">
       <DependentUpon>PreviewForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PreviewForm.es.resx">
+    <EmbeddedResource Update="PreviewForm.es.resx">
       <DependentUpon>PreviewForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PreviewForm.fr.resx">
+    <EmbeddedResource Update="PreviewForm.fr.resx">
       <DependentUpon>PreviewForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PreviewForm.it.resx">
+    <EmbeddedResource Update="PreviewForm.it.resx">
       <DependentUpon>PreviewForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PreviewForm.resx">
+    <EmbeddedResource Update="PreviewForm.resx">
       <DependentUpon>PreviewForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PreviewForm.ru.resx">
+    <EmbeddedResource Update="PreviewForm.ru.resx">
       <DependentUpon>PreviewForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PreviewForm.zh-CN.resx">
+    <EmbeddedResource Update="PreviewForm.zh-CN.resx">
       <DependentUpon>PreviewForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="ResumeJobForm.resx">
+    <EmbeddedResource Update="ResumeJobForm.resx">
       <DependentUpon>ResumeJobForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RunFromPositionForm.ru.resx">
+    <EmbeddedResource Update="RunFromPositionForm.ru.resx">
       <DependentUpon>RunFromPositionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RunFromPositionForm.sk-SK.resx">
+    <EmbeddedResource Update="RunFromPositionForm.sk-SK.resx">
       <DependentUpon>RunFromPositionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RunFromPositionForm.tr-TR.resx">
+    <EmbeddedResource Update="RunFromPositionForm.tr-TR.resx">
       <DependentUpon>RunFromPositionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RunFromPositionForm.zh-CN.resx">
+    <EmbeddedResource Update="RunFromPositionForm.zh-CN.resx">
       <DependentUpon>RunFromPositionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RunFromPositionForm.zh-TW.resx">
+    <EmbeddedResource Update="RunFromPositionForm.zh-TW.resx">
       <DependentUpon>RunFromPositionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SaveOptionForm.cs-CZ.resx">
+    <EmbeddedResource Update="SaveOptionForm.cs-CZ.resx">
       <DependentUpon>SaveOptionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SaveOptionForm.de.resx">
+    <EmbeddedResource Update="SaveOptionForm.de.resx">
       <DependentUpon>SaveOptionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SaveOptionForm.el-GR.resx">
+    <EmbeddedResource Update="SaveOptionForm.el-GR.resx">
       <DependentUpon>SaveOptionForm.cs</DependentUpon>
       <Generator>ResXFileCodeGeneratorEx</Generator>
       <LastGenOutput>SaveOptionForm.el-GR.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="SaveOptionForm.es.resx">
+    <EmbeddedResource Update="SaveOptionForm.es.resx">
       <DependentUpon>SaveOptionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SaveOptionForm.it.resx">
+    <EmbeddedResource Update="SaveOptionForm.it.resx">
       <DependentUpon>SaveOptionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SaveOptionForm.pl-PL.resx">
+    <EmbeddedResource Update="SaveOptionForm.pl-PL.resx">
       <DependentUpon>SaveOptionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SaveOptionForm.resx">
+    <EmbeddedResource Update="SaveOptionForm.resx">
       <DependentUpon>SaveOptionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SaveOptionForm.tr-TR.resx">
+    <EmbeddedResource Update="SaveOptionForm.tr-TR.resx">
       <DependentUpon>SaveOptionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SaveOptionForm.zh-TW.resx">
+    <EmbeddedResource Update="SaveOptionForm.zh-TW.resx">
       <DependentUpon>SaveOptionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SettingsForm.cs-CZ.resx">
+    <EmbeddedResource Update="SettingsForm.cs-CZ.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SettingsForm.el-GR.resx">
+    <EmbeddedResource Update="SettingsForm.el-GR.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
       <Generator>ResXFileCodeGeneratorEx</Generator>
       <LastGenOutput>SettingsForm.el-GR.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SettingsForm.es.resx">
+    <EmbeddedResource Update="SettingsForm.es.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SettingsForm.hu-HU.resx">
+    <EmbeddedResource Update="SettingsForm.hu-HU.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SettingsForm.pl-PL.resx">
+    <EmbeddedResource Update="SettingsForm.pl-PL.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SettingsForm.sk-SK.resx">
+    <EmbeddedResource Update="SettingsForm.sk-SK.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SettingsForm.tr-TR.resx">
+    <EmbeddedResource Update="SettingsForm.tr-TR.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SettingsForm.zh-TW.resx">
+    <EmbeddedResource Update="SettingsForm.zh-TW.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Strings.cs-CZ.resx">
+    <EmbeddedResource Update="Strings.cs-CZ.resx">
       <DependentUpon>Strings.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Strings.el-GR.resx">
+    <EmbeddedResource Update="Strings.el-GR.resx">
       <DependentUpon>Strings.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Strings.hu-HU.resx">
+    <EmbeddedResource Update="Strings.hu-HU.resx">
       <DependentUpon>Strings.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Strings.pl-PL.resx">
+    <EmbeddedResource Update="Strings.pl-PL.resx">
       <DependentUpon>Strings.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Strings.resx">
+    <EmbeddedResource Update="Strings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Strings.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Strings.da.resx">
+    <EmbeddedResource Update="Strings.da.resx">
       <DependentUpon>Strings.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Strings.de.resx">
+    <EmbeddedResource Update="Strings.de.resx">
       <DependentUpon>Strings.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Strings.es.resx">
+    <EmbeddedResource Update="Strings.es.resx">
       <DependentUpon>Strings.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Strings.fr.resx">
+    <EmbeddedResource Update="Strings.fr.resx">
       <DependentUpon>Strings.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Strings.it.resx">
+    <EmbeddedResource Update="Strings.it.resx">
       <DependentUpon>Strings.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Strings.pt-BR.resx">
+    <EmbeddedResource Update="Strings.pt-BR.resx">
       <DependentUpon>Strings.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Strings.ro-RO.resx">
+    <EmbeddedResource Update="Strings.ro-RO.resx">
       <DependentUpon>Strings.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Strings.ru.resx">
+    <EmbeddedResource Update="Strings.ru.resx">
       <DependentUpon>Strings.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Strings.sk-SK.resx">
+    <EmbeddedResource Update="Strings.sk-SK.resx">
       <DependentUpon>Strings.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Strings.tr-TR.resx">
+    <EmbeddedResource Update="Strings.tr-TR.resx">
       <DependentUpon>Strings.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Strings.zh-CN.resx">
+    <EmbeddedResource Update="Strings.zh-CN.resx">
       <DependentUpon>Strings.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Strings.zh-TW.resx">
+    <EmbeddedResource Update="Strings.zh-TW.resx">
       <DependentUpon>Strings.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Strings.nl-NL.resx">
+    <EmbeddedResource Update="Strings.nl-NL.resx">
       <DependentUpon>Strings.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Strings.uk.resx">
+    <EmbeddedResource Update="Strings.uk.resx">
       <DependentUpon>Strings.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Strings.ja-JP.resx">
+    <EmbeddedResource Update="Strings.ja-JP.resx">
       <DependentUpon>Strings.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\ConvertSizeAndOptionForm.da.resx">
+    <EmbeddedResource Update="RasterConverter\ConvertSizeAndOptionForm.da.resx">
       <DependentUpon>ConvertSizeAndOptionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\ConvertSizeAndOptionForm.de.resx">
-      <DependentUpon>ConvertSizeAndOptionForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\ConvertSizeAndOptionForm.es.resx">
+    <EmbeddedResource Update="RasterConverter\ConvertSizeAndOptionForm.de.resx">
       <DependentUpon>ConvertSizeAndOptionForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\ConvertSizeAndOptionForm.fr.resx">
+    <EmbeddedResource Update="RasterConverter\ConvertSizeAndOptionForm.es.resx">
       <DependentUpon>ConvertSizeAndOptionForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\ConvertSizeAndOptionForm.it.resx">
+    <EmbeddedResource Update="RasterConverter\ConvertSizeAndOptionForm.fr.resx">
       <DependentUpon>ConvertSizeAndOptionForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\ConvertSizeAndOptionForm.pt-BR.resx">
-      <DependentUpon>ConvertSizeAndOptionForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\ConvertSizeAndOptionForm.resx">
+    <EmbeddedResource Update="RasterConverter\ConvertSizeAndOptionForm.it.resx">
       <DependentUpon>ConvertSizeAndOptionForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\ConvertSizeAndOptionForm.ru.resx">
+    <EmbeddedResource Update="RasterConverter\ConvertSizeAndOptionForm.pt-BR.resx">
       <DependentUpon>ConvertSizeAndOptionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\ConvertSizeAndOptionForm.zh-CN.resx">
+    <EmbeddedResource Update="RasterConverter\ConvertSizeAndOptionForm.resx">
       <DependentUpon>ConvertSizeAndOptionForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\RasterToLaserForm.da.resx">
+    <EmbeddedResource Update="RasterConverter\ConvertSizeAndOptionForm.ru.resx">
+      <DependentUpon>ConvertSizeAndOptionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="RasterConverter\ConvertSizeAndOptionForm.zh-CN.resx">
+      <DependentUpon>ConvertSizeAndOptionForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="RasterConverter\RasterToLaserForm.da.resx">
       <DependentUpon>RasterToLaserForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\RasterToLaserForm.de.resx">
+    <EmbeddedResource Update="RasterConverter\RasterToLaserForm.de.resx">
       <DependentUpon>RasterToLaserForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\RasterToLaserForm.es.resx">
+    <EmbeddedResource Update="RasterConverter\RasterToLaserForm.es.resx">
       <DependentUpon>RasterToLaserForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\RasterToLaserForm.fr.resx">
+    <EmbeddedResource Update="RasterConverter\RasterToLaserForm.fr.resx">
       <DependentUpon>RasterToLaserForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\RasterToLaserForm.it.resx">
+    <EmbeddedResource Update="RasterConverter\RasterToLaserForm.it.resx">
       <DependentUpon>RasterToLaserForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\RasterToLaserForm.pt-BR.resx">
+    <EmbeddedResource Update="RasterConverter\RasterToLaserForm.pt-BR.resx">
       <DependentUpon>RasterToLaserForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\RasterToLaserForm.resx">
+    <EmbeddedResource Update="RasterConverter\RasterToLaserForm.resx">
       <DependentUpon>RasterToLaserForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\RasterToLaserForm.ru.resx">
+    <EmbeddedResource Update="RasterConverter\RasterToLaserForm.ru.resx">
       <DependentUpon>RasterToLaserForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\RasterToLaserForm.zh-CN.resx">
+    <EmbeddedResource Update="RasterConverter\RasterToLaserForm.zh-CN.resx">
       <DependentUpon>RasterToLaserForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\ResolutionHelperForm.da.resx">
+    <EmbeddedResource Update="RasterConverter\ResolutionHelperForm.da.resx">
       <DependentUpon>ResolutionHelperForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\ResolutionHelperForm.de.resx">
+    <EmbeddedResource Update="RasterConverter\ResolutionHelperForm.de.resx">
       <DependentUpon>ResolutionHelperForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\ResolutionHelperForm.fr.resx">
+    <EmbeddedResource Update="RasterConverter\ResolutionHelperForm.fr.resx">
       <DependentUpon>ResolutionHelperForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\ResolutionHelperForm.it.resx">
+    <EmbeddedResource Update="RasterConverter\ResolutionHelperForm.it.resx">
       <DependentUpon>ResolutionHelperForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\ResolutionHelperForm.pt-BR.resx">
+    <EmbeddedResource Update="RasterConverter\ResolutionHelperForm.pt-BR.resx">
       <DependentUpon>ResolutionHelperForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\ResolutionHelperForm.resx">
+    <EmbeddedResource Update="RasterConverter\ResolutionHelperForm.resx">
       <DependentUpon>ResolutionHelperForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\ResolutionHelperForm.ru.resx">
+    <EmbeddedResource Update="RasterConverter\ResolutionHelperForm.ru.resx">
       <DependentUpon>ResolutionHelperForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RasterConverter\ResolutionHelperForm.zh-CN.resx">
+    <EmbeddedResource Update="RasterConverter\ResolutionHelperForm.zh-CN.resx">
       <DependentUpon>ResolutionHelperForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SettingsForm.da.resx">
+    <EmbeddedResource Update="SettingsForm.da.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SettingsForm.de.resx">
-      <DependentUpon>SettingsForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SettingsForm.fr.resx">
+    <EmbeddedResource Update="SettingsForm.de.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SettingsForm.it.resx">
+    <EmbeddedResource Update="SettingsForm.fr.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SettingsForm.pt-BR.resx">
-      <DependentUpon>SettingsForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SettingsForm.resx">
+    <EmbeddedResource Update="SettingsForm.it.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SettingsForm.ru.resx">
+    <EmbeddedResource Update="SettingsForm.pt-BR.resx">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SettingsForm.zh-CN.resx">
+    <EmbeddedResource Update="SettingsForm.ru.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SplashScreenForm.resx">
+    <EmbeddedResource Update="SettingsForm.zh-CN.resx">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="SplashScreenForm.resx">
       <DependentUpon>SplashScreenForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SvgConverter\ConvertSizeAndOptionForm.cs-CZ.resx">
+    <EmbeddedResource Update="SvgConverter\ConvertSizeAndOptionForm.cs-CZ.resx">
       <DependentUpon>ConvertSizeAndOptionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SvgConverter\ConvertSizeAndOptionForm.da.resx">
+    <EmbeddedResource Update="SvgConverter\ConvertSizeAndOptionForm.da.resx">
       <DependentUpon>ConvertSizeAndOptionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SvgConverter\ConvertSizeAndOptionForm.de.resx">
-      <DependentUpon>ConvertSizeAndOptionForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SvgConverter\ConvertSizeAndOptionForm.es.resx">
+    <EmbeddedResource Update="SvgConverter\ConvertSizeAndOptionForm.de.resx">
       <DependentUpon>ConvertSizeAndOptionForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SvgConverter\ConvertSizeAndOptionForm.fr.resx">
+    <EmbeddedResource Update="SvgConverter\ConvertSizeAndOptionForm.es.resx">
       <DependentUpon>ConvertSizeAndOptionForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SvgConverter\ConvertSizeAndOptionForm.hu-HU.resx">
-      <DependentUpon>ConvertSizeAndOptionForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SvgConverter\ConvertSizeAndOptionForm.it.resx">
+    <EmbeddedResource Update="SvgConverter\ConvertSizeAndOptionForm.fr.resx">
       <DependentUpon>ConvertSizeAndOptionForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SvgConverter\ConvertSizeAndOptionForm.pl-PL.resx">
+    <EmbeddedResource Update="SvgConverter\ConvertSizeAndOptionForm.hu-HU.resx">
       <DependentUpon>ConvertSizeAndOptionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SvgConverter\ConvertSizeAndOptionForm.pt-BR.resx">
-      <DependentUpon>ConvertSizeAndOptionForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SvgConverter\ConvertSizeAndOptionForm.resx">
+    <EmbeddedResource Update="SvgConverter\ConvertSizeAndOptionForm.it.resx">
       <DependentUpon>ConvertSizeAndOptionForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SvgConverter\ConvertSizeAndOptionForm.ru.resx">
+    <EmbeddedResource Update="SvgConverter\ConvertSizeAndOptionForm.pl-PL.resx">
       <DependentUpon>ConvertSizeAndOptionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SvgConverter\ConvertSizeAndOptionForm.sk-SK.resx">
+    <EmbeddedResource Update="SvgConverter\ConvertSizeAndOptionForm.pt-BR.resx">
       <DependentUpon>ConvertSizeAndOptionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SvgConverter\ConvertSizeAndOptionForm.tr-TR.resx">
-      <DependentUpon>ConvertSizeAndOptionForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SvgConverter\ConvertSizeAndOptionForm.zh-CN.resx">
+    <EmbeddedResource Update="SvgConverter\ConvertSizeAndOptionForm.resx">
       <DependentUpon>ConvertSizeAndOptionForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SvgConverter\ConvertSizeAndOptionForm.zh-TW.resx">
+    <EmbeddedResource Update="SvgConverter\ConvertSizeAndOptionForm.ru.resx">
       <DependentUpon>ConvertSizeAndOptionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SvgConverter\SvgModeForm.resx">
+    <EmbeddedResource Update="SvgConverter\ConvertSizeAndOptionForm.sk-SK.resx">
+      <DependentUpon>ConvertSizeAndOptionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="SvgConverter\ConvertSizeAndOptionForm.tr-TR.resx">
+      <DependentUpon>ConvertSizeAndOptionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="SvgConverter\ConvertSizeAndOptionForm.zh-CN.resx">
+      <DependentUpon>ConvertSizeAndOptionForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="SvgConverter\ConvertSizeAndOptionForm.zh-TW.resx">
+      <DependentUpon>ConvertSizeAndOptionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="SvgConverter\SvgModeForm.resx">
       <DependentUpon>SvgModeForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\ColorSlider.resx">
+    <EmbeddedResource Update="UserControls\ColorSlider.resx">
       <DependentUpon>ColorSlider.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\CommandLog.resx">
+    <EmbeddedResource Update="UserControls\CommandLog.resx">
       <DependentUpon>CommandLog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\GrblPanel.resx">
+    <EmbeddedResource Update="UserControls\GrblPanel.resx">
       <DependentUpon>GrblPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CSV\alarm_codes.csv" />
     <EmbeddedResource Include="CSV\error_codes.csv" />
     <EmbeddedResource Include="CSV\setting_codes.v1.1.csv" />
-    <EmbeddedResource Include="UserControls\LabelTB.resx">
+    <EmbeddedResource Update="UserControls\LabelTB.resx">
       <DependentUpon>LabelTB.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CSV\setting_codes.v0.9.csv" />
@@ -2548,27 +1895,8 @@
     <Content Include="Grafica\zup10.png" />
   </ItemGroup>
   <ItemGroup>
-    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
+    <Compile Remove="SvgLibrary\Basic Shapes\SvgVisibility.cs" />
+    <Compile Remove="SvgLibrary\External\ExCSS\Parser.generated.cs" />
+    <Compile Remove="SvgLibrary\External\ExCSS\ParserX.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\DataSources\" />
-    <Folder Include="SvgLibrary\Web\Resources\" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>
