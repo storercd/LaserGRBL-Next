@@ -69,7 +69,7 @@ namespace LaserGRBL
             {
                 Topic = topic.Trim(),
                 Message = message,
-                Title = isError ? "⚠️ LaserGRBL Job FAILED" : "✅ LaserGRBL Job Complete",
+                Title = isError ? "LaserGRBL Job FAILED" : "LaserGRBL Job Complete",
                 Priority = isError ? "urgent" : "high",
                 Tags = isError ? "warning,rotating_light,x" : "white_check_mark,fire"
             };
