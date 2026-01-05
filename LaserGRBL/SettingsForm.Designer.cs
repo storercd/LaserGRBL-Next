@@ -121,6 +121,10 @@
 			this.tableLayoutPanel22 = new System.Windows.Forms.TableLayoutPanel();
 			this.label52 = new System.Windows.Forms.Label();
 			this.TxtNtfyTopic = new System.Windows.Forms.TextBox();
+			this.tableLayoutPanel23 = new System.Windows.Forms.TableLayoutPanel();
+			this.label55 = new System.Windows.Forms.Label();
+			this.UdNtfyNotificationThreshold = new System.Windows.Forms.NumericUpDown();
+			this.label54 = new System.Windows.Forms.Label();
 			this.label53 = new System.Windows.Forms.Label();
 			this.tableLayoutPanel16 = new System.Windows.Forms.TableLayoutPanel();
 			this.CbPlaySuccess = new System.Windows.Forms.CheckBox();
@@ -230,6 +234,9 @@
 			this.tableLayoutPanel19.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.UdTelegramNotificationThreshold)).BeginInit();
 			this.tableLayoutPanel21.SuspendLayout();
+			this.tableLayoutPanel22.SuspendLayout();
+			this.tableLayoutPanel23.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.UdNtfyNotificationThreshold)).BeginInit();
 			this.tableLayoutPanel20.SuspendLayout();
 			this.TpOptions.SuspendLayout();
 			this.Tlp.SuspendLayout();
@@ -1290,6 +1297,7 @@
 			resources.ApplyResources(this.tableLayoutPanel22, "tableLayoutPanel22");
 			this.tableLayoutPanel22.Controls.Add(this.label52, 0, 0);
 			this.tableLayoutPanel22.Controls.Add(this.TxtNtfyTopic, 1, 0);
+			this.tableLayoutPanel22.Controls.Add(this.tableLayoutPanel23, 0, 1);
 			this.tableLayoutPanel22.Name = "tableLayoutPanel22";
 			// 
 			// label52
@@ -1302,6 +1310,34 @@
 			resources.ApplyResources(this.TxtNtfyTopic, "TxtNtfyTopic");
 			this.TxtNtfyTopic.Name = "TxtNtfyTopic";
 			this.TxtNtfyTopic.BackColor = System.Drawing.SystemColors.Window;
+			// 
+			// tableLayoutPanel23
+			// 
+			resources.ApplyResources(this.tableLayoutPanel23, "tableLayoutPanel23");
+			this.tableLayoutPanel23.Controls.Add(this.label55, 0, 0);
+			this.tableLayoutPanel23.Controls.Add(this.UdNtfyNotificationThreshold, 0, 1);
+			this.tableLayoutPanel23.Controls.Add(this.label54, 1, 1);
+			this.tableLayoutPanel23.Name = "tableLayoutPanel23";
+			// 
+			// label55
+			// 
+			resources.ApplyResources(this.label55, "label55");
+			this.label55.Name = "label55";
+			// 
+			// UdNtfyNotificationThreshold
+			// 
+			resources.ApplyResources(this.UdNtfyNotificationThreshold, "UdNtfyNotificationThreshold");
+			this.UdNtfyNotificationThreshold.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+			this.UdNtfyNotificationThreshold.Name = "UdNtfyNotificationThreshold";
+			// 
+			// label54
+			// 
+			resources.ApplyResources(this.label54, "label54");
+			this.label54.Name = "label54";
 			// 
 			// label53
 			// 
@@ -1449,6 +1485,9 @@
 			this.tableLayoutPanel21.PerformLayout();
 			this.tableLayoutPanel22.ResumeLayout(false);
 			this.tableLayoutPanel22.PerformLayout();
+			this.tableLayoutPanel23.ResumeLayout(false);
+			this.tableLayoutPanel23.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.UdNtfyNotificationThreshold)).EndInit();
 			this.tableLayoutPanel16.ResumeLayout(false);
 			this.tableLayoutPanel16.PerformLayout();
 			this.tableLayoutPanel10.ResumeLayout(false);
@@ -1648,6 +1687,10 @@
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel22;
 		private System.Windows.Forms.Label label52;
 		private System.Windows.Forms.TextBox TxtNtfyTopic;
+		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel23;
+		private System.Windows.Forms.Label label55;
+		private System.Windows.Forms.NumericUpDown UdNtfyNotificationThreshold;
+		private System.Windows.Forms.Label label54;
 		private System.Windows.Forms.Label label53;
 		private System.Windows.Forms.OpenFileDialog ScriptBrowserDialog;
 	}

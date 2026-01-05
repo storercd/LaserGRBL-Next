@@ -11,7 +11,7 @@ namespace LaserGRBL
     public class TimeProjection
     {
         private readonly Func<long> _timeProvider;
-        
+
         private TimeSpan mETarget;
         private TimeSpan mEProgress;
 
@@ -125,7 +125,7 @@ namespace LaserGRBL
                     // In that case, use command count instead of time estimate
                     bool estimateOverrun = done > target;
                     double commandProgress = mTargetCount > 0 ? (double)mExecutedCount / mTargetCount : 0;
-                    
+
                     if (estimateOverrun && commandProgress > 0)
                     {
                         // Time estimate is unreliable, use actual command progress
@@ -196,21 +196,21 @@ namespace LaserGRBL
                     TimeSpan currentPassRemaining = ProjectedTimeRemaining;
                     TimeSpan futurePassesTime = TimeSpan.FromTicks(singlePassProjection.Ticks * Math.Max(0, remainingPasses));
                     TimeSpan totalTime = TotalGlobalJobTime + currentPassRemaining + futurePassesTime;
-                    
+
                     if ((DateTime.Now - mLastLogTime).TotalSeconds >= 2)
                     {
                         mLastLogTime = DateTime.Now;
                         int commandsRemaining = mTargetCount - mExecutedCount;
                         double progressPercent = mETarget.TotalSeconds > 0 ? (mEProgress.TotalSeconds / mETarget.TotalSeconds) * 100 : 0;
-                        
+
                         Logger.LogMessage("TimeProjection", "Progress: {0}/{1} commands ({2:F0}%), EstimatedProgress: {3:F1}s/{4:F1}s ({5:F0}%)",
                             mExecutedCount, mTargetCount, ((double)mExecutedCount / mTargetCount) * 100,
                             mEProgress.TotalSeconds, mETarget.TotalSeconds, progressPercent);
                         Logger.LogMessage("TimeProjection", "ProjectedTotalTime - Elapsed: {0:F1}s, CurrentRemaining: {1:F1}s, FuturePasses({2}): {3:F1}s, Total: {4:F1}s",
-                            TotalGlobalJobTime.TotalSeconds, currentPassRemaining.TotalSeconds, remainingPasses, 
+                            TotalGlobalJobTime.TotalSeconds, currentPassRemaining.TotalSeconds, remainingPasses,
                             futurePassesTime.TotalSeconds, totalTime.TotalSeconds);
                     }
-                    
+
                     return totalTime;
                 }
                 return TimeSpan.Zero;

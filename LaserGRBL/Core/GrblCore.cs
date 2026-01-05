@@ -1377,14 +1377,14 @@ namespace LaserGRBL
                 // Determine if we're using segment-based passes or global loop count
                 // Use segment mode only if there are multiple segments OR any segment has passCount > 1
                 bool useSegmentMode = file.HasSegments && (file.Segments.Count > 1 || file.Segments.Any(s => s.PassCount > 1));
-                
+
                 if (useSegmentMode)
                 {
                     // Multi-segment with per-segment pass counts
                     // Multiply by mLoopCount to respect traditional loop count setting
                     int maxPassCount = file.Segments.Max(s => s.PassCount);
                     int totalPasses = maxPassCount * (int)mLoopCount;
-                    
+
                     // Pre-calculate each segment's base time (for a single pass)
                     var segmentTimes = new Dictionary<int, TimeSpan>();
                     for (int segIdx = 0; segIdx < file.Segments.Count; segIdx++)
@@ -1394,10 +1394,10 @@ namespace LaserGRBL
                         double segmentProportion = (double)segmentLines / file.Count;
                         segmentTimes[segIdx] = TimeSpan.FromTicks((long)(LoadedFile.EstimatedTime.Ticks * segmentProportion));
                     }
-                    
+
                     // Track cumulative time as we enqueue commands
                     TimeSpan cumulativeTime = TimeSpan.Zero;
-                    
+
                     for (int globalPass = 1; globalPass <= mLoopCount; globalPass++)
                     {
                         for (int currentPass = 1; currentPass <= maxPassCount; currentPass++)
@@ -1411,16 +1411,16 @@ namespace LaserGRBL
                                 var segment = file.Segments[segIdx];
                                 if (currentPass <= segment.PassCount)
                                 {
-                                    Logger.LogMessage("EnqueueProgram", 
-                                        "Push Segment '{0}' (segment pass {1}/{2}, global pass {3}/{4}), lines {5}-{6}", 
-                                        System.IO.Path.GetFileName(segment.Filename), 
+                                    Logger.LogMessage("EnqueueProgram",
+                                        "Push Segment '{0}' (segment pass {1}/{2}, global pass {3}/{4}), lines {5}-{6}",
+                                        System.IO.Path.GetFileName(segment.Filename),
                                         currentPass, segment.PassCount,
                                         globalPass, (int)mLoopCount,
                                         segment.StartIndex, segment.EndIndex);
-                                    
+
                                     // Get the first command's offset to use as baseline
                                     TimeSpan segmentBaseOffset = file[segment.StartIndex].TimeOffset;
-                                    
+
                                     for (int i = segment.StartIndex; i <= segment.EndIndex && i < file.Count; i++)
                                     {
                                         GrblCommand clonedCmd = file[i].Clone() as GrblCommand;
@@ -1429,23 +1429,23 @@ namespace LaserGRBL
                                         clonedCmd.SetOffset(cumulativeTime + relativeOffset);
                                         mQueuePtr.Enqueue(clonedCmd);
                                     }
-                                    
+
                                     // Add this segment's time to cumulative
                                     cumulativeTime += segmentTimes[segIdx];
                                 }
                             }
                         }
                     }
-                    
-                    Logger.LogMessage("EnqueueProgram", "Starting job with {0} total passes pre-enqueued ({1} segment x {2} loop), queue size: {3}", 
+
+                    Logger.LogMessage("EnqueueProgram", "Starting job with {0} total passes pre-enqueued ({1} segment x {2} loop), queue size: {3}",
                         totalPasses, maxPassCount, (int)mLoopCount, mQueuePtr.Count);
-                    
+
                     // Segment mode: all passes pre-enqueued as ONE execution
                     // Calculate total estimated time across all segments considering their pass counts
                     TimeSpan totalEstimate = TimeSpan.Zero;
                     Logger.LogMessage("EnqueueProgram", "Calculating segment mode time estimate (base file estimate: {0:F1}s for {1} lines):",
                         LoadedFile.EstimatedTime.TotalSeconds, file.Count);
-                    
+
                     foreach (var segment in file.Segments)
                     {
                         int segmentLines = segment.EndIndex - segment.StartIndex + 1;
@@ -1453,26 +1453,26 @@ namespace LaserGRBL
                         TimeSpan segmentTime = TimeSpan.FromTicks((long)(LoadedFile.EstimatedTime.Ticks * segmentProportion));
                         TimeSpan segmentTotal = TimeSpan.FromTicks(segmentTime.Ticks * segment.PassCount);
                         totalEstimate += segmentTotal;
-                        
+
                         Logger.LogMessage("EnqueueProgram", "  Segment '{0}': {1} lines ({2:P1}), {3:F1}s × {4} passes = {5:F1}s",
                             System.IO.Path.GetFileName(segment.Filename), segmentLines, segmentProportion,
                             segmentTime.TotalSeconds, segment.PassCount, segmentTotal.TotalSeconds);
                     }
                     totalEstimate = TimeSpan.FromTicks(totalEstimate.Ticks * (int)mLoopCount);
-                    
-                    Logger.LogMessage("EnqueueProgram", "Segment mode total estimate: {0:F1}s (file estimate was {1:F1}s)", 
+
+                    Logger.LogMessage("EnqueueProgram", "Segment mode total estimate: {0:F1}s (file estimate was {1:F1}s)",
                         totalEstimate.TotalSeconds, LoadedFile.EstimatedTime.TotalSeconds);
-                    
+
                     // Use LoadedFile directly but update its estimated time via reflection
-                    var field = typeof(GrblFile).GetField("mEstimatedTotalTime", 
+                    var field = typeof(GrblFile).GetField("mEstimatedTotalTime",
                         System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
                     if (field != null)
                         field.SetValue(LoadedFile, totalEstimate);
-                    
+
                     // Set mLoopCount=1 to prevent legacy loop mechanism from re-executing
                     if (first)
                         mLoopCount = 1;
-                    
+
                     // totalPasses=1 because all segment passes are pre-enqueued as one continuous job
                     mTP.JobStart(LoadedFile, mQueuePtr, first, 1);
                 }
@@ -3119,8 +3119,9 @@ namespace LaserGRBL
                 if (ProgramGlobalTime.TotalMinutes >= (int)Settings.GetObject("TelegramNotification.Threshold", 1))
                     Telegram.NotifyEvent(String.Format("<b>Job Executed</b>\n{0} lines, {1} errors\nTime: {2}", file.Count, mTP.ErrorCount, Tools.Utils.TimeSpanToString(ProgramGlobalTime, Tools.Utils.TimePrecision.Second, Tools.Utils.TimePrecision.Second, ",", true)));
 
-                // ntfy notification
-                Ntfy.NotifyEvent(String.Format("Job Executed\n{0} lines, {1} errors\nTime: {2}", file.Count, mTP.ErrorCount, Tools.Utils.TimeSpanToString(ProgramGlobalTime, Tools.Utils.TimePrecision.Second, Tools.Utils.TimePrecision.Second, ",", true)));
+                // ntfy notification (with threshold check)
+                if (ProgramGlobalTime.TotalMinutes >= (int)Settings.GetObject("Ntfy.Threshold", 1))
+                    Ntfy.NotifyEvent(String.Format("Job Executed\n{0} lines, {1} errors\nTime: {2}", file.Count, mTP.ErrorCount, Tools.Utils.TimeSpanToString(ProgramGlobalTime, Tools.Utils.TimePrecision.Second, Tools.Utils.TimePrecision.Second, ",", true)));
 
                 // Custom action on job completion
                 ExecuteCustomJobCompletedAction();

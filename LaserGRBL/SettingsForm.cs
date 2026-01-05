@@ -101,6 +101,7 @@ namespace LaserGRBL
 
             CbNtfyNotification.Checked = Settings.GetObject("Ntfy.Enabled", false);
             TxtNtfyTopic.Text = Settings.GetObject("Ntfy.Topic", "");
+            UdNtfyNotificationThreshold.Value = (decimal)Settings.GetObject("Ntfy.Threshold", 1);
 
             successSoundLabel.Text = System.IO.Path.GetFileName(Settings.GetObject($"Sound.{SoundEvent.EventId.Success}", $"Sound\\{SoundEvent.EventId.Success}.wav"));
             SuccesFullLabel.Text = Settings.GetObject($"Sound.{SoundEvent.EventId.Success}", $"Sound\\{SoundEvent.EventId.Success}.wav");
@@ -265,6 +266,7 @@ namespace LaserGRBL
 
             Settings.SetObject("Ntfy.Enabled", CbNtfyNotification.Checked);
             Settings.SetObject("Ntfy.Topic", TxtNtfyTopic.Text);
+            Settings.SetObject("Ntfy.Threshold", (int)UdNtfyNotificationThreshold.Value);
 
             Settings.SetObject("Raster Hi-Res", CbHiRes.Checked);
 

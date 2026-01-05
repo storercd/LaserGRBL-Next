@@ -10,10 +10,7 @@ namespace LaserGRBL
 
         public static void NotifyEvent(string message)
         {
-            if (!Settings.GetObject("Ntfy.Enabled", false))
-                return;
-
-            string topic = Settings.GetObject("Ntfy.Topic", "");
+            string topic = (string)Settings.GetObject("Ntfy.Topic", string.Empty);
             if (string.IsNullOrWhiteSpace(topic))
                 return;
 
@@ -25,13 +22,15 @@ namespace LaserGRBL
             if (string.IsNullOrWhiteSpace(topic))
                 return;
 
+            bool isError = message.Contains("Job Issue") || message.Contains("Issue") || message.Contains("Alarm") || message.Contains("Error");
+
             var data = new NtfyData
             {
                 Topic = topic.Trim(),
                 Message = message,
-                Title = "LaserGRBL Job Complete",
-                Priority = "high",
-                Tags = "white_check_mark,fire"
+                Title = isError ? "⚠️ LaserGRBL Job FAILED" : "✅ LaserGRBL Job Complete",
+                Priority = isError ? "urgent" : "high",
+                Tags = isError ? "warning,rotating_light,x" : "white_check_mark,fire"
             };
 
             System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(InternalNotifyEvent), data);
@@ -59,22 +58,22 @@ namespace LaserGRBL
         }
 
         private class NtfyData
-        {
-            public string Topic { get; set; }
-            public string Message { get; set; }
-            public string Title { get; set; }
-            public string Priority { get; set; }
-            public string Tags { get; set; }
-        }
+    {
+        public string Topic { get; set; }
+        public string Message { get; set; }
+        public string Title { get; set; }
+        public string Priority { get; set; }
+        public string Tags { get; set; }
+    }
 
-        private class MyWebClient : WebClient
+    private class MyWebClient : WebClient
+    {
+        protected override WebRequest GetWebRequest(Uri uri)
         {
-            protected override WebRequest GetWebRequest(Uri uri)
-            {
-                WebRequest w = base.GetWebRequest(uri);
-                w.Timeout = 5000; // milliseconds
-                return w;
-            }
+            WebRequest w = base.GetWebRequest(uri);
+            w.Timeout = 5000; // milliseconds
+            return w;
         }
     }
+}
 }

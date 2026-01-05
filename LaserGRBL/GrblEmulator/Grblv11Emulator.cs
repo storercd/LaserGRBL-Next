@@ -14,8 +14,10 @@ namespace LaserGRBL.GrblEmulator
 
     public class Grblv11Emulator
     {
-        private const bool EMULATE_RANDOM_ERRORS = false;
+        private const bool EMULATE_RANDOM_ERRORS = true;
         private const bool EMULATE_MISSING_OK = false;
+        private const bool EMULATE_FIXED_ALARM = false;  // Set to true to test alarm notifications
+        private const int TEST_ALARM_AFTER_COMMANDS = 50;  // Trigger error after this many commands
 
         private static string filename = System.IO.Path.Combine(GrblCore.DataPath, "GrblEmulator.v11.bin");
 
@@ -39,6 +41,7 @@ namespace LaserGRBL.GrblEmulator
         private GrblConfST conf;
 
         private Random rng = new Random();
+        private int commandCounter = 0;  // Counter for test error
 
         public Grblv11Emulator(SendMessage sendFunc)
         {
@@ -353,7 +356,13 @@ namespace LaserGRBL.GrblEmulator
                 catch (Exception ex) { throw ex; }
                 finally { cmd.DeleteHelper(); }
             }
-            if (EMULATE_RANDOM_ERRORS && rng.Next(0, 50) == 0)
+            if (EMULATE_FIXED_ALARM && commandCounter++ >= TEST_ALARM_AFTER_COMMANDS)
+            {
+                EnqueueTX("<Alarm|MPos:0.000,0.000,0.000|WPos:0.000,0.000,0.000>");
+                EnqueueTX("ALARM:1");
+                commandCounter = 0;  // Reset counter
+            }
+            else if (EMULATE_RANDOM_ERRORS && rng.Next(0, 50) == 0)
                 EnqueueTX("error:2");
             else if (!EMULATE_MISSING_OK || rng.Next(0, 20) != 0)
                 EnqueueTX("ok");
