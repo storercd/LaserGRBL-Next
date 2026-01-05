@@ -474,7 +474,9 @@ namespace LaserGRBL
             {
                 if (Settings.ExistObject("Grbl Configuration"))
                 {
+#pragma warning disable CS0612 // Type or member is obsolete
                     Settings.SetObject("Grbl Configuration ST", new GrblConfST(Settings.GetObject("Grbl Configuration", (GrblConf)null)));  //convert old format with only numbers
+#pragma warning restore CS0612 // Type or member is obsolete
                     Settings.DeleteObject("Grbl Configuration");                                                                            //delete old format
                 }
                 return Settings.GetObject("Grbl Configuration ST", new GrblConfST());
@@ -1179,7 +1181,7 @@ namespace LaserGRBL
                 //if (errors > 0)
                 //	throw new WriteConfigException(mSentPtr);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //Logger.LogException("Write Config", ex);
                 //throw (ex);
@@ -1224,7 +1226,7 @@ namespace LaserGRBL
                     //if (errors > 0)
                     //	throw new WriteConfigException(mSentPtr);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     //Logger.LogException("Write Config", ex);
                     //throw (ex);
@@ -1915,9 +1917,9 @@ namespace LaserGRBL
         public void JogAbort() //da chiamare su ButtonUp
         {
             if (!SupportTrueJogging)                                                                // old firmware
-                ;                                                                                       // abort not supported
+            { }                                                                                         // abort not supported
             else if (!ContinuosJogEnabled)                                                          // continuous jog disabled
-                ;                                                                                       // we can abort but we don't want
+            { }                                                                                         // we can abort but we don't want
             else                                                                                    // continuoud jog enabled
                 ContinuousJog.Abort();                                                                     // assign jog target
         }
@@ -2116,7 +2118,7 @@ namespace LaserGRBL
                     SendImmediate(0x85); // abort previous jog command
 
                 if (newJog.Direction == JogDirection.Abort)
-                    ; //nothing to send, the abort is sent by previous test if needed
+                { } //nothing to send, the abort is sent by previous test if needed
                 else if (newJog.Direction == JogDirection.Position)
                     EnqueueCommand(new GrblCommand(string.Format("$J=G90X{0}Y{1}F{2}", newJog.Target.X.ToString("0.00", NumberFormatInfo.InvariantInfo), newJog.Target.Y.ToString("0.00", NumberFormatInfo.InvariantInfo), newJog.Speed)));
                 else if (newJog.Direction == JogDirection.Home)
@@ -2952,7 +2954,7 @@ namespace LaserGRBL
                         FixCH340_goodread++;
                     }
                 }
-                catch (System.IO.IOException ex)
+                catch (System.IO.IOException)
                 {
                     FixCH340_exception++;
 
@@ -3645,12 +3647,14 @@ namespace LaserGRBL
                 mData.Add(kvp.Key, kvp.Value);
         }
 
+#pragma warning disable CS0612 // Type or member is obsolete
         public GrblConfST(GrblConf old) : this(old?.GrblVersion)
         {
             if (old != null)
                 foreach (KeyValuePair<int, decimal> kvp in old)
                     mData.Add(kvp.Key, kvp.Value.ToString(CultureInfo.InvariantCulture));
         }
+#pragma warning restore CS0612 // Type or member is obsolete
 
         public GrblCore.GrblVersionInfo GrblVersion => mVersion;
         private bool NoVersionInfo => mVersion == null;
