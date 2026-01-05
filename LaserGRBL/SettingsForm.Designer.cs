@@ -125,6 +125,7 @@
 			this.label55 = new System.Windows.Forms.Label();
 			this.UdNtfyNotificationThreshold = new System.Windows.Forms.NumericUpDown();
 			this.label54 = new System.Windows.Forms.Label();
+			this.CbNtfySecondPass = new System.Windows.Forms.CheckBox();
 			this.label53 = new System.Windows.Forms.Label();
 			this.tableLayoutPanel16 = new System.Windows.Forms.TableLayoutPanel();
 			this.CbPlaySuccess = new System.Windows.Forms.CheckBox();
@@ -1317,6 +1318,7 @@
 			this.tableLayoutPanel23.Controls.Add(this.label55, 0, 0);
 			this.tableLayoutPanel23.Controls.Add(this.UdNtfyNotificationThreshold, 0, 1);
 			this.tableLayoutPanel23.Controls.Add(this.label54, 1, 1);
+			this.tableLayoutPanel23.Controls.Add(this.CbNtfySecondPass, 0, 2);
 			this.tableLayoutPanel23.Name = "tableLayoutPanel23";
 			// 
 			// label55
@@ -1338,6 +1340,12 @@
 			// 
 			resources.ApplyResources(this.label54, "label54");
 			this.label54.Name = "label54";
+			// 
+			// CbNtfySecondPass
+			// 
+			resources.ApplyResources(this.CbNtfySecondPass, "CbNtfySecondPass");
+			this.CbNtfySecondPass.Name = "CbNtfySecondPass";
+			this.CbNtfySecondPass.UseVisualStyleBackColor = true;
 			// 
 			// label53
 			// 
@@ -1691,6 +1699,7 @@
 		private System.Windows.Forms.Label label55;
 		private System.Windows.Forms.NumericUpDown UdNtfyNotificationThreshold;
 		private System.Windows.Forms.Label label54;
+		private System.Windows.Forms.CheckBox CbNtfySecondPass;
 		private System.Windows.Forms.Label label53;
 		private System.Windows.Forms.OpenFileDialog ScriptBrowserDialog;
 	}

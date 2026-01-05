@@ -9141,6 +9141,36 @@ I suggest to not disable this countdown, this allow you to have a 5 second chanc
   <data name="&gt;&gt;label54.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="CbNtfySecondPass.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="CbNtfySecondPass.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 45</value>
+  </data>
+  <data name="CbNtfySecondPass.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="CbNtfySecondPass.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 17</value>
+  </data>
+  <data name="CbNtfySecondPass.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="CbNtfySecondPass.Text" xml:space="preserve">
+    <value>Alert on 2nd pass (multipass jobs)</value>
+  </data>
+  <data name="&gt;&gt;CbNtfySecondPass.Name" xml:space="preserve">
+    <value>CbNtfySecondPass</value>
+  </data>
+  <data name="&gt;&gt;CbNtfySecondPass.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;CbNtfySecondPass.Parent" xml:space="preserve">
+    <value>tableLayoutPanel23</value>
+  </data>
+  <data name="&gt;&gt;CbNtfySecondPass.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
   <data name="tableLayoutPanel23.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 28</value>
   </data>
@@ -9148,10 +9178,10 @@ I suggest to not disable this countdown, this allow you to have a 5 second chanc
     <value>0, 0, 3, 3</value>
   </data>
   <data name="tableLayoutPanel23.RowCount" type="System.Int32, mscorlib">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="tableLayoutPanel23.Size" type="System.Drawing.Size, System.Drawing">
-    <value>228, 42</value>
+    <value>228, 65</value>
   </data>
   <data name="tableLayoutPanel23.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -9169,7 +9199,7 @@ I suggest to not disable this countdown, this allow you to have a 5 second chanc
     <value>2</value>
   </data>
   <data name="tableLayoutPanel23.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="label55" Row="0" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="UdNtfyNotificationThreshold" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="label54" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0,AutoSize,0" /&gt;&lt;Rows Styles="AutoSize,0,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="label55" Row="0" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="UdNtfyNotificationThreshold" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="label54" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="CbNtfySecondPass" Row="2" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0,AutoSize,0" /&gt;&lt;Rows Styles="AutoSize,0,AutoSize,0,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="tableLayoutPanel22.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>

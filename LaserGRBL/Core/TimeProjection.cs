@@ -403,6 +403,25 @@ namespace LaserGRBL
                     mCompletedPassTimes.Add(actualPassTime);
                     Logger.LogMessage("TimeProjection", "JobEnd - Pass {0}/{1} completed in {2:F1}s (estimate was {3:F1}s), Global={4}",
                         mCompletedPassTimes.Count, mTotalPasses, actualPassTime.TotalSeconds, mETarget.TotalSeconds, global);
+
+                    // Send notification on second pass start (first pass just completed)
+                    if (!global && mCompletedPassTimes.Count == 1 && mTotalPasses > 1 && Ntfy.SecondPassEnabled && Ntfy.Enabled)
+                    {
+                        // Check if total estimated time meets threshold
+                        TimeSpan projectedTotal = ProjectedTotalTime;
+                        
+                        if (projectedTotal.TotalMinutes >= Ntfy.Threshold)
+                        {
+                            TimeSpan remaining = ProjectedTotalTimeRemaining;
+                            DateTime completionTime = DateTime.Now.Add(remaining);
+                            string message = string.Format("Starting Pass 2/{0} - ETC: {1} - Total Job Time: {2}",
+                                mTotalPasses,
+                                completionTime.ToString("h:mm tt"),
+                                FormatTimeSpan(projectedTotal));
+
+                            Ntfy.NotifySecondPass(projectedTotal, message);
+                        }
+                    }
                 }
 
                 if (global)
@@ -418,6 +437,16 @@ namespace LaserGRBL
             }
 
             return false;
+        }
+
+        private static string FormatTimeSpan(TimeSpan ts)
+        {
+            if (ts.TotalHours >= 1)
+                return string.Format("{0}h {1}m", (int)ts.TotalHours, ts.Minutes);
+            else if (ts.TotalMinutes >= 1)
+                return string.Format("{0}m {1}s", (int)ts.TotalMinutes, ts.Seconds);
+            else
+                return string.Format("{0}s", (int)ts.TotalSeconds);
         }
 
         public void JobIssue(GrblCore.DetectedIssue issue)
