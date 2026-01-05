@@ -279,27 +279,26 @@ namespace LaserGRBL.Tests
         [Fact]
         public void SegmentBasedMultiPass_CorrectTotalPassesValue()
         {
-            // This test verifies the fix for the bug where segment mode was passing totalPasses=1
-            // but then legacy mLoopCount mechanism would run again, causing pass 2/1 situation
+            // This test verifies that in segment mode, all passes are pre-enqueued in the file
+            // so totalPasses should be 1 (not the number of physical passes)
             
             // Arrange
             var timeProvider = new MockTimeProvider();
             var projection = new TimeProjection(timeProvider.GetProvider());
             
-            // Segment mode with 3 passes pre-enqueued (maxPassCount=3)
-            // Each pass takes 60 seconds, so total = 180s
+            // Segment mode with 3 passes pre-enqueued (all 3x60s already in file = 180s total)
             var totalTime = TimeSpan.FromSeconds(180);
             var file = CreateMockFile(totalTime, 300);
             var queue = CreateMockQueue(300);
 
-            _output.WriteLine("Test: Segment-Based Multi-Pass Receives Correct totalPasses");
-            _output.WriteLine("Expected: totalPasses=3, not 1, to avoid negative remainingPasses");
+            _output.WriteLine("Test: Segment-Based Multi-Pass Uses totalPasses=1");
+            _output.WriteLine("Expected: totalPasses=1 because all passes are pre-enqueued in file");
             _output.WriteLine("");
 
-            // Act
-            projection.JobStart(file, queue, global: true, totalPasses: 3);
+            // Act - Pass totalPasses: 1 because segment mode has all passes already in the file
+            projection.JobStart(file, queue, global: true, totalPasses: 1);
             
-            // Execute some commands
+            // Execute some commands (50/300 = 16.7%)
             for (int i = 0; i < 50; i++)
             {
                 timeProvider.Advance(600);
@@ -313,14 +312,14 @@ namespace LaserGRBL.Tests
             _output.WriteLine($"ProjectedTotalTime: {projectedTotal.TotalSeconds:F1}s");
             _output.WriteLine($"ProjectedTotalTimeRemaining: {projectedRemaining.TotalSeconds:F1}s");
             
-            // Both should be positive and reasonable
+            // With 16.7% complete of 180s file, projection should be around 180s total
             Assert.True(projectedTotal.TotalSeconds > 0, "ProjectedTotalTime should be positive");
             Assert.True(projectedRemaining.TotalSeconds > 0, "ProjectedTotalTimeRemaining should be positive");
             Assert.InRange(projectedTotal.TotalSeconds, 170, 200);
             Assert.InRange(projectedRemaining.TotalSeconds, 140, 170);
             
             _output.WriteLine("");
-            _output.WriteLine("✓ Segment mode correctly receives totalPasses parameter");
+            _output.WriteLine("✓ Segment mode correctly uses totalPasses=1 with pre-enqueued passes");
         }
     }
 }
