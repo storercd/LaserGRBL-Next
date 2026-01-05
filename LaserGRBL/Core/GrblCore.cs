@@ -474,9 +474,7 @@ namespace LaserGRBL
             {
                 if (Settings.ExistObject("Grbl Configuration"))
                 {
-#pragma warning disable CS0612 // Type or member is obsolete
                     Settings.SetObject("Grbl Configuration ST", new GrblConfST(Settings.GetObject("Grbl Configuration", (GrblConf)null)));  //convert old format with only numbers
-#pragma warning restore CS0612 // Type or member is obsolete
                     Settings.DeleteObject("Grbl Configuration");                                                                            //delete old format
                 }
                 return Settings.GetObject("Grbl Configuration ST", new GrblConfST());
@@ -3647,14 +3645,12 @@ namespace LaserGRBL
                 mData.Add(kvp.Key, kvp.Value);
         }
 
-#pragma warning disable CS0612 // Type or member is obsolete
         public GrblConfST(GrblConf old) : this(old?.GrblVersion)
         {
             if (old != null)
                 foreach (KeyValuePair<int, decimal> kvp in old)
                     mData.Add(kvp.Key, kvp.Value.ToString(CultureInfo.InvariantCulture));
         }
-#pragma warning restore CS0612 // Type or member is obsolete
 
         public GrblCore.GrblVersionInfo GrblVersion => mVersion;
         private bool NoVersionInfo => mVersion == null;
