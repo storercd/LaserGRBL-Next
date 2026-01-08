@@ -12,7 +12,8 @@ namespace LaserGRBL
         public static void RestartNoCommandLine()
         {
             ProcessStartInfo startInfo = Process.GetCurrentProcess().StartInfo;
-            startInfo.FileName = Application.ExecutablePath;
+            // In .NET 8+, use Environment.ProcessPath to get the actual executable
+            startInfo.FileName = Environment.ProcessPath ?? Application.ExecutablePath;
             var exit = typeof(Application).GetMethod("ExitInternal",
                                 System.Reflection.BindingFlags.NonPublic |
                                 System.Reflection.BindingFlags.Static);

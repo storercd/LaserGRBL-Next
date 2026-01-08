@@ -30,10 +30,14 @@ namespace Sound
             try
             {
                 string name = id.ToString();
+                // Default filenames are lowercase to match actual file names
+                string defaultFilename = $"Sound\\{name.ToLowerInvariant()}.wav";
                 if (LaserGRBL.Settings.GetObject($"Sound.{name}.Enabled", true))
                 {
-                    string filename = LaserGRBL.Settings.GetObject($"Sound.{name}", $"Sound\\{name}.wav");
-                    if (System.IO.File.Exists(filename))
+                    string filename = LaserGRBL.Settings.GetObject($"Sound.{name}", defaultFilename);
+                    // Check file exists relative to application base directory
+                    string fullPath = Path.IsPathRooted(filename) ? filename : Path.Combine(AppContext.BaseDirectory, filename);
+                    if (System.IO.File.Exists(fullPath))
                     {
                         lock (mLock)
                         {
@@ -53,7 +57,9 @@ namespace Sound
         {
             try
             {
-                Uri uri = new Uri(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), $"{filename}"));
+                // In .NET 8+, use AppContext.BaseDirectory instead of Application.ExecutablePath directory
+                string basePath = AppContext.BaseDirectory;
+                Uri uri = new Uri(Path.Combine(basePath, $"{filename}"));
                 SoundPlayer player = new SoundPlayer(uri.AbsoluteUri);
                 player.PlaySync();
                 player.Dispose();

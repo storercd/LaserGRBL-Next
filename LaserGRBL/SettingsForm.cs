@@ -104,16 +104,16 @@ namespace LaserGRBL
             UdNtfyNotificationThreshold.Value = (decimal)Settings.GetObject("Ntfy.Threshold", 1);
             CbNtfySecondPass.Checked = Settings.GetObject("Ntfy.SecondPass", false);
 
-            successSoundLabel.Text = System.IO.Path.GetFileName(Settings.GetObject($"Sound.{SoundEvent.EventId.Success}", $"Sound\\{SoundEvent.EventId.Success}.wav"));
-            SuccesFullLabel.Text = Settings.GetObject($"Sound.{SoundEvent.EventId.Success}", $"Sound\\{SoundEvent.EventId.Success}.wav");
-            warningSoundLabel.Text = System.IO.Path.GetFileName(Settings.GetObject($"Sound.{SoundEvent.EventId.Warning}", $"Sound\\{SoundEvent.EventId.Warning}.wav"));
-            WarningFullLabel.Text = Settings.GetObject($"Sound.{SoundEvent.EventId.Warning}", $"Sound\\{SoundEvent.EventId.Warning}.wav");
-            fatalSoundLabel.Text = System.IO.Path.GetFileName(Settings.GetObject($"Sound.{SoundEvent.EventId.Fatal}", $"Sound\\{SoundEvent.EventId.Fatal}.wav"));
-            ErrorFullLabel.Text = Settings.GetObject($"Sound.{SoundEvent.EventId.Fatal}", $"Sound\\{SoundEvent.EventId.Fatal}.wav");
-            connectSoundLabel.Text = System.IO.Path.GetFileName(Settings.GetObject($"Sound.{SoundEvent.EventId.Connect}", $"Sound\\{SoundEvent.EventId.Connect}.wav"));
-            ConnectFullLabel.Text = Settings.GetObject($"Sound.{SoundEvent.EventId.Connect}", $"Sound\\{SoundEvent.EventId.Connect}.wav");
-            disconnectSoundLabel.Text = System.IO.Path.GetFileName(Settings.GetObject($"Sound.{SoundEvent.EventId.Disconnect}", $"Sound\\{SoundEvent.EventId.Disconnect}.wav"));
-            DisconnectFullLabel.Text = Settings.GetObject($"Sound.{SoundEvent.EventId.Disconnect}", $"Sound\\{SoundEvent.EventId.Disconnect}.wav");
+            successSoundLabel.Text = System.IO.Path.GetFileName(Settings.GetObject($"Sound.{SoundEvent.EventId.Success}", $"Sound\\{SoundEvent.EventId.Success.ToString().ToLowerInvariant()}.wav"));
+            SuccesFullLabel.Text = Settings.GetObject($"Sound.{SoundEvent.EventId.Success}", $"Sound\\{SoundEvent.EventId.Success.ToString().ToLowerInvariant()}.wav");
+            warningSoundLabel.Text = System.IO.Path.GetFileName(Settings.GetObject($"Sound.{SoundEvent.EventId.Warning}", $"Sound\\{SoundEvent.EventId.Warning.ToString().ToLowerInvariant()}.wav"));
+            WarningFullLabel.Text = Settings.GetObject($"Sound.{SoundEvent.EventId.Warning}", $"Sound\\{SoundEvent.EventId.Warning.ToString().ToLowerInvariant()}.wav");
+            fatalSoundLabel.Text = System.IO.Path.GetFileName(Settings.GetObject($"Sound.{SoundEvent.EventId.Fatal}", $"Sound\\{SoundEvent.EventId.Fatal.ToString().ToLowerInvariant()}.wav"));
+            ErrorFullLabel.Text = Settings.GetObject($"Sound.{SoundEvent.EventId.Fatal}", $"Sound\\{SoundEvent.EventId.Fatal.ToString().ToLowerInvariant()}.wav");
+            connectSoundLabel.Text = System.IO.Path.GetFileName(Settings.GetObject($"Sound.{SoundEvent.EventId.Connect}", $"Sound\\{SoundEvent.EventId.Connect.ToString().ToLowerInvariant()}.wav"));
+            ConnectFullLabel.Text = Settings.GetObject($"Sound.{SoundEvent.EventId.Connect}", $"Sound\\{SoundEvent.EventId.Connect.ToString().ToLowerInvariant()}.wav");
+            disconnectSoundLabel.Text = System.IO.Path.GetFileName(Settings.GetObject($"Sound.{SoundEvent.EventId.Disconnect}", $"Sound\\{SoundEvent.EventId.Disconnect.ToString().ToLowerInvariant()}.wav"));
+            DisconnectFullLabel.Text = Settings.GetObject($"Sound.{SoundEvent.EventId.Disconnect}", $"Sound\\{SoundEvent.EventId.Disconnect.ToString().ToLowerInvariant()}.wav");
 
             CbSmartBezier.Checked = Settings.GetObject($"Vector.UseSmartBezier", true);
 
@@ -323,6 +323,8 @@ namespace LaserGRBL
 
         private void changeSucBtn_Click(object sender, EventArgs e)
         {
+            // Set initial directory to the Sound folder in the application directory
+            SoundBrowserDialog.InitialDirectory = System.IO.Path.Combine(AppContext.BaseDirectory, "Sound");
             if (SoundBrowserDialog.ShowDialog(this) == DialogResult.OK)
             {
                 successSoundLabel.Text = System.IO.Path.GetFileName(SoundBrowserDialog.FileName);
@@ -332,6 +334,7 @@ namespace LaserGRBL
 
         private void changeWarBtn_Click(object sender, EventArgs e)
         {
+            SoundBrowserDialog.InitialDirectory = System.IO.Path.Combine(AppContext.BaseDirectory, "Sound");
             if (SoundBrowserDialog.ShowDialog(this) == DialogResult.OK)
             {
                 warningSoundLabel.Text = System.IO.Path.GetFileName(SoundBrowserDialog.FileName);
@@ -341,6 +344,7 @@ namespace LaserGRBL
 
         private void changeFatBtn_Click(object sender, EventArgs e)
         {
+            SoundBrowserDialog.InitialDirectory = System.IO.Path.Combine(AppContext.BaseDirectory, "Sound");
             if (SoundBrowserDialog.ShowDialog(this) == DialogResult.OK)
             {
                 fatalSoundLabel.Text = System.IO.Path.GetFileName(SoundBrowserDialog.FileName);
@@ -350,6 +354,7 @@ namespace LaserGRBL
 
         private void changeConBtn_Click(object sender, EventArgs e)
         {
+            SoundBrowserDialog.InitialDirectory = System.IO.Path.Combine(AppContext.BaseDirectory, "Sound");
             if (SoundBrowserDialog.ShowDialog(this) == DialogResult.OK)
             {
                 connectSoundLabel.Text = System.IO.Path.GetFileName(SoundBrowserDialog.FileName);
@@ -359,6 +364,7 @@ namespace LaserGRBL
 
         private void changeDconBtn_Click(object sender, EventArgs e)
         {
+            SoundBrowserDialog.InitialDirectory = System.IO.Path.Combine(AppContext.BaseDirectory, "Sound");
             if (SoundBrowserDialog.ShowDialog(this) == DialogResult.OK)
             {
                 disconnectSoundLabel.Text = System.IO.Path.GetFileName(SoundBrowserDialog.FileName);

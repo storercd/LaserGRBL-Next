@@ -21,7 +21,7 @@ namespace RJCP.IO.Ports
 #if NETSTANDARD1_5
     using System.Runtime.ExceptionServices;
     using Microsoft.Extensions.Logging;
-#else
+#elif !NET8_0_OR_GREATER
     using System.Runtime.Remoting.Messaging;
 #endif
 
@@ -939,10 +939,12 @@ namespace RJCP.IO.Ports
                     ExceptionDispatchInfo.Capture(ex.InnerException).Throw();
                     throw;
                 }
-#else
+#elif !NET8_0_OR_GREATER
                 AsyncResult ar = (AsyncResult)asyncResult;
                 ReadDelegate caller = (ReadDelegate)ar.AsyncDelegate;
                 return caller.EndInvoke(asyncResult);
+#else
+                throw new NotSupportedException("AsyncResult not available in .NET 8+");
 #endif
             }
         }
@@ -1516,12 +1518,14 @@ namespace RJCP.IO.Ports
                     ExceptionDispatchInfo.Capture(ex.InnerException).Throw();
                     throw;
                 }
-#else
+#elif !NET8_0_OR_GREATER
                 AsyncResult ar = (AsyncResult)asyncResult;
                 WriteDelegate caller = (WriteDelegate)ar.AsyncDelegate;
 
                 // This will raise any exceptions from the method InternalBlockingWrite
                 caller.EndInvoke(asyncResult);
+#else
+                throw new NotSupportedException("AsyncResult not available in .NET 8+");
 #endif
             }
         }

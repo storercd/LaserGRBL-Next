@@ -1,2 +1,2 @@
 # Run LaserGRBL Storer Edition
-Start-Process .\LaserGRBL\bin\Debug\LaserGRBL.exe
+Start-Process dotnet -ArgumentList "run", "--project", "LaserGRBL\LaserGRBL.csproj", "--no-build"

@@ -683,7 +683,7 @@ namespace LaserGRBL.SvgConverter
 
             var rgb = parseRgb(pathColor);
 
-            if (rgb == Color.Empty) return true;
+            if (rgb == System.Drawing.Color.Empty) return true;
 
             switch (filter)
             {
@@ -700,7 +700,7 @@ namespace LaserGRBL.SvgConverter
             }
         }
 
-        private Color parseRgb(string style)
+        private System.Drawing.Color parseRgb(string style)
         {
             return ColorTranslator.FromHtml(style);
         }

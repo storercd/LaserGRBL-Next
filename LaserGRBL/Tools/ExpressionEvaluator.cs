@@ -1047,7 +1047,11 @@ namespace Tools
 
             AssemblyName assemblyName = new AssemblyName();
             assemblyName.Name = "EmittedAssembly";
+#if NET8_0_OR_GREATER
+            AssemblyBuilder assembly = AssemblyBuilder.DefineDynamicAssembly(
+#else
             AssemblyBuilder assembly = Thread.GetDomain().DefineDynamicAssembly(
+#endif
                 //AssemblyBuilder assembly = NewAppDomain.DefineDynamicAssembly(
                 assemblyName,
                 //AssemblyBuilderAccess.Save);

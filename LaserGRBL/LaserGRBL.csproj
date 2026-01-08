@@ -1,8 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net48</TargetFramework>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
+    <UseWPF>true</UseWPF>
     <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     <NoStdLib>False</NoStdLib>
@@ -67,20 +68,17 @@
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>LaserGRBL.Program</StartupObject>
+    <!-- TODO: Migrate from BinaryFormatter to JSON serialization for security -->
+    <EnableUnsafeBinaryFormatterSerialization>true</EnableUnsafeBinaryFormatterSerialization>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Design" />
-    <Reference Include="System.Management" />
-    <Reference Include="System.Security" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.XML" />
-    <Reference Include="WindowsBase" />
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="10.0.1" />
+    <PackageReference Include="System.IO.Ports" Version="10.0.1" />
+    <PackageReference Include="System.Resources.Extensions" Version="8.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="System.Resources.Extensions" Version="8.0.0" />
+    <!-- Exclude ASP.NET web handler - not needed for desktop app -->
+    <Compile Remove="SvgLibrary\Web\SvgHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Autotrace\AutotraceTest.cs">

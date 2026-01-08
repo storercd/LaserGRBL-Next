@@ -11,8 +11,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.InteropServices;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Windows.Forms;
 using System.Windows.Threading;
 using Tools;
