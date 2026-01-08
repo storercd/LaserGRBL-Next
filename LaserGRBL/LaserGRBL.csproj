@@ -35,6 +35,7 @@
     <Copyright>Copyright © 2016 - Diego Settimi</Copyright>
     <AssemblyVersion>7.14.1</AssemblyVersion>
     <FileVersion>7.14.1</FileVersion>
+	<AppendFrameworkToOutputPath>false</AppendFrameworkToOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>Full</DebugType>
