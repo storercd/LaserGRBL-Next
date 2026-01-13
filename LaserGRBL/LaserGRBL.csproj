@@ -109,6 +109,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="System.Resources.Extensions" Version="8.0.0" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Autotrace\AutotraceTest.cs">
       <SubType>Form</SubType>
     </Compile>
